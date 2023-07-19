@@ -5,6 +5,7 @@ import { setMode } from '../app-state/settings'
 import { useAppDispatch, useAppSelector } from '../hooks/selector'
 import { useState } from 'react'
 import Login from '../components/Login'
+import SignIn from '../components/SignIn'
 
 const Welcome: React.FC = () => {
   const [open, setOpen] = useState({ show: false, component: '' })
@@ -22,9 +23,10 @@ const Welcome: React.FC = () => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 430,
     bgcolor: theme === 'light' ? '#fafafa' : '#050505',
-    border: theme === 'light' ? '1px solid #000' : '2px solid #fafafa',
+    border: theme === 'light' ? '2px solid #000' : '2px solid #fafafa',
+    borderRadius: '2rem',
     boxShadow: 24,
     p: 4
   }
@@ -86,7 +88,7 @@ const Welcome: React.FC = () => {
         </Button>
         <Modal open={open.show} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
           <Box sx={style}>
-            { open.show && open.component === 'login' ? <Login/> : 'n' }
+            { open.show && open.component === 'login' ? <Login/> : <SignIn/> }
           </Box>
         </Modal>
         <Button size='large' onClick={changeTheme} color="info" variant="contained" sx={{ borderRadius: '10rem', py: 2 }}>

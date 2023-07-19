@@ -30,6 +30,26 @@ const MuiTheme: React.FC<Props> = ({ children }) => {
           fontSize: 60
         }
       },
+      h2: {
+        fontFamily: [
+          'Roboto',
+          'sans-serif'
+        ].join(','),
+        fontSize: 35,
+        [breakpoints.up('xl')]: {
+          fontSize: 45
+        }
+      },
+      h3: {
+        fontFamily: [
+          'Roboto',
+          'sans-serif'
+        ].join(','),
+        fontSize: 30,
+        [breakpoints.up('xl')]: {
+          fontSize: 40
+        }
+      },
       h4: {
         fontFamily: [
           'Roboto',
