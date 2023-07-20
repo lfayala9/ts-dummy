@@ -3,20 +3,28 @@ import type { Thunk } from '../main'
 import type { AxiosError, AxiosResponse } from 'axios'
 import axios from './axios'
 
-interface Error {
+// Interfaces & Types
+
+export interface Error {
   err: boolean
   message: string
+  success?: boolean
+
 }
 export const badLog: Error = {
   err: false,
-  message: ''
+  message: '',
+  success: false
 }
+
+// Service
 export const loginService = (data: Credential): Thunk => async (dispatch): Promise<AxiosError | AxiosResponse> => {
   dispatch(setIsLoading(true))
   try {
     const response: AxiosResponse = await axios.post('/login', data)
     dispatch(setToken(response.data.token))
     dispatch(setUser(response.data.user.firstName))
+    window.location.href = '/home'
     return response
   } catch (error: any) {
     badLog.err = true

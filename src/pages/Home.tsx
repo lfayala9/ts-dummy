@@ -1,5 +1,7 @@
-const Home = (): JSX.Element => {
-  return <div>Home</div>
+const Home: React.FC = () => {
+  return (
+    <h1>home</h1>
+  )
 }
 
 export default Home
