@@ -22,6 +22,7 @@ const SwitchMode = ({ size }: Prop): JSX.Element => {
       {size === 'normal'
         ? (
         <Button
+        aria-label='change theme button'
           size="large"
           onClick={changeTheme}
           color="info"

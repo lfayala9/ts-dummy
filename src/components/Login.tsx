@@ -99,7 +99,7 @@ const Login: React.FC = () => {
               We&apos;ll never share your password.
             </FormHelperText>
           </FormControl>
-          <Button type="submit" fullWidth variant="contained" sx={{ mb: 2 }}>
+          <Button aria-label='submit button' type="submit" fullWidth variant="contained" sx={{ mb: 2 }}>
             Log in
           </Button>
           {badLog.err

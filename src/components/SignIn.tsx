@@ -141,7 +141,7 @@ const SignIn: React.FC = () => {
                 * Required
               </FormHelperText>
             </FormControl>
-            <Button type="submit" fullWidth variant="contained" sx={{ mb: 2 }}>
+            <Button aria-label='submit button' type="submit" fullWidth variant="contained" sx={{ mb: 2 }}>
               Sign Up
             </Button>
             {badSign.err

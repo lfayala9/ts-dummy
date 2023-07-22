@@ -111,6 +111,7 @@ const Welcome: React.FC = () => {
               Join Today
             </Typography>
             <Button
+              aria-label='login button'
               color="primary"
               variant="contained"
               sx={{ borderRadius: '10rem', px: 10, mb: 3 }}
@@ -122,6 +123,7 @@ const Welcome: React.FC = () => {
               Already Have an Account?
             </Typography>
             <Button
+              aria-label='sign in button'
               color="secondary"
               variant="contained"
               sx={{ borderRadius: '10rem', px: 16, mb: 3 }}
