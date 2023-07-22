@@ -30,9 +30,13 @@ const authConfig = createSlice({
     },
     setUser: (state, action: PayloadAction<string | null>) => {
       state.user = action.payload
+    },
+    setLogout: (state) => {
+      state.user = null
+      state.token = null
     }
   }
 })
 
-export const { setUser, setToken, setIsLoading } = authConfig.actions
+export const { setUser, setToken, setIsLoading, setLogout } = authConfig.actions
 export default authConfig.reducer

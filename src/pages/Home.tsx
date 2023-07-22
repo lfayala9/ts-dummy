@@ -1,6 +1,13 @@
+import NavBar from '../components/NavBar'
+import { TabTitle } from '../hooks/titles'
+
 const Home: React.FC = () => {
+  TabTitle('Fake Social / Home')
   return (
-    <h1>home</h1>
+    <>
+    <NavBar/>
+    <h1 style={{ height: '1000px' }}>home</h1>
+    </>
   )
 }
 

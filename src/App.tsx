@@ -9,8 +9,14 @@ const App = (): JSX.Element => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/home" element={isAuth ? <Home /> : <Navigate to='/'/>} />
+          <Route
+            path="/"
+            element={isAuth ? <Navigate to="/home" /> : <Welcome />}
+          />
+          <Route
+            path="/home"
+            element={isAuth ? <Home /> : <Navigate to="/" />}
+          />
         </Routes>
       </BrowserRouter>
     </>

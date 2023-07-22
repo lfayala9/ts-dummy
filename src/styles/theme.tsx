@@ -65,7 +65,7 @@ const MuiTheme: React.FC<Props> = ({ children }) => {
           'Roboto',
           'sans-serif'
         ].join(','),
-        fontSize: 20,
+        fontSize: 25,
         [breakpoints.up('xl')]: {
           fontSize: 35
         }
