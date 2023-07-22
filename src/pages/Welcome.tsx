@@ -64,7 +64,7 @@ const Welcome: React.FC = () => {
           xl={8}
           sx={{
             backgroundColor: '#999999',
-            backgroundImage: 'url(src/assets/background1.webp)',
+            backgroundImage: 'url(/background1.webp)',
             backgroundRepeat: 'no-repeat',
             backgroundSize: '100vw 100vh'
           }}
