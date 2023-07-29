@@ -1,3 +1,6 @@
+import { type ChangeEvent, useState, type FormEvent } from 'react'
+import { useAppDispatch, useAppSelector } from '../hooks/selector'
+import { badSign, registerService } from '../services/register'
 import {
   TextField,
   CssBaseline,
@@ -12,47 +15,59 @@ import {
   OutlinedInput,
   Typography
 } from '@mui/material'
-import { VisibilityOff, Visibility } from '@mui/icons-material'
-import { badSign, registerService } from '../services/register'
-import { useState } from 'react'
 import { ColorRing } from 'react-loader-spinner'
-import { useAppSelector, useAppDispatch } from '../hooks/selector'
+import FileUploadOutlined from '@mui/icons-material/FileUploadOutlined'
+import { VisibilityOff, Visibility } from '@mui/icons-material'
+import { setIsLoading } from '../app-state'
 
 const SignIn: React.FC = () => {
   // Hide/Show Password
-
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = (): void => {
     setShowPassword((show) => !show)
   }
 
-  // Register user Service
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [firstName, setName] = useState('')
-  const [lastName, setLastName] = useState('')
-
   const {
     auth: { isLoading }
   } = useAppSelector((state) => state)
   const dispatch = useAppDispatch()
 
-  const handleSignIn = (e: { preventDefault: () => void }): void => {
-    e.preventDefault()
-    void dispatch(
-      registerService({
-        email,
-        password,
-        firstName,
-        lastName
-      })
-    )
+  // Register Service
+
+  const defaultValue = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    picture: null as File | null
   }
 
+  const [form, setForm] = useState(defaultValue)
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    if (e.target.name === 'picture') {
+      const file = e.target.files != null ? e.target.files[0] : null
+      setForm({ ...form, [e.target.name]: file })
+    } else {
+      setForm({ ...form, [e.target.name]: e.target.value })
+    }
+  }
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault()
+    dispatch(setIsLoading(true))
+    const formData = new FormData()
+
+    for (const [key, value] of Object.entries(form)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      formData.append(key, value!)
+    }
+    await registerService(formData).finally(() =>
+      dispatch(setIsLoading(false))
+    )
+  }
   return (
-    <form noValidate onSubmit={handleSignIn} encType="multipart/form-data">
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    <form noValidate onSubmit={handleSubmit} encType="multipart/form-data">
       <CssBaseline />
       <Box
         sx={{
@@ -70,80 +85,102 @@ const SignIn: React.FC = () => {
             </Typography>
             <Grid item xs={12} sm={6}>
               <TextField
-                onChange={(e) => {
-                  setName(e.target.value)
-                }}
-                autoComplete="given-name"
                 name="firstName"
-                required
-                fullWidth
-                id="firstName"
+                autoComplete="given-name"
                 label="First Name"
                 autoFocus
+                required
+                fullWidth
+                onChange={handleChange}
+                value={form.firstName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                onChange={(e) => {
-                  setLastName(e.target.value)
-                }}
                 required
                 fullWidth
                 id="lastName"
                 label="Last Name"
-                name="lastName"
                 autoComplete="family-name"
+                name="lastName"
+                onChange={handleChange}
+                value={form.lastName}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                onChange={(e) => {
-                  setEmail(e.target.value)
-                }}
                 required
                 fullWidth
                 id="outlined-required"
                 label="E-mail"
-                sx={{ mb: 1 }}
+                name="email"
+                onChange={handleChange}
+                value={form.email}
               />
             </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl sx={{ mb: 1 }} variant="outlined" fullWidth>
-              <InputLabel htmlFor="outlined-adornment-password">
-                Password *
-              </InputLabel>
-              <OutlinedInput
-                onChange={(e) => {
-                  setPassword(e.target.value)
-                }}
-                fullWidth
-                required
-                id="outlined-adornment-password"
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-              />
-              <FormHelperText id="my-helper-text" sx={{ mb: 1, mx: 0 }}>
-                We&apos;ll never share your password.
-              </FormHelperText>
+            <Grid item xs={12}>
+              <FormControl sx={{ mb: 1 }} variant="outlined" fullWidth>
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password *
+                </InputLabel>
+                <OutlinedInput
+                  name="password"
+                  onChange={handleChange}
+                  value={form.password}
+                  fullWidth
+                  required
+                  id="outlined-adornment-password"
+                  type={showPassword ? 'text' : 'password'}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
+              {/* <input
+                onChange={handleChange}
+                type="file"
+                name="picture"
+                accept="image/*"
+              /> */}
               <FormHelperText id="my-helper-text" sx={{ mx: 0 }}>
-                * Required
-              </FormHelperText>
-            </FormControl>
-            <Button aria-label='submit button' type="submit" fullWidth variant="contained" sx={{ mb: 2 }}>
-              Sign Up
-            </Button>
+            Upload your profile Picture *
+          </FormHelperText>
+              <TextField
+                fullWidth
+                type="button"
+                InputProps={{
+                  endAdornment: (
+                    <IconButton
+                      component="label"
+                      sx={{
+                        '&:hover': {
+                          background: 'none'
+                        }
+                      }}
+                    >
+                      <FileUploadOutlined sx={{ mx: '1rem' }} />
+                      <input
+                        style={{ display: 'block' }}
+                        hidden
+                        onChange={handleChange}
+                        type="file"
+                        name="picture"
+                        accept="image/*"
+                      />
+                    </IconButton>
+                  )
+                }}
+              />
+            </Grid>
             {badSign.err
               ? (
               <Typography color="error" fontWeight="bold" sx={{ my: 1 }}>
@@ -170,6 +207,18 @@ const SignIn: React.FC = () => {
               />
             )}
           </Grid>
+          <Button
+            aria-label="submit button"
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ my: 2 }}
+          >
+            Sign Up
+          </Button>
+          <FormHelperText id="my-helper-text" sx={{ mx: 0, mb: 2 }}>
+            * Required
+          </FormHelperText>
           <Typography variant="h5" sx={{ mx: 0 }}>
             By creating an account you accept our{' '}
             <span

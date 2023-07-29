@@ -17,14 +17,13 @@ import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople'
 import { setLogout } from '../app-state'
-// import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { useState, type MouseEvent } from 'react'
 import SwitchMode from './SwitchMode'
 
 const NavBar: React.FC = () => {
   // theme settings
   const {
-    auth: { user },
+    auth: { picture },
     settings: { theme }
   } = useAppSelector((state) => state)
 
@@ -51,7 +50,7 @@ const NavBar: React.FC = () => {
   // Logout
 
   const dispatch = useAppDispatch()
-  console.log(user)
+  console.log(picture)
 
   return (
     <>
@@ -61,18 +60,18 @@ const NavBar: React.FC = () => {
             <EmojiPeopleIcon sx={{ fontSize: '2.4rem' }} />
           </IconButton>
           <Typography fontWeight="bold" variant="h4" sx={gradient} flexGrow={1}>
-            Fake Social
+            FakeSocial
           </Typography>
           <Stack direction="row" spacing={2}>
             <IconButton
               onClick={handleClick}
-              sx={{ p: '0.7rem' }}
               aria-controls={open ? 'account-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
             >
-              <Typography color='white' px="0.5rem">{user}</Typography>
-              <Avatar sx={{ width: '41px', height: '41px', color: 'black' }}>☺</Avatar>
+              <Avatar sx={{ width: '46px', height: '46px' }}>
+              <img style={{ width: '46px', height: '46px', borderRadius: '50px' }} src={picture} />
+              </Avatar>
             </IconButton>
           </Stack>
         </Toolbar>

@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create()
-
-axiosInstance.defaults.baseURL = 'http://localhost:3002/api/v1'
+axiosInstance.defaults.baseURL = process.env.REACT_APP_API
 
 export default axiosInstance

@@ -6,9 +6,6 @@ import {
   Box,
   Typography
 } from '@mui/material'
-// import DarkModeIcon from '@mui/icons-material/DarkMode'
-// import LightModeIcon from '@mui/icons-material/LightMode'
-// import { setMode } from '../app-state/settings'
 import SwitchMode from '../components/SwitchMode'
 import { useAppSelector } from '../hooks/selector'
 import { useState } from 'react'
@@ -46,9 +43,6 @@ const Welcome: React.FC = () => {
     p: 4
   }
 
-  // const changeTheme = (): void => {
-  //   dispatch(setMode(theme === 'dark' ? 'light' : 'dark'))
-  // }
   TabTitle('Fake Social / Welcome')
 
   return (
@@ -143,7 +137,7 @@ const Welcome: React.FC = () => {
                   <Login />
                     )
                   : (
-                  <SignIn />
+                  <SignIn/>
                     )}
               </Box>
             </Modal>

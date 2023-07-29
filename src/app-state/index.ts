@@ -1,21 +1,11 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { type InitialState } from '../types'
 
-export interface Log {
-  user: null | string
-  token: null | string
-}
-
-export interface InitialState extends Log {
-  isLoading: boolean
-}
-export interface Credential {
-  email: string
-  password: string
-}
 const initialState: InitialState = {
   user: null,
   token: null,
-  isLoading: false
+  isLoading: false,
+  picture: null
 }
 
 const authConfig = createSlice({
@@ -31,12 +21,16 @@ const authConfig = createSlice({
     setUser: (state, action: PayloadAction<string | null>) => {
       state.user = action.payload
     },
+    setPicture: (state, action: PayloadAction<string>) => {
+      state.picture = action.payload
+    },
     setLogout: (state) => {
       state.user = null
       state.token = null
+      state.picture = null
     }
   }
 })
 
-export const { setUser, setToken, setIsLoading, setLogout } = authConfig.actions
+export const { setUser, setToken, setPicture, setIsLoading, setLogout } = authConfig.actions
 export default authConfig.reducer
