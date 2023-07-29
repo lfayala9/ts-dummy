@@ -7,7 +7,7 @@ export interface Log {
 
 export interface InitialState extends Log {
   isLoading: boolean
-  picture: string | null | undefined
+  picture: string | undefined
 }
 export interface Credential {
   email: string
