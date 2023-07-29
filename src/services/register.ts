@@ -6,11 +6,9 @@ export const badSign: Error = {
   success: false
 }
 
-const API = process.env.REACT_APP_API
-
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const registerService = async (formData: any) => {
-  await fetch(`${API}/users`, {
+  await fetch('http://localhost:3002/api/v1/users', {
     method: 'POST',
     body: formData
   })
