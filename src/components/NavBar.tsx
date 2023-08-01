@@ -56,7 +56,7 @@ const NavBar: React.FC = () => {
           <IconButton>
             <EmojiPeopleIcon sx={{ fontSize: '2.4rem' }} />
           </IconButton>
-          <Typography fontWeight="bold" variant="h4" sx={gradient} flexGrow={1}>
+          <Typography fontWeight="bold" variant="h3" sx={gradient} flexGrow={1}>
             FakeSocial
           </Typography>
           <Stack direction="row" spacing={2}>
