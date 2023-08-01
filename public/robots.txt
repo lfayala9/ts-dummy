@@ -1,0 +1,10 @@
+# Block all crawlers for /accounts
+User-agent: *
+Disallow: /admin
+Disallow: /build
+Disallow: /node_modules
+Disallow: /public
+
+# Allow all crawlers
+User-agent: *
+Allow: /
