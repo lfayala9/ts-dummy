@@ -1,6 +1,3 @@
-import { type ChangeEvent, useState, type FormEvent } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks/selector'
-import { badSign, registerService } from '../services/register'
 import {
   TextField,
   CssBaseline,
@@ -19,6 +16,10 @@ import { ColorRing } from 'react-loader-spinner'
 import FileUploadOutlined from '@mui/icons-material/FileUploadOutlined'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
 import { setIsLoading } from '../app-state'
+import { type ChangeEvent, useState, type FormEvent } from 'react'
+import { useAppDispatch, useAppSelector } from '../hooks/selector'
+import { registerSchema } from '../services/userValidation'
+import { badSign, registerService } from '../services/register'
 
 const SignIn: React.FC = () => {
   // Hide/Show Password
@@ -28,9 +29,7 @@ const SignIn: React.FC = () => {
     setShowPassword((show) => !show)
   }
 
-  const {
-    auth: { isLoading }
-  } = useAppSelector((state) => state)
+  const { isLoading } = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
 
   // Register Service
@@ -43,7 +42,9 @@ const SignIn: React.FC = () => {
     picture: null as File | null
   }
 
+  const [currentErrors, setCurrentErrors] = useState([])
   const [form, setForm] = useState(defaultValue)
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.name === 'picture') {
       const file = e.target.files != null ? e.target.files[0] : null
@@ -56,7 +57,6 @@ const SignIn: React.FC = () => {
     e.preventDefault()
     dispatch(setIsLoading(true))
     const formData = new FormData()
-
     for (const [key, value] of Object.entries(form)) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       formData.append(key, value!)
@@ -64,10 +64,13 @@ const SignIn: React.FC = () => {
     await registerService(formData).finally(() =>
       dispatch(setIsLoading(false))
     )
+    await registerSchema.validate(form, { abortEarly: false }).catch((err) => {
+      setCurrentErrors(err.errors)
+    })
   }
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <form noValidate onSubmit={handleSubmit} encType="multipart/form-data">
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
       <CssBaseline />
       <Box
         sx={{
@@ -145,15 +148,9 @@ const SignIn: React.FC = () => {
                   label="Password"
                 />
               </FormControl>
-              {/* <input
-                onChange={handleChange}
-                type="file"
-                name="picture"
-                accept="image/*"
-              /> */}
               <FormHelperText id="my-helper-text" sx={{ mx: 0 }}>
-            Upload your profile Picture *
-          </FormHelperText>
+                Upload your profile Picture *
+              </FormHelperText>
               <TextField
                 fullWidth
                 type="button"
@@ -181,13 +178,18 @@ const SignIn: React.FC = () => {
                 }}
               />
             </Grid>
-            {badSign.err
-              ? (
-              <Typography color="error" fontWeight="bold" sx={{ my: 1 }}>
-                {badSign.message}
-              </Typography>
-                )
-              : null}
+            {currentErrors.map((e) => {
+              return (
+                <Typography
+                  key={e}
+                  color="error"
+                  sx={{ my: 0.5, mx: 1 }}
+                  variant="caption"
+                >
+                  {e}
+                </Typography>
+              )
+            })}
             {badSign.success ?? false
               ? (
               <Typography fontWeight="bold" color="green" sx={{ my: 1 }}>

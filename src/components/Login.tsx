@@ -16,6 +16,7 @@ import { VisibilityOff, Visibility } from '@mui/icons-material'
 import { useAppSelector, useAppDispatch } from '../hooks/selector'
 import { loginService, badLog } from '../services/login'
 import { useState } from 'react'
+// import { shallowEqual } from 'react-redux'
 
 const Login: React.FC = () => {
   // Show/Hide password
@@ -30,9 +31,7 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const {
-    auth: { isLoading }
-  } = useAppSelector((state) => state)
+  const { isLoading } = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
 
   const handleLogin = (e: { preventDefault: () => void }): void => {

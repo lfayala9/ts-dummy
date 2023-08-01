@@ -22,10 +22,8 @@ import SwitchMode from './SwitchMode'
 
 const NavBar: React.FC = () => {
   // theme settings
-  const {
-    auth: { picture },
-    settings: { theme }
-  } = useAppSelector((state) => state)
+  const { picture } = useAppSelector((state) => state.auth)
+  const { theme } = useAppSelector((state) => state.settings)
 
   const gradient = {
     backgroundImage:
@@ -50,7 +48,6 @@ const NavBar: React.FC = () => {
   // Logout
 
   const dispatch = useAppDispatch()
-  console.log(picture)
 
   return (
     <>

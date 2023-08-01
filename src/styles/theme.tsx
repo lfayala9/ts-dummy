@@ -45,9 +45,9 @@ const MuiTheme: React.FC<Props> = ({ children }) => {
           'Roboto',
           'sans-serif'
         ].join(','),
-        fontSize: 35,
+        fontSize: 30,
         [breakpoints.up('xl')]: {
-          fontSize: 45
+          fontSize: 37
         }
       },
       h3: {
@@ -55,9 +55,9 @@ const MuiTheme: React.FC<Props> = ({ children }) => {
           'Roboto',
           'sans-serif'
         ].join(','),
-        fontSize: 30,
+        fontSize: 20,
         [breakpoints.up('xl')]: {
-          fontSize: 40
+          fontSize: 28
         }
       },
       h4: {
@@ -65,7 +65,7 @@ const MuiTheme: React.FC<Props> = ({ children }) => {
           'Roboto',
           'sans-serif'
         ].join(','),
-        fontSize: 25,
+        fontSize: 15,
         [breakpoints.up('xl')]: {
           fontSize: 35
         }

@@ -23,8 +23,8 @@ export const loginService = (data: Credential): Thunk => async (dispatch): Promi
     dispatch(setToken(response.data.token))
     dispatch(setUser(response.data.user.firstName))
     dispatch(setPicture(response.data.user.picture))
+    console.log(response.data.user)
     window.location.href = '/home'
-    console.log(response)
     return response
   } catch (error: any) {
     badLog.err = true

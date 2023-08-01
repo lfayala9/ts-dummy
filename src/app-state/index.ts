@@ -5,7 +5,7 @@ const initialState: InitialState = {
   user: null,
   token: null,
   isLoading: false,
-  picture: ''
+  picture: null
 }
 
 const authConfig = createSlice({
@@ -27,7 +27,7 @@ const authConfig = createSlice({
     setLogout: (state) => {
       state.user = null
       state.token = null
-      state.picture = ''
+      state.picture = null
     }
   }
 })

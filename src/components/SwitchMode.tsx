@@ -9,9 +9,7 @@ interface Prop {
 }
 
 const SwitchMode = ({ size }: Prop): JSX.Element => {
-  const {
-    settings: { theme }
-  } = useAppSelector((state) => state)
+  const { theme } = useAppSelector((state) => state.settings)
 
   const changeTheme = (): void => {
     dispatch(setMode(theme === 'dark' ? 'light' : 'dark'))

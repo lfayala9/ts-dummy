@@ -12,6 +12,7 @@ import { useState } from 'react'
 import Login from '../components/Login'
 import SignIn from '../components/SignIn'
 import { TabTitle } from '../hooks/titles'
+// import { shallowEqual } from 'react-redux'
 
 const Welcome: React.FC = () => {
   const [open, setOpen] = useState({ show: false, component: '' })
@@ -25,9 +26,7 @@ const Welcome: React.FC = () => {
     setOpen({ show: false, component: '' })
   }
 
-  const {
-    settings: { theme }
-  } = useAppSelector((state) => state)
+  const { theme } = useAppSelector((state) => state.settings)
   // const dispatch = useAppDispatch()
 
   const style = {
@@ -101,7 +100,7 @@ const Welcome: React.FC = () => {
                 happening
               </span>
             </Typography>
-            <Typography fontWeight="normal" variant="h4" sx={{ mb: 2, mx: 1 }}>
+            <Typography fontWeight="normal" variant="h2" sx={{ mb: 2, mx: 1 }}>
               Join Today
             </Typography>
             <Button
@@ -113,7 +112,7 @@ const Welcome: React.FC = () => {
             >
               Create An Account
             </Button>
-            <Typography fontWeight="normal" variant="h5" sx={{ mb: 2, mx: 1 }}>
+            <Typography fontWeight="normal" variant="h3" sx={{ mb: 2, mx: 1 }}>
               Already Have an Account?
             </Typography>
             <Button
@@ -142,21 +141,6 @@ const Welcome: React.FC = () => {
               </Box>
             </Modal>
             <SwitchMode size="normal" />
-            {/* <Button
-            size="large"
-            onClick={changeTheme}
-            color="info"
-            variant="contained"
-            sx={{ borderRadius: '10rem', py: 2 }}
-          >
-            {theme === 'light'
-              ? (
-              <DarkModeIcon sx={{ fontSize: '1.6rem' }} />
-                )
-              : (
-              <LightModeIcon sx={{ fontSize: '1.6rem' }} />
-                )}
-          </Button> */}
           </Box>
         </Grid>
       </Grid>
