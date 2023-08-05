@@ -21,9 +21,8 @@ export const loginService = (data: Credential): Thunk => async (dispatch): Promi
   try {
     const response: AxiosResponse = await axios.post('/login', data)
     dispatch(setToken(response.data.token))
-    dispatch(setUser(response.data.user.firstName))
+    dispatch(setUser(response.data.user))
     dispatch(setPicture(response.data.user.picture))
-    console.log(response.data.user)
     window.location.href = '/home'
     return response
   } catch (error: any) {

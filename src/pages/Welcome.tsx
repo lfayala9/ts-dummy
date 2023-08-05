@@ -12,7 +12,6 @@ import { useState } from 'react'
 import Login from '../components/Login'
 import SignIn from '../components/SignIn'
 import { TabTitle } from '../hooks/titles'
-// import { shallowEqual } from 'react-redux'
 
 const Welcome: React.FC = () => {
   const [open, setOpen] = useState({ show: false, component: '' })
@@ -27,7 +26,6 @@ const Welcome: React.FC = () => {
   }
 
   const { theme } = useAppSelector((state) => state.settings)
-  // const dispatch = useAppDispatch()
 
   const style = {
     position: 'absolute' as 'absolute',

@@ -6,23 +6,15 @@ import {
   Toolbar,
   Typography
 } from '@mui/material'
-import { useAppSelector, useAppDispatch } from '../hooks/selector'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import Divider from '@mui/material/Divider'
-// import Tooltip from '@mui/material/Tooltip'
-import PersonAdd from '@mui/icons-material/PersonAdd'
-import Settings from '@mui/icons-material/Settings'
-import Logout from '@mui/icons-material/Logout'
+import { StyledBadge, MenuNav, NotMenu } from '../styles/components'
+import { useAppSelector } from '../hooks/selector'
+import NotificationsIcon from '@mui/icons-material/Notifications'
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople'
-import { setLogout } from '../app-state'
 import { useState, type MouseEvent } from 'react'
-import SwitchMode from './SwitchMode'
 
 const NavBar: React.FC = () => {
   // theme settings
-  const { picture } = useAppSelector((state) => state.auth)
+  const { user } = useAppSelector((state) => state.auth)
   const { theme } = useAppSelector((state) => state.settings)
 
   const gradient = {
@@ -37,17 +29,24 @@ const NavBar: React.FC = () => {
 
   // Menu Settings
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
-  const handleClick = (e: MouseEvent<HTMLElement>): void => {
+  const [anchorElMenu, setAnchorEl] = useState<null | HTMLElement>(null)
+  const openMenu = Boolean(anchorElMenu)
+  const handleClickMenu = (e: MouseEvent<HTMLElement>): void => {
     setAnchorEl(e.currentTarget)
   }
-  const handleClose = (): void => {
+  const handleCloseMenu = (): void => {
     setAnchorEl(null)
   }
-  // Logout
 
-  const dispatch = useAppDispatch()
+  const [anchorElNotification, setAnchorElNotification] =
+    useState<null | HTMLElement>(null)
+  const openNotification = Boolean(anchorElNotification)
+  const handleClickNotification = (e: MouseEvent<HTMLElement>): void => {
+    setAnchorElNotification(e.currentTarget)
+  }
+  const handleCloseNotification = (): void => {
+    setAnchorElNotification(null)
+  }
 
   return (
     <>
@@ -61,77 +60,44 @@ const NavBar: React.FC = () => {
           </Typography>
           <Stack direction="row" spacing={2}>
             <IconButton
-              onClick={handleClick}
-              aria-controls={open ? 'account-menu' : undefined}
+              onClick={handleClickNotification}
+              aria-controls={openNotification ? 'notification' : undefined}
               aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
+              aria-expanded={openNotification ? 'true' : undefined}
             >
-              <Avatar sx={{ width: '46px', height: '46px' }}>
-              <img style={{ width: '46px', height: '46px', borderRadius: '50px' }} src={picture} />
+              <Avatar sx={{ width: '42px', height: '42px' }}>
+                <NotificationsIcon />
               </Avatar>
+            </IconButton>
+            <IconButton
+              onClick={handleClickMenu}
+              aria-controls={openMenu ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openMenu ? 'true' : undefined}
+            >
+              <StyledBadge
+                overlap="circular"
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                variant="dot"
+              >
+                <Avatar sx={{ width: '42px', height: '42px' }} src={user?.picture} />
+              </StyledBadge>
             </IconButton>
           </Stack>
         </Toolbar>
       </AppBar>
-      <Menu
-        anchorEl={anchorEl}
+      <MenuNav
         id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0
-            }
-          }
-        }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
-        <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
-        </MenuItem>
-        <Divider />
-        <SwitchMode size="small" />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem onClick={() => dispatch(setLogout())}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
-      </Menu>
+        anchorElFun={anchorElMenu}
+        openFun={openMenu}
+        closeFun={handleCloseMenu}
+      />
+      <NotMenu
+        id="notification"
+        anchorElFun={anchorElNotification}
+        openFun={openNotification}
+        closeFun={handleCloseNotification}
+      />
     </>
   )
 }

@@ -16,7 +16,6 @@ import { VisibilityOff, Visibility } from '@mui/icons-material'
 import { useAppSelector, useAppDispatch } from '../hooks/selector'
 import { loginService, badLog } from '../services/login'
 import { useState } from 'react'
-// import { shallowEqual } from 'react-redux'
 
 const Login: React.FC = () => {
   // Show/Hide password

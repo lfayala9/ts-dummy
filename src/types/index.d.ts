@@ -1,7 +1,12 @@
 // STATE TYPES
-
+export interface UserInfo {
+  firstName: string
+  lastName: string
+  _id: string
+  picture: string
+}
 export interface Log {
-  user: null | string
+  user: null | UserInfo
   token: null | string
 }
 

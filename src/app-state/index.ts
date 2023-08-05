@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { type InitialState } from '../types'
+import type { UserInfo, InitialState } from '../types'
 
 const initialState: InitialState = {
   user: null,
@@ -18,7 +18,7 @@ const authConfig = createSlice({
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload
     },
-    setUser: (state, action: PayloadAction<string | null>) => {
+    setUser: (state, action: PayloadAction<UserInfo | null>) => {
       state.user = action.payload
     },
     setPicture: (state, action: PayloadAction<string>) => {

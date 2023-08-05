@@ -18,7 +18,8 @@ import './styles/main.css'
 const persistedConfig = {
   key: 'auth',
   storage,
-  version: 1
+  version: 1,
+  whitelist: ['user', 'token']
 }
 
 const persistedSettingsConfig = {

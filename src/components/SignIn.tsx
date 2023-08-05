@@ -61,16 +61,22 @@ const SignIn: React.FC = () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       formData.append(key, value!)
     }
-    await registerService(formData).finally(() =>
+    const valid = await registerSchema.isValid(form)
+    if (valid) {
+      await registerService(formData).finally(() =>
+        dispatch(setIsLoading(false))
+      )
+    } else {
       dispatch(setIsLoading(false))
-    )
-    await registerSchema.validate(form, { abortEarly: false }).catch((err) => {
-      setCurrentErrors(err.errors)
-    })
+    }
+    await registerSchema.validate(form, { abortEarly: false })
+      .catch((err) => {
+        setCurrentErrors(err.errors)
+      })
   }
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <form noValidate onSubmit={handleSubmit} encType="multipart/form-data">
       <CssBaseline />
       <Box
         sx={{
@@ -178,8 +184,18 @@ const SignIn: React.FC = () => {
                 }}
               />
             </Grid>
-            {currentErrors.map((e) => {
-              return (
+          </Grid>
+          <Button
+            aria-label="submit button"
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ my: 2 }}
+          >
+            Sign Up
+          </Button>
+          {currentErrors.map((e) => {
+            return (
                 <Typography
                   key={e}
                   color="error"
@@ -188,11 +204,11 @@ const SignIn: React.FC = () => {
                 >
                   {e}
                 </Typography>
-              )
-            })}
+            )
+          })}
             {badSign.success ?? false
               ? (
-              <Typography fontWeight="bold" color="green" sx={{ my: 1 }}>
+              <Typography color="green" sx={{ my: 1 }}>
                 Account Created Successfully
               </Typography>
                 )
@@ -208,16 +224,6 @@ const SignIn: React.FC = () => {
                 colors={['#284195', '#dfd7f4', '#130b28', '#9a36d9', '#130b28']}
               />
             )}
-          </Grid>
-          <Button
-            aria-label="submit button"
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ my: 2 }}
-          >
-            Sign Up
-          </Button>
           <FormHelperText id="my-helper-text" sx={{ mx: 0, mb: 2 }}>
             * Required
           </FormHelperText>
