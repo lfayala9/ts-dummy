@@ -4,6 +4,11 @@ import { CssBaseline } from '@mui/material'
 import StyledEngineProvider from '@mui/material/StyledEngineProvider'
 import { useAppSelector } from '../hooks/selector'
 import { createBreakpoints } from '@mui/system'
+declare module '@mui/material/styles' {
+  interface TypeBackground {
+    alt: string
+  }
+}
 
 const breakpoints = createBreakpoints({})
 interface Props {
@@ -93,7 +98,8 @@ const MuiTheme: React.FC<Props> = ({ children }) => {
       },
       mode: isLight ? 'light' : 'dark',
       background: {
-        default: isLight ? '#fafafa' : '#050505'
+        default: isLight ? '#fafafa' : '#050505',
+        alt: isLight ? '#fafafa' : '#1f1f1f'
       }
     }
   })

@@ -1,17 +1,9 @@
-import { PersonAdd, Settings, Logout } from '@mui/icons-material'
 import {
-  Avatar,
   Badge,
-  Divider,
-  ListItemIcon,
-  Menu,
-  MenuItem,
-  Typography,
-  styled
+  styled,
+  Box,
+  TextField
 } from '@mui/material'
-import { setLogout } from '../app-state'
-import SwitchMode from '../components/SwitchMode'
-import { useAppDispatch } from '../hooks/selector'
 
 export const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -42,110 +34,26 @@ export const StyledBadge = styled(Badge)(({ theme }) => ({
   }
 }))
 
-export const MenuNav = ({ anchorElFun, openFun, closeFun, id }: { anchorElFun: HTMLElement | null, openFun: boolean, closeFun: () => void, id: string }): JSX.Element => {
-  const dispatch = useAppDispatch()
+export const Wrapper = styled(Box)(({ theme }) => ({
+  padding: '0.75rem 1.5rem 0.75rem 1.5rem',
+  backgroundColor: theme.palette.background.alt,
+  borderRadius: '2rem',
+  marginTop: '1.5rem',
+  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 0px 15px;'
+}))
 
-  return (
-    <Menu
-      anchorEl={anchorElFun}
-      id={id}
-      open={openFun}
-      onClose={closeFun}
-      PaperProps={{
-        elevation: 0,
-        sx: {
-          overflow: 'visible',
-          filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-          mt: 1.5,
-          '& .MuiAvatar-root': {
-            width: 32,
-            height: 32,
-            ml: -0.5,
-            mr: 1
-          },
-          '&:before': {
-            content: '""',
-            display: 'block',
-            position: 'absolute',
-            top: 0,
-            right: 14,
-            width: 10,
-            height: 10,
-            bgcolor: 'background.paper',
-            transform: 'translateY(-50%) rotate(45deg)',
-            zIndex: 0
-          }
-        }
-      }}
-      transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-    >
-      <MenuItem onClick={closeFun}>
-        <Avatar /> Profile
-      </MenuItem>
-      <Divider />
-      <SwitchMode size="small" />
-      <MenuItem onClick={closeFun}>
-        <ListItemIcon>
-          <PersonAdd fontSize="small" />
-        </ListItemIcon>
-        Add another account
-      </MenuItem>
-      <MenuItem onClick={closeFun}>
-        <ListItemIcon>
-          <Settings fontSize="small" />
-        </ListItemIcon>
-        Settings
-      </MenuItem>
-      <MenuItem onClick={() => dispatch(setLogout())}>
-        <ListItemIcon>
-          <Logout fontSize="small" />
-        </ListItemIcon>
-        Logout
-      </MenuItem>
-    </Menu>
-  )
-}
-
-export const NotMenu = ({ anchorElFun, openFun, closeFun, id }: { anchorElFun: HTMLElement | null, openFun: boolean, closeFun: () => void, id: string }): JSX.Element => {
-  return (
-      <Menu
-        anchorEl={anchorElFun}
-        id={id}
-        open={openFun}
-        onClose={closeFun}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0
-            }
-          }
-        }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
-        <Typography mx={2} fontSize='15px' fontWeight='light'>
-          Nothing here yet
-        </Typography>
-      </Menu>
-  )
-}
+export const CustomField = styled(TextField)(({ theme }) => ({
+  '& .MuiInput-underline:after': {
+    borderBottomColor: theme.palette.primary
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderRadius: '2rem',
+      borderColor: 'white'
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: theme.palette.primary,
+      borderRadius: '2rem'
+    }
+  }
+}))

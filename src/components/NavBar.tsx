@@ -6,7 +6,8 @@ import {
   Toolbar,
   Typography
 } from '@mui/material'
-import { StyledBadge, MenuNav, NotMenu } from '../styles/components'
+import { StyledBadge } from '../styles/components'
+import { MenuNav, NotMenu } from './Menus'
 import { useAppSelector } from '../hooks/selector'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople'

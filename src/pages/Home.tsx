@@ -2,6 +2,7 @@ import { CssBaseline, Grid } from '@mui/material'
 import NavBar from '../components/NavBar'
 import { TabTitle } from '../hooks/titles'
 import UserCard from '../components/UserCard'
+import CreatePost from '../components/CreatePost'
 
 const Home: React.FC = () => {
   TabTitle('Fake Social / Home')
@@ -12,13 +13,11 @@ const Home: React.FC = () => {
         <CssBaseline />
         <Grid
           item
-          display={{ xs: 'none', sm: 'flex' }}
+          display={{ xs: 'none', sm: 'block' }}
           md={3.5}
           sx={{
-            py: 4,
-            px: 2,
-            justifyContent: 'center',
-            alignItems: 'center'
+            py: 3,
+            px: 2
           }}
         >
         <UserCard />
@@ -26,17 +25,15 @@ const Home: React.FC = () => {
         <Grid
           item
           xs={12}
-          md={6}
-          sx={{
-            backgroundColor: '#444444'
-          }}
+          md={5.5}
+          px={2}
         >
-          C
+          <CreatePost/>
         </Grid>
         <Grid
           item
           display={{ xs: 'none', sm: 'block' }}
-          md={2.5}
+          md={3}
           sx={{
             backgroundColor: '#999999'
           }}

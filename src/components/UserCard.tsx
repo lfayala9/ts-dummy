@@ -12,23 +12,28 @@ import { useAppSelector } from '../hooks/selector'
 
 const UserCard: React.FC = () => {
   const { user } = useAppSelector((state) => state.auth)
-  const { theme } = useAppSelector((state) => state.settings)
+  // const { theme } = useAppSelector((state) => state.settings)
 
   return (
     <>
       <Card sx={{
         width: 345,
+        margin: 'auto',
+        padding: '6px',
         borderRadius: '2rem',
-        border: theme === 'light' ? '2px solid #000' : '2px solid #fafafa'
+        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 0px 15px;'
       }}>
         <CardMedia
           component="img"
           alt="user_image"
           height="140"
           image={user?.picture}
+          sx={{
+            borderRadius: '1.5rem 1.5rem 0.5rem 0.5rem'
+          }}
         />
         <CardContent sx={{ pt: 1.5 }}>
-          <Typography gutterBottom variant="h3" component="div" mb={0}>
+          <Typography variant="h3" component="div" mb={0}>
             {user?.firstName} {user?.lastName}
           </Typography>
           <FormHelperText>0 friends</FormHelperText>
