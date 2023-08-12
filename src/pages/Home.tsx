@@ -3,6 +3,7 @@ import NavBar from '../components/NavBar'
 import { TabTitle } from '../hooks/titles'
 import UserCard from '../components/UserCard'
 import CreatePost from '../components/CreatePost'
+import PostsList from '../containers/PostsList'
 
 const Home: React.FC = () => {
   TabTitle('Fake Social / Home')
@@ -29,6 +30,7 @@ const Home: React.FC = () => {
           px={2}
         >
           <CreatePost/>
+          <PostsList/>
         </Grid>
         <Grid
           item

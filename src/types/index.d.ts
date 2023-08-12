@@ -5,6 +5,13 @@ export interface UserInfo {
   _id: string
   picture: string
 }
+
+// export interface PostInfo {
+//   postContent?: string
+//   _id: string
+//   picture?: string
+// }
+
 export interface Log {
   user: null | UserInfo
   token: null | string
@@ -12,7 +19,6 @@ export interface Log {
 
 export interface InitialState extends Log {
   isLoading: boolean
-  picture: string
 }
 export interface Credential {
   email: string

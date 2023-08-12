@@ -4,8 +4,8 @@ import type { UserInfo, InitialState } from '../types'
 const initialState: InitialState = {
   user: null,
   token: null,
-  isLoading: false,
-  picture: ''
+  isLoading: false
+  // posts: []
 }
 
 const authConfig = createSlice({
@@ -21,16 +21,12 @@ const authConfig = createSlice({
     setUser: (state, action: PayloadAction<UserInfo | null>) => {
       state.user = action.payload
     },
-    setPicture: (state, action: PayloadAction<string>) => {
-      state.picture = action.payload
-    },
     setLogout: (state) => {
       state.user = null
       state.token = null
-      state.picture = ''
     }
   }
 })
 
-export const { setUser, setToken, setPicture, setIsLoading, setLogout } = authConfig.actions
+export const { setUser, setToken, setIsLoading, setLogout } = authConfig.actions
 export default authConfig.reducer
