@@ -7,9 +7,8 @@ export const badSign: Error = {
 }
 const API: string = import.meta.env.VITE_API
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const registerService = async (formData: FormData) => {
-  await fetch(`${API}/users`, {
+export const registerService = async (formData: FormData): Promise<void> => {
+  await fetch(`${API}api/v1/users`, {
     method: 'POST',
     body: formData
   })

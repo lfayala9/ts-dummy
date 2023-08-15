@@ -19,7 +19,7 @@ export const uName = {
 export const loginService = (data: Credential): Thunk => async (dispatch): Promise<AxiosError | AxiosResponse> => {
   dispatch(setIsLoading(true))
   try {
-    const response: AxiosResponse = await axios.post('/login', data)
+    const response: AxiosResponse = await axios.post('api/v1/login', data)
     dispatch(setToken(response.data.token))
     dispatch(setUser(response.data.user))
     window.location.href = '/home'

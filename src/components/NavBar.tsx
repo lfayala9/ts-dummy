@@ -67,7 +67,7 @@ const NavBar: React.FC = () => {
               aria-expanded={openNotification ? 'true' : undefined}
             >
               <Avatar sx={{ width: '42px', height: '42px' }}>
-                <NotificationsIcon />
+                <NotificationsIcon sx={{ color: 'black' }}/>
               </Avatar>
             </IconButton>
             <IconButton

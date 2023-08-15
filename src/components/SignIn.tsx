@@ -58,8 +58,9 @@ const SignIn: React.FC = () => {
     dispatch(setIsLoading(true))
     const formData = new FormData()
     for (const [key, value] of Object.entries(form)) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      formData.append(key, value!)
+      if (value !== undefined && value !== null) {
+        formData.append(key, value)
+      }
     }
     const valid = await registerSchema.isValid(form)
     if (valid) {

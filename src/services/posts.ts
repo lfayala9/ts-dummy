@@ -18,8 +18,7 @@ export const postService = (data: FormData, token: string | null): Thunk => asyn
       headers: { Authorization: `Bearer ${token}` }
     }
     const response: AxiosResponse = await axios.post('/posts', data, config)
-    // dispatch(setPosts(response.data))
-    return response
+    return response.data
   } catch (error: any) {
     return error as AxiosError
   } finally {

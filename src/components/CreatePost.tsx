@@ -17,7 +17,6 @@ import { EmojiMenu } from './Menus'
 import data from '@emoji-mart/data'
 import { postService } from '../services/posts'
 import { Puff } from 'react-loader-spinner'
-// import { setPosts } from '../app-state'
 
 const CreatePost: React.FC = () => {
   const { theme } = useAppSelector((state) => state.settings)
@@ -45,8 +44,9 @@ const CreatePost: React.FC = () => {
     e.preventDefault()
     const formData = new FormData()
     for (const [key, value] of Object.entries(form)) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      formData.append(key, value!)
+      if (value !== undefined && value !== null) {
+        formData.append(key, value)
+      }
     }
     void dispatch(postService(formData, token))
   }
@@ -61,6 +61,7 @@ const CreatePost: React.FC = () => {
   const handleCloseEmoji = (): void => {
     setAnchorEl(null)
   }
+
   return (
     <>
       <Wrapper>
@@ -69,7 +70,7 @@ const CreatePost: React.FC = () => {
             sx={{ display: 'flex', gap: '10px', mb: 2, alignItems: 'center' }}
           >
             <Avatar sx={{ width: 54, height: 54, border: '1px solid white' }}>
-              <PostAddIcon />
+              <PostAddIcon sx={{ color: 'black' }}/>
             </Avatar>
             <CustomField
               onChange={handleChange}
@@ -118,7 +119,11 @@ const CreatePost: React.FC = () => {
               </Tooltip>
             </Box>
             <Box>
-              <Button type="submit" variant="contained" color="primary">
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+              >
                 POST
               </Button>
             </Box>
@@ -134,16 +139,16 @@ const CreatePost: React.FC = () => {
       </Wrapper>
       {isLoading && (
         <div style={{ position: 'relative', left: '44%', top: '10px' }}>
-        <Puff
-          height="25"
-          width="25"
-          radius={1}
-          color="white"
-          ariaLabel="puff-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-        />
+          <Puff
+            height="25"
+            width="25"
+            radius={1}
+            color="white"
+            ariaLabel="puff-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
         </div>
       )}
     </>
