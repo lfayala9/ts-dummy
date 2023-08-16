@@ -26,13 +26,17 @@ const PostsList = (): JSX.Element => {
     setPosts(newPostsList)
   })
 
-  socket.on('deleted-post', (postId) => {
-    const index = postsList.findIndex((p) => p._id === postId)
-    if (index > -1) {
-      postsList.splice(index, 1)
+  socket.on('deleted-post', (id: string) => {
+    const handleDeletedPost = (id: string): void => {
+      const postToDelete: boolean = postsList.find((post: { _id: string }) => post._id === id)
+      if (postToDelete) {
+        const newPostsList = postsList.filter((post: { _id: string }) => post._id !== id)
+        setPosts(newPostsList)
+      }
     }
-    setPosts(postsList)
+    handleDeletedPost(id)
   })
+
   return (
     <div>
       {postsList.map((i: PostType) => (
