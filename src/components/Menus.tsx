@@ -173,12 +173,14 @@ export const PostMenu = ({
   anchorElFun,
   openFun,
   closeFun,
-  id
+  id,
+  deleteFun
 }: {
   anchorElFun: HTMLElement | null
   openFun: boolean
   closeFun: () => void
   id: string
+  deleteFun: () => void
 }): JSX.Element => {
   return (
     <Menu
@@ -215,7 +217,7 @@ export const PostMenu = ({
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
-      <MenuItem onClick={closeFun}>
+      <MenuItem onClick={deleteFun}>
         <ListItemIcon>
           <DeleteIcon color='error' fontSize="small" />
         </ListItemIcon>

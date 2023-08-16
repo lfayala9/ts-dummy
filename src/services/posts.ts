@@ -17,7 +17,7 @@ export const postService = (data: FormData, token: string | null): Thunk => asyn
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       headers: { Authorization: `Bearer ${token}` }
     }
-    const response: AxiosResponse = await axios.post('/posts', data, config)
+    const response: AxiosResponse = await axios.post('api/v1/posts', data, config)
     return response.data
   } catch (error: any) {
     return error as AxiosError

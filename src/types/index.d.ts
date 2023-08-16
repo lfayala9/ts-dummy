@@ -6,12 +6,6 @@ export interface UserInfo {
   picture: string
 }
 
-// export interface PostInfo {
-//   postContent?: string
-//   _id: string
-//   picture?: string
-// }
-
 export interface Log {
   user: null | UserInfo
   token: null | string
@@ -38,4 +32,20 @@ export interface Error {
   message: string
   success?: boolean
 
+}
+
+// POSTS TYPES
+
+export interface PostInfo {
+  _id: string
+  firstName: string
+  lastName: string
+  userPicture: string
+  picture: string
+  postContent: string
+}
+
+export interface PostType {
+  _id?: string
+  post?: PostInfo
 }

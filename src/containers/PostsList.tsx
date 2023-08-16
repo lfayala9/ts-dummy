@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import Post, { type PostType } from '../components/Post'
+import Post from '../components/Post'
 import { useAppSelector } from '../hooks/selector'
+import type { PostType } from '../types'
 import { io } from 'socket.io-client'
 const API: string = import.meta.env.VITE_API
 const socket = io(API)
@@ -20,12 +21,18 @@ const PostsList = (): JSX.Element => {
     }
     void getPosts()
   }, [])
-
   socket.on('new-post', (post) => {
     const newPostsList = [...postsList, post]
     setPosts(newPostsList)
   })
-  console.log(postsList)
+
+  socket.on('deleted-post', (postId) => {
+    const index = postsList.findIndex((p) => p._id === postId)
+    if (index > -1) {
+      postsList.splice(index, 1)
+    }
+    setPosts(postsList)
+  })
   return (
     <div>
       {postsList.map((i: PostType) => (

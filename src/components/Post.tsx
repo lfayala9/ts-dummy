@@ -14,23 +14,11 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import { PostMenu } from './Menus'
 import { useAppSelector } from '../hooks/selector'
 import { useState, type MouseEvent } from 'react'
-
-interface PostInfo {
-  _id: string
-  firstName: string
-  lastName: string
-  userPicture: string
-  picture: string
-  postContent: string
-}
-
-export interface PostType {
-  _id?: string
-  post?: PostInfo
-}
+import { deleteService } from '../services/delete'
 
 const Post = ({ post }: any): JSX.Element => {
   const { user } = useAppSelector((state) => state.auth)
+
   // Menu settings
 
   const [anchorElMenu, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -98,6 +86,7 @@ const Post = ({ post }: any): JSX.Element => {
       </Wrapper>
       <PostMenu
         id="post-menu"
+        deleteFun={() => { void deleteService(post._id) }}
         anchorElFun={anchorElMenu}
         openFun={openMenu}
         closeFun={handleCloseMenu}
