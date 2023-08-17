@@ -1,9 +1,12 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import Welcome from './pages/Welcome.tsx'
-import Home from './pages/Home.tsx'
+// import Welcome from './pages/Welcome.tsx'
+// import Home from './pages/Home.tsx'
 import { useAppSelector } from './hooks/selector.ts'
-import { useEffect } from 'react'
+import { useEffect, lazy, Suspense } from 'react'
 import { io } from 'socket.io-client'
+
+const Welcome = lazy(async () => await import('./pages/Welcome.tsx'))
+const Home = lazy(async () => await import('./pages/Home.tsx'))
 const socket = io('http://localhost:3002')
 
 const App = (): JSX.Element => {
@@ -14,6 +17,7 @@ const App = (): JSX.Element => {
   return (
     <>
       <BrowserRouter>
+      <Suspense fallback={<h4>LOADING</h4>}>
         <Routes>
           <Route
             path="/"
@@ -24,6 +28,7 @@ const App = (): JSX.Element => {
             element={isAuth ? <Home /> : <Navigate to="/" />}
           />
         </Routes>
+        </Suspense>
       </BrowserRouter>
     </>
   )
