@@ -14,8 +14,7 @@ export const postService = (data: FormData, token: string | null): Thunk => asyn
   dispatch(setIsLoading(true))
   try {
     const config = {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token != null ? token : ''}` }
     }
     const response: AxiosResponse = await axios.post('api/v1/posts', data, config)
     return response.data

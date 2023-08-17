@@ -1,5 +1,4 @@
 import {
-  Modal,
   CssBaseline,
   Grid,
   Button,
@@ -12,8 +11,11 @@ import { useState } from 'react'
 import Login from '../components/Login'
 import SignIn from '../components/SignIn'
 import { TabTitle } from '../hooks/titles'
+import Modals from '../containers/Modals'
 
 const Welcome: React.FC = () => {
+  TabTitle('Fake Social / Welcome')
+
   const [open, setOpen] = useState({ show: false, component: '' })
   const handleOpenLogin = (): void => {
     setOpen({ show: true, component: 'login' })
@@ -26,21 +28,6 @@ const Welcome: React.FC = () => {
   }
 
   const { theme } = useAppSelector((state) => state.settings)
-
-  const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 430,
-    bgcolor: theme === 'light' ? '#fafafa' : '#050505',
-    border: theme === 'light' ? '2px solid #000' : '2px solid #fafafa',
-    borderRadius: '2rem',
-    boxShadow: 24,
-    p: 4
-  }
-
-  TabTitle('Fake Social / Welcome')
 
   return (
     <>
@@ -102,7 +89,7 @@ const Welcome: React.FC = () => {
               Join Today
             </Typography>
             <Button
-              aria-label='login button'
+              aria-label='Create Account Button to sign in'
               color="primary"
               variant="contained"
               sx={{ borderRadius: '10rem', px: 10, mb: 3 }}
@@ -114,7 +101,7 @@ const Welcome: React.FC = () => {
               Already Have an Account?
             </Typography>
             <Button
-              aria-label='sign in button'
+              aria-label='Log In button to log into the app'
               color="secondary"
               variant="contained"
               sx={{ borderRadius: '10rem', px: 16, mb: 3 }}
@@ -122,13 +109,7 @@ const Welcome: React.FC = () => {
             >
               Log In
             </Button>
-            <Modal
-              open={open.show}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
+              <Modals openFun={open.show} handleClose={handleClose} size={350}>
                 {open.show && open.component === 'login'
                   ? (
                   <Login />
@@ -136,8 +117,7 @@ const Welcome: React.FC = () => {
                   : (
                   <SignIn/>
                     )}
-              </Box>
-            </Modal>
+                </Modals>
             <SwitchMode size="normal" />
           </Box>
         </Grid>

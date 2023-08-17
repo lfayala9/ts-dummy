@@ -8,8 +8,7 @@ const socket = io(API)
 const PostsList = (): JSX.Element => {
   const { token } = useAppSelector((state) => state.auth)
   const config = {
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    headers: { Authorization: `Bearer ${token}` }
+    headers: { Authorization: `Bearer ${token != null ? token : ''}` }
   }
   const [postsList, setPosts] = useState<any>([])
 

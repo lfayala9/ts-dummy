@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { Wrapper } from '../styles/components'
 import {
   Box,
@@ -7,14 +6,16 @@ import {
   Typography,
   FormHelperText,
   Tooltip,
-  Divider
+  Divider,
+  Button
 } from '@mui/material'
 import SettingsIcon from '@mui/icons-material/Settings'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
-import { PostMenu } from './Menus'
+import { PostMenu } from '../containers/MenuPosts'
 import { useAppSelector } from '../hooks/selector'
 import { useState, type MouseEvent } from 'react'
 import { deleteService } from '../services/delete'
+import Modals from '../containers/Modals'
 
 const Post = ({ post }: any): JSX.Element => {
   const { user } = useAppSelector((state) => state.auth)
@@ -29,6 +30,17 @@ const Post = ({ post }: any): JSX.Element => {
   const handleCloseMenu = (): void => {
     setAnchorEl(null)
   }
+
+  // Delete Post
+
+  const [open, setOpen] = useState(false)
+  const handleOpen = (): void => {
+    setOpen(true)
+  }
+  const handleClose = (): void => {
+    setOpen(false)
+  }
+
   return (
     <>
       <Wrapper>
@@ -56,7 +68,7 @@ const Post = ({ post }: any): JSX.Element => {
               size="small"
             >
               <Avatar sx={{ width: 32, height: 32 }}>
-                <SettingsIcon sx={{ color: 'black' }}/>
+                <SettingsIcon sx={{ color: 'black' }} />
               </Avatar>
             </IconButton>
               )
@@ -64,7 +76,7 @@ const Post = ({ post }: any): JSX.Element => {
             <Tooltip arrow title="Add/Delete Friend">
               <IconButton size="small">
                 <Avatar sx={{ width: 32, height: 32 }}>
-                  <PersonAddIcon sx={{ color: 'black' }}/>
+                  <PersonAddIcon fontSize="small" sx={{ color: 'black' }} />
                 </Avatar>
               </IconButton>
             </Tooltip>
@@ -73,7 +85,7 @@ const Post = ({ post }: any): JSX.Element => {
         <Divider />
         <Box>
           <Typography sx={{ padding: 2 }}>{post?.postContent}</Typography>
-          {(post?.picture)
+          {post?.picture != null
             ? (
             <img
               width="100%"
@@ -86,11 +98,31 @@ const Post = ({ post }: any): JSX.Element => {
       </Wrapper>
       <PostMenu
         id="post-menu"
-        deleteFun={() => { void deleteService(post._id) }}
+        handleModal={handleOpen}
         anchorElFun={anchorElMenu}
         openFun={openMenu}
         closeFun={handleCloseMenu}
       />
+      <Modals openFun={open} handleClose={handleClose} size={300}>
+        <Typography sx={{ px: 3 }} id="modal-modal-title" variant="h6" component="h2">
+          You want to delete this post?
+        </Typography>
+        <Box display="flex" justifyContent='space-around' mt={2}>
+          <Button
+            onClick={() => {
+              void deleteService(post._id)
+              void handleClose
+            }}
+            variant="contained"
+            color="error"
+          >
+            Delete
+          </Button>
+          <Button onClick={handleClose} variant="contained" color="primary">
+            Cancel
+          </Button>
+        </Box>
+      </Modals>
     </>
   )
 }

@@ -8,7 +8,7 @@ export const badSign: Error = {
 const API: string = import.meta.env.VITE_API
 
 export const registerService = async (formData: FormData): Promise<void> => {
-  await fetch(`${API}api/v1/users`, {
+  await fetch(`${API}/api/v1/users`, {
     method: 'POST',
     body: formData
   })
