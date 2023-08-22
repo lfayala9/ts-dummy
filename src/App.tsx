@@ -1,33 +1,34 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-// import Welcome from './pages/Welcome.tsx'
-// import Home from './pages/Home.tsx'
-import { useAppSelector } from './hooks/selector.ts'
-import { useEffect, lazy, Suspense } from 'react'
-import { io } from 'socket.io-client'
-
+import { useAppSelector } from './utils/hooks/selector.ts'
+import { lazy, Suspense } from 'react'
+import LoaderRing from './components/Loader.tsx'
+import NavBar from './components/NavBar.tsx'
+const Profile = lazy(async () => await import('./pages/Profile.tsx'))
 const Welcome = lazy(async () => await import('./pages/Welcome.tsx'))
 const Home = lazy(async () => await import('./pages/Home.tsx'))
-const socket = io('http://localhost:3002')
 
 const App = (): JSX.Element => {
-  useEffect(() => {
-    socket.on('connect', () => { console.log('connected') })
-  })
   const isAuth = Boolean(useAppSelector((state) => state.auth.token))
   return (
     <>
       <BrowserRouter>
-      <Suspense fallback={<h4>LOADING</h4>}>
-        <Routes>
-          <Route
-            path="/"
-            element={isAuth ? <Navigate to="/home" /> : <Welcome />}
-          />
-          <Route
-            path="/home"
-            element={isAuth ? <Home /> : <Navigate to="/" />}
-          />
-        </Routes>
+        <Suspense fallback={<LoaderRing position='absolute' top='50%' left='50%'/>}>
+      {isAuth ? <NavBar/> : null}
+          <Routes>
+            <Route
+              path="/"
+              element={isAuth ? <Navigate to="/home" /> : <Welcome />}
+            />
+            <Route
+              path="/home"
+              element={isAuth ? <Home /> : <Navigate to="/" />}
+            />
+            <Route
+              path='/profile/:userId'
+              element={isAuth ? <Profile/> : <Navigate to="/" />}
+            />
+          </Routes>
         </Suspense>
       </BrowserRouter>
     </>

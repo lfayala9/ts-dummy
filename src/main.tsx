@@ -30,8 +30,14 @@ const persistedSettingsConfig = {
 
 const store = configureStore({
   reducer: {
-    auth: persistReducer<ReturnType<typeof authReducer>>(persistedConfig, authReducer),
-    settings: persistReducer<ReturnType<typeof settingReducer>>(persistedSettingsConfig, settingReducer)
+    auth: persistReducer<ReturnType<typeof authReducer>>(
+      persistedConfig,
+      authReducer
+    ),
+    settings: persistReducer<ReturnType<typeof settingReducer>>(
+      persistedSettingsConfig,
+      settingReducer
+    )
   },
   middleware: (defaultMiddleware) =>
     defaultMiddleware({

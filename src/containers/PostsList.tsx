@@ -1,24 +1,21 @@
 import { useEffect, useState } from 'react'
 import Post from '../components/Post'
-import { useAppSelector } from '../hooks/selector'
+import { useAppSelector } from '../utils/hooks/selector'
 import type { PostType } from '../types'
 import { io } from 'socket.io-client'
+import { getPosts } from '../utils/hooks/useGetPosts'
 const API: string = import.meta.env.VITE_API
 const socket = io(API)
 const PostsList = (): JSX.Element => {
   const { token } = useAppSelector((state) => state.auth)
-  const config = {
-    headers: { Authorization: `Bearer ${token != null ? token : ''}` }
-  }
-  const [postsList, setPosts] = useState<any>([])
 
+  const [postsList, setPosts] = useState<PostType[]>([])
+  const postListData = getPosts(token)
   useEffect(() => {
-    const getPosts = async (): Promise<void> => {
-      await fetch(`${API}/api/v1/posts`, config)
-        .then(async (res) => await res.json())
-        .then((response) => { setPosts(response) })
+    const getData = async (): Promise<void> => {
+      setPosts(await postListData)
     }
-    void getPosts()
+    void getData()
   }, [])
   socket.on('new-post', (post) => {
     const newPostsList = [...postsList, post]
@@ -27,9 +24,9 @@ const PostsList = (): JSX.Element => {
 
   socket.on('deleted-post', (id: string) => {
     const handleDeletedPost = (id: string): void => {
-      const postToDelete: boolean = postsList.find((post: { _id: string }) => post._id === id)
-      if (postToDelete) {
-        const newPostsList = postsList.filter((post: { _id: string }) => post._id !== id)
+      const postToDelete = postsList.find((post) => post._id === id)
+      if (postToDelete != null) {
+        const newPostsList = postsList.filter((post) => post._id !== id)
         setPosts(newPostsList)
       }
     }

@@ -1,6 +1,5 @@
 import { CssBaseline, Grid } from '@mui/material'
-import NavBar from '../components/NavBar'
-import { TabTitle } from '../hooks/titles'
+import { TabTitle } from '../utils/hooks/titles'
 import UserCard from '../components/UserCard'
 import CreatePost from '../components/CreatePost'
 import PostsList from '../containers/PostsList'
@@ -9,7 +8,6 @@ const Home: React.FC = () => {
   TabTitle('Fake Social / Home')
   return (
     <>
-      <NavBar />
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid

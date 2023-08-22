@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 import { CustomField, Wrapper } from '../styles/components'
 import React, { useState, type MouseEvent, type ChangeEvent } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks/selector'
+import { useAppDispatch, useAppSelector } from '../utils/hooks/selector'
 import PostAddIcon from '@mui/icons-material/PostAdd'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import ImageIcon from '@mui/icons-material/Image'
@@ -16,7 +16,7 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 import { EmojiMenu } from '../containers/MenuPosts'
 import data from '@emoji-mart/data'
 import { postService } from '../services/posts'
-import { Puff } from 'react-loader-spinner'
+import LoaderRing from './Loader'
 
 const CreatePost: React.FC = () => {
   const { theme } = useAppSelector((state) => state.settings)
@@ -123,6 +123,7 @@ const CreatePost: React.FC = () => {
                 type="submit"
                 variant="contained"
                 color="primary"
+                aria-label='POST button'
               >
                 POST
               </Button>
@@ -138,18 +139,7 @@ const CreatePost: React.FC = () => {
         </form>
       </Wrapper>
       {isLoading && (
-        <div style={{ position: 'relative', left: '44%', top: '10px' }}>
-          <Puff
-            height="25"
-            width="25"
-            radius={1}
-            color="white"
-            ariaLabel="puff-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-          />
-        </div>
+        <LoaderRing position='relative' top='10px' left='44%'/>
       )}
     </>
   )

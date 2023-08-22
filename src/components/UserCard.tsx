@@ -8,11 +8,10 @@ import {
   FormHelperText,
   Typography
 } from '@mui/material'
-import { useAppSelector } from '../hooks/selector'
+import { useAppSelector } from '../utils/hooks/selector'
 
 const UserCard: React.FC = () => {
   const { user } = useAppSelector((state) => state.auth)
-  // const { theme } = useAppSelector((state) => state.settings)
 
   return (
     <>

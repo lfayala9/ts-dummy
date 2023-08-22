@@ -11,11 +11,11 @@ import {
   OutlinedInput,
   Typography
 } from '@mui/material'
-import { ColorRing } from 'react-loader-spinner'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
-import { useAppSelector, useAppDispatch } from '../hooks/selector'
+import { useAppSelector, useAppDispatch } from '../utils/hooks/selector'
 import { loginService, badLog } from '../services/login'
 import { useState } from 'react'
+import LoaderRing from './Loader'
 
 const Login: React.FC = () => {
   // Show/Hide password
@@ -108,15 +108,7 @@ const Login: React.FC = () => {
               )
             : null}
           {isLoading && (
-            <ColorRing
-              visible={true}
-              height="50"
-              width="50"
-              ariaLabel="blocks-loading"
-              wrapperStyle={{}}
-              wrapperClass="blocks-wrapper"
-              colors={['#284195', '#dfd7f4', '#130b28', '#9a36d9', '#130b28']}
-            />
+            <LoaderRing position='relative' top='50%' left='40%'/>
           )}
           <a style={{ color: '#284195' }} href="">
             Forgot your password?

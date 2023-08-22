@@ -1,4 +1,4 @@
-import { useAppSelector } from '../hooks/selector'
+import { useAppSelector } from '../utils/hooks/selector'
 import { Box, Modal } from '@mui/material'
 
 const Modals = ({ openFun, handleClose, children, size }: { openFun: boolean, handleClose: () => void, children: any, size: number }): JSX.Element => {

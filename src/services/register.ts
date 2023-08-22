@@ -24,6 +24,6 @@ export const registerService = async (formData: FormData): Promise<void> => {
       }
     })
     .catch((error) => {
-      console.log(error)
+      return error
     })
 }

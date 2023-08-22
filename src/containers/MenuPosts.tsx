@@ -10,7 +10,7 @@ export const EmojiMenu = ({
   closeFun,
   id
 }: {
-  data: any
+  data: unknown
   anchorElFun: HTMLElement | null
   openFun: boolean
   closeFun: () => void

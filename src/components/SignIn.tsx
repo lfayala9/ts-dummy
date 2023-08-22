@@ -12,12 +12,12 @@ import {
   OutlinedInput,
   Typography
 } from '@mui/material'
-import { ColorRing } from 'react-loader-spinner'
+import LoaderRing from './Loader'
 import FileUploadOutlined from '@mui/icons-material/FileUploadOutlined'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
 import { setIsLoading } from '../app-state'
 import { type ChangeEvent, useState, type FormEvent } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks/selector'
+import { useAppDispatch, useAppSelector } from '../utils/hooks/selector'
 import { registerSchema } from '../services/userValidation'
 import { badSign, registerService } from '../services/register'
 
@@ -215,15 +215,7 @@ const SignIn: React.FC = () => {
                 )
               : null}
             {isLoading && (
-              <ColorRing
-                visible={true}
-                height="50"
-                width="50"
-                ariaLabel="blocks-loading"
-                wrapperStyle={{}}
-                wrapperClass="blocks-wrapper"
-                colors={['#284195', '#dfd7f4', '#130b28', '#9a36d9', '#130b28']}
-              />
+              <LoaderRing position='relative' top='50%' left='40%'/>
             )}
           <FormHelperText id="my-helper-text" sx={{ mx: 0, mb: 2 }}>
             * Required

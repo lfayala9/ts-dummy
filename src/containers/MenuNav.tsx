@@ -8,7 +8,7 @@ import {
   Typography
 } from '@mui/material'
 import { setLogout } from '../app-state'
-import { useAppDispatch } from '../hooks/selector'
+import { useAppDispatch } from '../utils/hooks/selector'
 import SwitchMode from '../components/SwitchMode'
 
 export const MenuNav = ({

@@ -2,7 +2,7 @@ import React from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
 import StyledEngineProvider from '@mui/material/StyledEngineProvider'
-import { useAppSelector } from '../hooks/selector'
+import { useAppSelector } from '../utils/hooks/selector'
 import { createBreakpoints } from '@mui/system'
 declare module '@mui/material/styles' {
   interface TypeBackground {

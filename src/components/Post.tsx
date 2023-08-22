@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Wrapper } from '../styles/components'
 import {
   Box,
@@ -7,12 +8,13 @@ import {
   FormHelperText,
   Tooltip,
   Divider,
-  Button
+  Button,
+  Link
 } from '@mui/material'
 import SettingsIcon from '@mui/icons-material/Settings'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import { PostMenu } from '../containers/MenuPosts'
-import { useAppSelector } from '../hooks/selector'
+import { useAppSelector } from '../utils/hooks/selector'
 import { useState, type MouseEvent } from 'react'
 import { deleteService } from '../services/delete'
 import Modals from '../containers/Modals'
@@ -50,9 +52,11 @@ const Post = ({ post }: any): JSX.Element => {
               <Avatar sx={{ width: 56, height: 56 }} src={post?.userPicture} />
             </IconButton>
             <Box>
+              <Link href={`/profile/${post?.userId}`} underline='none' color='inherit' fontWeight='light'>
               <Typography fontWeight="bold" variant="h3">
                 {post?.firstName} {post?.lastName}
               </Typography>
+              </Link>
               <FormHelperText sx={{ my: 0 }}>
                 Posted 0 minutes ago
               </FormHelperText>

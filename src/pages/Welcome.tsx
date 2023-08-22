@@ -6,11 +6,11 @@ import {
   Typography
 } from '@mui/material'
 import SwitchMode from '../components/SwitchMode'
-import { useAppSelector } from '../hooks/selector'
+import { useAppSelector } from '../utils/hooks/selector'
 import { useState } from 'react'
 import Login from '../components/Login'
 import SignIn from '../components/SignIn'
-import { TabTitle } from '../hooks/titles'
+import { TabTitle } from '../utils/hooks/titles'
 import Modals from '../containers/Modals'
 
 const Welcome: React.FC = () => {
@@ -89,7 +89,7 @@ const Welcome: React.FC = () => {
               Join Today
             </Typography>
             <Button
-              aria-label='Create Account Button to sign in'
+              aria-label='Create An Account button to sign in'
               color="primary"
               variant="contained"
               sx={{ borderRadius: '10rem', px: 10, mb: 3 }}

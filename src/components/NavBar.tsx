@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 import { StyledBadge } from '../styles/components'
 import { MenuNav, NotMenu } from '../containers/MenuNav'
-import { useAppSelector } from '../hooks/selector'
+import { useAppSelector } from '../utils/hooks/selector'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople'
 import { useState, type MouseEvent } from 'react'
