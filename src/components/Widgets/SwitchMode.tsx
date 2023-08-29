@@ -1,8 +1,8 @@
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import { Button, ListItemIcon, MenuItem } from '@mui/material'
-import { setMode } from '../app-state/settings'
-import { useAppDispatch, useAppSelector } from '../utils/hooks/selector'
+import { setMode } from '../../app-state/settings'
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/selector'
 
 interface Prop {
   size: string

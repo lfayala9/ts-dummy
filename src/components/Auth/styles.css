@@ -1,0 +1,7 @@
+/* Auth Modal */
+.auth-modal{
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 1rem;
+    flex-direction: column;
+}

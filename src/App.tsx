@@ -2,8 +2,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { useAppSelector } from './utils/hooks/selector.ts'
 import { lazy, Suspense } from 'react'
-import LoaderRing from './components/Loader.tsx'
-import NavBar from './components/NavBar.tsx'
+import LoaderRing from './components/Widgets/Loader.tsx'
+import NavBar from './components/Widgets/NavBar.tsx'
 const Profile = lazy(async () => await import('./pages/Profile.tsx'))
 const Welcome = lazy(async () => await import('./pages/Welcome.tsx'))
 const Home = lazy(async () => await import('./pages/Home.tsx'))

@@ -5,7 +5,9 @@ export interface UserInfo {
   _id: string
   picture: string
 }
-
+export interface UserType {
+  data?: UserInfo | null
+}
 export interface Log {
   user: null | UserInfo
   token: null | string
@@ -38,6 +40,7 @@ export interface Error {
 
 export interface PostInfo {
   _id: string
+  userId: string
   firstName: string
   lastName: string
   userPicture: string

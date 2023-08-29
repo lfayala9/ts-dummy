@@ -1,0 +1,24 @@
+@import "../../styles/globals.css";
+/* Create Post Box */
+
+.create-postBox {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.create-postBox > .avatar-medium {
+  border: 1px solid white;
+}
+
+.buttons-container {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons-widget {
+  display: flex;
+  gap: 20px;
+}

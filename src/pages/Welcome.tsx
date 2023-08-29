@@ -5,11 +5,11 @@ import {
   Box,
   Typography
 } from '@mui/material'
-import SwitchMode from '../components/SwitchMode'
+import SwitchMode from '../components/Widgets/SwitchMode'
 import { useAppSelector } from '../utils/hooks/selector'
 import { useState } from 'react'
-import Login from '../components/Login'
-import SignIn from '../components/SignIn'
+import Login from '../components/Auth/Login'
+import SignIn from '../components/Auth/SignIn'
 import { TabTitle } from '../utils/hooks/titles'
 import Modals from '../containers/Modals'
 

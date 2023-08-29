@@ -1,22 +1,27 @@
 import { CssBaseline, Grid } from '@mui/material'
 import { TabTitle } from '../utils/hooks/titles'
-import UserCard from '../components/UserCard'
-import CreatePost from '../components/CreatePost'
-import PostsList from '../containers/PostsList'
+import UserCard from '../components/Widgets/UserCard'
+import CreatePost from '../components/Posts/CreatePost'
+import PostsList from '../components/Posts/PostsList'
+import AddUser from '../components/AddBox/AddUser'
 
 const Home: React.FC = () => {
   TabTitle('Fake Social / Home')
   return (
     <>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main" sx={{ height: '100vh', mt: 7 }}>
         <CssBaseline />
         <Grid
           item
           display={{ xs: 'none', sm: 'block' }}
-          md={3.5}
+          md={4}
+          lg={3.5}
           sx={{
             py: 3,
-            px: 2
+            px: 2,
+            '@media (max-width: 850px)': {
+              display: 'none'
+            }
           }}
         >
         <UserCard />
@@ -24,7 +29,8 @@ const Home: React.FC = () => {
         <Grid
           item
           xs={12}
-          md={5.5}
+          md={8}
+          lg={5.5}
           px={2}
         >
           <CreatePost/>
@@ -33,11 +39,16 @@ const Home: React.FC = () => {
         <Grid
           item
           display={{ xs: 'none', sm: 'block' }}
-          md={3}
+          lg={3}
+          md={0}
           sx={{
-            backgroundColor: '#999999'
+            '@media (max-width: 1100px)': {
+              display: 'none'
+            }
           }}
-        />
+        >
+          <AddUser/>
+          </Grid>
       </Grid>
     </>
   )

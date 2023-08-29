@@ -6,9 +6,9 @@ import {
   Toolbar,
   Typography
 } from '@mui/material'
-import { StyledBadge } from '../styles/components'
-import { MenuNav, NotMenu } from '../containers/MenuNav'
-import { useAppSelector } from '../utils/hooks/selector'
+import { StyledBadge } from '../../styles/components'
+import { MenuNav, NotMenu } from '../../containers/MenuNav'
+import { useAppSelector } from '../../utils/hooks/selector'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople'
 import { useState, type MouseEvent } from 'react'
@@ -51,7 +51,7 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <AppBar position="sticky" color="primary">
+      <AppBar position="fixed" color="primary">
         <Toolbar>
           <IconButton>
             <EmojiPeopleIcon sx={{ fontSize: '2.4rem' }} />
@@ -66,7 +66,7 @@ const NavBar: React.FC = () => {
               aria-haspopup="true"
               aria-expanded={openNotification ? 'true' : undefined}
             >
-              <Avatar sx={{ width: '42px', height: '42px' }}>
+              <Avatar>
                 <NotificationsIcon sx={{ color: 'black' }}/>
               </Avatar>
             </IconButton>
@@ -81,7 +81,7 @@ const NavBar: React.FC = () => {
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 variant="dot"
               >
-                <Avatar sx={{ width: '42px', height: '42px' }} src={user?.picture} />
+                <Avatar src={user?.picture} />
               </StyledBadge>
             </IconButton>
           </Stack>

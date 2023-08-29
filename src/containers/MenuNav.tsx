@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 import { setLogout } from '../app-state'
 import { useAppDispatch } from '../utils/hooks/selector'
-import SwitchMode from '../components/SwitchMode'
+import SwitchMode from '../components/Widgets/SwitchMode'
 
 export const MenuNav = ({
   anchorElFun,

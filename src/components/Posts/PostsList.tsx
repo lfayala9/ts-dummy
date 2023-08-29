@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import Post from '../components/Post'
-import { useAppSelector } from '../utils/hooks/selector'
-import type { PostType } from '../types'
+import Post from './Post'
+import { useAppSelector } from '../../utils/hooks/selector'
+import type { PostInfo, PostType } from '../../types'
 import { io } from 'socket.io-client'
-import { getPosts } from '../utils/hooks/useGetPosts'
+import { getPosts } from '../../utils/hooks/useGetPosts'
 const API: string = import.meta.env.VITE_API
 const socket = io(API)
 const PostsList = (): JSX.Element => {
@@ -36,7 +36,7 @@ const PostsList = (): JSX.Element => {
   return (
     <div>
       {postsList.map((i: PostType) => (
-        <Post post={i} key={i._id}/>
+        <Post post={i as PostInfo} key={i._id}/>
       )).reverse()}
     </div>
   )

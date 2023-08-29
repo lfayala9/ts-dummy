@@ -1,0 +1,12 @@
+.avatar-medium{
+    width: 3.5rem !important;
+    height: 3.5rem !important;
+}
+
+.user-cardCont{
+    width: 345px;
+    position: fixed;
+    margin: auto;
+    padding: 6px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 15px;
+}

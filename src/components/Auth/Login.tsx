@@ -11,11 +11,12 @@ import {
   OutlinedInput,
   Typography
 } from '@mui/material'
+import './styles.css'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
-import { useAppSelector, useAppDispatch } from '../utils/hooks/selector'
-import { loginService, badLog } from '../services/login'
+import { useAppSelector, useAppDispatch } from '../../utils/hooks/selector'
+import { loginService, badLog } from '../../services/login'
 import { useState } from 'react'
-import LoaderRing from './Loader'
+import LoaderRing from '../Widgets/Loader'
 
 const Login: React.FC = () => {
   // Show/Hide password
@@ -46,15 +47,7 @@ const Login: React.FC = () => {
   return (
     <form noValidate onSubmit={handleLogin} encType="multipart/form-data">
       <CssBaseline />
-      <Box
-        sx={{
-          my: 2,
-          mx: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
-        }}
-      >
+      <Box className="auth-modal">
         <FormControl>
           <Typography fontWeight="normal" variant="h3" sx={{ mb: 2, mx: 1 }}>
             Welcome Back!
@@ -97,7 +90,13 @@ const Login: React.FC = () => {
               We&apos;ll never share your password.
             </FormHelperText>
           </FormControl>
-          <Button aria-label='submit button' type="submit" fullWidth variant="contained" sx={{ mb: 2 }}>
+          <Button
+            aria-label="submit button"
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mb: 2 }}
+          >
             Log in
           </Button>
           {badLog.err
@@ -107,9 +106,7 @@ const Login: React.FC = () => {
             </Typography>
               )
             : null}
-          {isLoading && (
-            <LoaderRing position='relative' top='50%' left='40%'/>
-          )}
+          {isLoading && <LoaderRing position="relative" top="50%" left="40%" />}
           <a style={{ color: '#284195' }} href="">
             Forgot your password?
           </a>

@@ -8,20 +8,24 @@ import {
   FormHelperText,
   Typography
 } from '@mui/material'
-import { useAppSelector } from '../utils/hooks/selector'
+import { getUserFriends } from '../../utils/hooks/useGetFriends'
+import { useAppSelector } from '../../utils/hooks/selector'
+import { useEffect, useState } from 'react'
+import { type UserInfo } from '../../types'
 
 const UserCard: React.FC = () => {
-  const { user } = useAppSelector((state) => state.auth)
-
+  const { user, token } = useAppSelector((state) => state.auth)
+  const [friends, setFriends] = useState<UserInfo[]>()
+  const userFriendsData = getUserFriends(token, user?._id)
+  useEffect(() => {
+    const getData = async (): Promise<void> => {
+      setFriends(await userFriendsData)
+    }
+    void getData()
+  }, [])
   return (
     <>
-      <Card sx={{
-        width: 345,
-        margin: 'auto',
-        padding: '6px',
-        borderRadius: '2rem',
-        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 0px 15px;'
-      }}>
+      <Card className="user-cardCont" sx={{ borderRadius: '2rem' }}>
         <CardMedia
           component="img"
           alt="user_image"
@@ -35,7 +39,7 @@ const UserCard: React.FC = () => {
           <Typography variant="h3" component="div" mb={0}>
             {user?.firstName} {user?.lastName}
           </Typography>
-          <FormHelperText>0 friends</FormHelperText>
+          <FormHelperText>{friends?.length === 1 ? '1 Friend' : `${friends?.length != null ? friends.length : ''} Friends`}</FormHelperText>
           <Divider />
         </CardContent>
         <CardActions>

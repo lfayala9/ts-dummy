@@ -29,7 +29,6 @@ const MuiTheme: React.FC<Props> = ({ children }) => {
         xl: 1736
       }
     },
-
     typography: {
       fontFamily: [
         'Roboto',

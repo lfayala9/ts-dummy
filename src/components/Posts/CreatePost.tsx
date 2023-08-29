@@ -6,17 +6,18 @@ import {
   IconButton,
   Button
 } from '@mui/material'
-import { CustomField, Wrapper } from '../styles/components'
+import './styles.css'
+import { CustomField, Wrapper } from '../../styles/components'
 import React, { useState, type MouseEvent, type ChangeEvent } from 'react'
-import { useAppDispatch, useAppSelector } from '../utils/hooks/selector'
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/selector'
 import PostAddIcon from '@mui/icons-material/PostAdd'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import ImageIcon from '@mui/icons-material/Image'
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
-import { EmojiMenu } from '../containers/MenuPosts'
+import { EmojiMenu } from '../../containers/MenuPosts'
 import data from '@emoji-mart/data'
-import { postService } from '../services/posts'
-import LoaderRing from './Loader'
+import { postService } from '../../services/posts'
+import LoaderRing from '../Widgets/Loader'
 
 const CreatePost: React.FC = () => {
   const { theme } = useAppSelector((state) => state.settings)
@@ -66,11 +67,9 @@ const CreatePost: React.FC = () => {
     <>
       <Wrapper>
         <form noValidate onSubmit={handlePost} encType="multipart/form-data">
-          <Box
-            sx={{ display: 'flex', gap: '10px', mb: 2, alignItems: 'center' }}
-          >
-            <Avatar sx={{ width: 54, height: 54, border: '1px solid white' }}>
-              <PostAddIcon sx={{ color: 'black' }}/>
+          <Box className="create-postBox">
+            <Avatar className="avatar-medium">
+              <PostAddIcon sx={{ color: 'black' }} />
             </Avatar>
             <CustomField
               onChange={handleChange}
@@ -87,8 +86,8 @@ const CreatePost: React.FC = () => {
             />
           </Box>
           <Divider />
-          <Box mt={1} display="flex" justifyContent="space-between">
-            <Box sx={{ display: 'flex', gap: '20px' }}>
+          <Box className='buttons-container'>
+            <Box className='buttons-widget'>
               <Tooltip arrow title="Attach File">
                 <IconButton component="label">
                   <input type="file" hidden />
@@ -123,7 +122,7 @@ const CreatePost: React.FC = () => {
                 type="submit"
                 variant="contained"
                 color="primary"
-                aria-label='POST button'
+                aria-label="POST button"
               >
                 POST
               </Button>
@@ -138,9 +137,7 @@ const CreatePost: React.FC = () => {
           </Box>
         </form>
       </Wrapper>
-      {isLoading && (
-        <LoaderRing position='relative' top='10px' left='44%'/>
-      )}
+      {isLoading && <LoaderRing position="relative" top="10px" left="44%" />}
     </>
   )
 }

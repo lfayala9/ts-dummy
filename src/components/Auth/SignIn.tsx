@@ -12,14 +12,15 @@ import {
   OutlinedInput,
   Typography
 } from '@mui/material'
-import LoaderRing from './Loader'
+import './styles.css'
+import LoaderRing from '../Widgets/Loader'
 import FileUploadOutlined from '@mui/icons-material/FileUploadOutlined'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
-import { setIsLoading } from '../app-state'
+import { setIsLoading } from '../../app-state'
 import { type ChangeEvent, useState, type FormEvent } from 'react'
-import { useAppDispatch, useAppSelector } from '../utils/hooks/selector'
-import { registerSchema } from '../services/userValidation'
-import { badSign, registerService } from '../services/register'
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/selector'
+import { registerSchema } from '../../services/userValidation'
+import { badSign, registerService } from '../../services/register'
 
 const SignIn: React.FC = () => {
   // Hide/Show Password
@@ -70,24 +71,15 @@ const SignIn: React.FC = () => {
     } else {
       dispatch(setIsLoading(false))
     }
-    await registerSchema.validate(form, { abortEarly: false })
-      .catch((err) => {
-        setCurrentErrors(err.errors)
-      })
+    await registerSchema.validate(form, { abortEarly: false }).catch((err) => {
+      setCurrentErrors(err.errors)
+    })
   }
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form noValidate onSubmit={handleSubmit} encType="multipart/form-data">
       <CssBaseline />
-      <Box
-        sx={{
-          my: 2,
-          mx: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
-        }}
-      >
+      <Box className="auth-modal">
         <FormControl>
           <Grid container spacing={1}>
             <Typography fontWeight="normal" variant="h3" sx={{ mb: 2, mx: 1 }}>
@@ -197,26 +189,24 @@ const SignIn: React.FC = () => {
           </Button>
           {currentErrors.map((e) => {
             return (
-                <Typography
-                  key={e}
-                  color="error"
-                  sx={{ my: 0.5, mx: 1 }}
-                  variant="caption"
-                >
-                  {e}
-                </Typography>
+              <Typography
+                key={e}
+                color="error"
+                sx={{ my: 0.5, mx: 1 }}
+                variant="caption"
+              >
+                {e}
+              </Typography>
             )
           })}
-            {badSign.success ?? false
-              ? (
-              <Typography color="green" sx={{ my: 1 }}>
-                Account Created Successfully
-              </Typography>
-                )
-              : null}
-            {isLoading && (
-              <LoaderRing position='relative' top='50%' left='40%'/>
-            )}
+          {badSign.success ?? false
+            ? (
+            <Typography color="green" sx={{ my: 1 }}>
+              Account Created Successfully
+            </Typography>
+              )
+            : null}
+          {isLoading && <LoaderRing position="relative" top="50%" left="40%" />}
           <FormHelperText id="my-helper-text" sx={{ mx: 0, mb: 2 }}>
             * Required
           </FormHelperText>
