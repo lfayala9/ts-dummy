@@ -13,7 +13,8 @@ const Home: React.FC = () => {
         <CssBaseline />
         <Grid
           item
-          display={{ xs: 'none', sm: 'block' }}
+          display={{ xs: 'none', sm: 'flex' }}
+          justifyContent='center'
           md={4}
           lg={3.5}
           sx={{
@@ -32,18 +33,28 @@ const Home: React.FC = () => {
           md={8}
           lg={5.5}
           px={2}
+          display='flex'
+          flexDirection='column'
         >
           <CreatePost/>
           <PostsList/>
         </Grid>
         <Grid
           item
-          display={{ xs: 'none', sm: 'block' }}
+          display={{ xs: 'none', sm: 'flex' }}
+          justifyContent='center'
+          alignItems='start'
           lg={3}
           md={0}
           sx={{
             '@media (max-width: 1100px)': {
               display: 'none'
+            },
+            '@media (max-width: 1400px)': {
+              px: 1.5
+            },
+            '@media (min-width: 1920px)': {
+              pr: 8
             }
           }}
         >

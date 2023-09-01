@@ -39,7 +39,11 @@ const UserCard: React.FC = () => {
           <Typography variant="h3" component="div" mb={0}>
             {user?.firstName} {user?.lastName}
           </Typography>
-          <FormHelperText>{friends?.length === 1 ? '1 Friend' : `${friends?.length != null ? friends.length : ''} Friends`}</FormHelperText>
+          <FormHelperText>
+            {friends?.length === 1
+              ? '1 Friend'
+              : `${friends?.length != null ? friends.length : ''} Friends`}
+          </FormHelperText>
           <Divider />
         </CardContent>
         <CardActions>

@@ -61,7 +61,7 @@ const MuiTheme: React.FC<Props> = ({ children }) => {
         ].join(','),
         fontSize: 20,
         [breakpoints.up('xl')]: {
-          fontSize: 28
+          fontSize: 23
         }
       },
       h4: {
@@ -71,7 +71,7 @@ const MuiTheme: React.FC<Props> = ({ children }) => {
         ].join(','),
         fontSize: 15,
         [breakpoints.up('xl')]: {
-          fontSize: 35
+          fontSize: 20
         }
       },
       h5: {

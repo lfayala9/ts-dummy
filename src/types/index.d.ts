@@ -43,9 +43,10 @@ export interface PostInfo {
   userId: string
   firstName: string
   lastName: string
-  userPicture: string
-  picture: string
+  userPicture?: string
+  picture?: string
   postContent: string
+  createdAt?: string | number
 }
 
 export interface PostType {

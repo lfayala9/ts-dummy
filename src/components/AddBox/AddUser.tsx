@@ -1,9 +1,10 @@
 import { Box, Divider, Typography } from '@mui/material'
 import { Wrapper } from '../../styles/components'
-import FollowUser from '../Widgets/FollowUser'
+import UserStamp from '../Widgets/UserStamp'
 import { useAppSelector } from '../../utils/hooks/selector'
 import { useState, useEffect } from 'react'
 import { getUserList } from '../../utils/hooks/useGetUser'
+import './styles.css'
 import type { PostInfo, UserInfo } from '../../types'
 
 const AddUser: React.FC = () => {
@@ -16,18 +17,18 @@ const AddUser: React.FC = () => {
     }
     void getData()
   }, [])
-
+  const middleIndex = Math.floor(userList.length / 2)
   return (
     <>
-      <Wrapper>
+      <Wrapper className='addBox'>
         <Typography variant="h3" my={1}>
           New Users to Add!
         </Typography>
         <Divider />
         <Box>
           {userList.map((i: UserInfo) => (
-            <FollowUser post={i as PostInfo} isPost={false} key={i._id}/>
-          )).splice(1, 4)}
+            <UserStamp post={i as PostInfo} isPost={false} key={i._id}/>
+          )).slice(middleIndex - 1, middleIndex + 2)}
         </Box>
       </Wrapper>
     </>

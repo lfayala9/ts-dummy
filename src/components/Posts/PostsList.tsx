@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import Post from './Post'
 import { useAppSelector } from '../../utils/hooks/selector'
 import type { PostInfo, PostType } from '../../types'
-import { io } from 'socket.io-client'
 import { getPosts } from '../../utils/hooks/useGetPosts'
+import { io } from 'socket.io-client'
+
 const API: string = import.meta.env.VITE_API
 const socket = io(API)
+
 const PostsList = (): JSX.Element => {
   const { token } = useAppSelector((state) => state.auth)
 

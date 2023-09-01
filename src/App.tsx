@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { useAppSelector } from './utils/hooks/selector.ts'
 import { lazy, Suspense } from 'react'

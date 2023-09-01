@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Wrapper } from '../../styles/components'
 import {
   Box,
@@ -6,15 +5,15 @@ import {
   Divider
 } from '@mui/material'
 import './styles.css'
-import FollowUser from '../Widgets/FollowUser'
+import UserStamp from '../Widgets/UserStamp'
 import { type PostInfo } from '../../types'
 
 const Post = ({ post }: { post: PostInfo }): JSX.Element => {
   return (
     <>
-      <Wrapper>
+      <Wrapper className='mainPostBox'>
         <Box>
-          <FollowUser post={post} isPost={true}/>
+          <UserStamp post={post} isPost={true}/>
         </Box>
         <Divider />
         <Box>

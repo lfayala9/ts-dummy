@@ -65,7 +65,7 @@ const CreatePost: React.FC = () => {
 
   return (
     <>
-      <Wrapper>
+      <Wrapper className='mainPostBox'>
         <form noValidate onSubmit={handlePost} encType="multipart/form-data">
           <Box className="create-postBox">
             <Avatar className="avatar-medium">

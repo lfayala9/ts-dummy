@@ -10,3 +10,13 @@ export const getUserFriends = async (token: string | null, userId: string | unde
   const data = await response.json()
   return data
 }
+
+export const addDeleteFriends = async (token: string | null, userId: string | null, friendId: string | null): Promise<UserInfo> => {
+  const config = {
+    method: 'PATCH',
+    headers: { Authorization: `Bearer ${token != null ? token : ''}` }
+  }
+  const response = await fetch(`${API}/api/v1/users/${(userId as string)}/${friendId as string}`, config)
+  const data = await response.json()
+  return data
+}

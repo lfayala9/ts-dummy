@@ -1,6 +1,8 @@
 @import "../../styles/globals.css";
 /* Create Post Box */
-
+.mainPostBox{
+  width: 550px;
+}
 .create-postBox {
   display: flex;
   gap: 10px;
@@ -21,4 +23,10 @@
 .buttons-widget {
   display: flex;
   gap: 20px;
+}
+
+@media (min-width: 1920px) {
+  .mainPostBox {
+    width: 700px;
+  }
 }

@@ -7,15 +7,12 @@ import {
   FormControl,
   FormHelperText,
   IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
   Typography
 } from '@mui/material'
 import './styles.css'
+import { PassWordInput, TextInput } from './AuthInputs'
 import LoaderRing from '../Widgets/Loader'
 import FileUploadOutlined from '@mui/icons-material/FileUploadOutlined'
-import { VisibilityOff, Visibility } from '@mui/icons-material'
 import { setIsLoading } from '../../app-state'
 import { type ChangeEvent, useState, type FormEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/selector'
@@ -23,13 +20,6 @@ import { registerSchema } from '../../services/userValidation'
 import { badSign, registerService } from '../../services/register'
 
 const SignIn: React.FC = () => {
-  // Hide/Show Password
-  const [showPassword, setShowPassword] = useState(false)
-
-  const handleClickShowPassword = (): void => {
-    setShowPassword((show) => !show)
-  }
-
   const { isLoading } = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
 
@@ -86,66 +76,31 @@ const SignIn: React.FC = () => {
               Join the experience!
             </Typography>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <TextInput
+                changeFun={handleChange}
                 name="firstName"
                 autoComplete="given-name"
                 label="First Name"
-                autoFocus
-                required
-                fullWidth
-                onChange={handleChange}
-                value={form.firstName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
+              <TextInput
                 label="Last Name"
                 autoComplete="family-name"
                 name="lastName"
-                onChange={handleChange}
-                value={form.lastName}
+                changeFun={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="outlined-required"
+              <TextInput
                 label="E-mail"
                 name="email"
-                onChange={handleChange}
-                value={form.email}
+                changeFun={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControl sx={{ mb: 1 }} variant="outlined" fullWidth>
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Password *
-                </InputLabel>
-                <OutlinedInput
-                  name="password"
-                  onChange={handleChange}
-                  value={form.password}
-                  fullWidth
-                  required
-                  id="outlined-adornment-password"
-                  type={showPassword ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Password"
-                />
+                <PassWordInput changeFun={handleChange} />
               </FormControl>
               <FormHelperText id="my-helper-text" sx={{ mx: 0 }}>
                 Upload your profile Picture *

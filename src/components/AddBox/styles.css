@@ -1,0 +1,11 @@
+.addBox {
+  width: 300px;
+  position: fixed;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 15px;
+}
+
+@media (min-width: 1920px) {
+  .addBox {
+    width: 400px;
+  }
+}
