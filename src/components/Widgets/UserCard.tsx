@@ -12,10 +12,14 @@ import { getUserFriends } from '../../utils/hooks/useGetFriends'
 import { useAppSelector } from '../../utils/hooks/selector'
 import { useEffect, useState } from 'react'
 import { type UserInfo } from '../../types'
+import { io } from 'socket.io-client'
+
+const API: string = import.meta.env.VITE_API
+const socket = io(API)
 
 const UserCard: React.FC = () => {
   const { user, token } = useAppSelector((state) => state.auth)
-  const [friends, setFriends] = useState<UserInfo[]>()
+  const [friends, setFriends] = useState<UserInfo[]>([])
   const userFriendsData = getUserFriends(token, user?._id)
   useEffect(() => {
     const getData = async (): Promise<void> => {
@@ -23,6 +27,17 @@ const UserCard: React.FC = () => {
     }
     void getData()
   }, [])
+
+  socket.on('added-friend', (newFriend) => {
+    const newFriendList = [...friends, newFriend]
+    setFriends(newFriendList)
+  })
+
+  socket.on('deleted-friend', (oldFriend) => {
+    const newFriendList = friends.filter((friend) => friend._id !== oldFriend._id)
+    setFriends(newFriendList)
+  })
+
   return (
     <>
       <Card className="user-cardCont" sx={{ borderRadius: '2rem' }}>

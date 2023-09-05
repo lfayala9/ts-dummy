@@ -1,4 +1,4 @@
-import { PersonAdd, Settings, Logout } from '@mui/icons-material'
+import { Settings, Logout } from '@mui/icons-material'
 import {
   Avatar,
   Divider,
@@ -9,7 +9,13 @@ import {
 } from '@mui/material'
 import { setLogout } from '../app-state'
 import { useAppDispatch } from '../utils/hooks/selector'
+import { useState } from 'react'
 import SwitchMode from '../components/Widgets/SwitchMode'
+import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined'
+import { io } from 'socket.io-client'
+
+const API: string = import.meta.env.VITE_API
+const socket = io(API)
 
 export const MenuNav = ({
   anchorElFun,
@@ -66,12 +72,6 @@ export const MenuNav = ({
       <SwitchMode size="small" />
       <MenuItem onClick={closeFun}>
         <ListItemIcon>
-          <PersonAdd fontSize="small" />
-        </ListItemIcon>
-        Add another account
-      </MenuItem>
-      <MenuItem onClick={closeFun}>
-        <ListItemIcon>
           <Settings fontSize="small" />
         </ListItemIcon>
         Settings
@@ -97,12 +97,29 @@ export const NotMenu = ({
   closeFun: () => void
   id: string
 }): JSX.Element => {
+  const defaultValue = {
+    firstName: '',
+    lastName: ''
+  }
+  const [isFriend, setIsFriend] = useState(false)
+  const [friendValue, setFriendValue] = useState(defaultValue)
+  socket.on('added-friend', (friend) => {
+    const newValue = {
+      firstName: friend.firstName,
+      lastName: friend.lastName
+    }
+    setIsFriend(true)
+    setFriendValue(newValue)
+  })
   return (
     <Menu
       anchorEl={anchorElFun}
       id={id}
       open={openFun}
-      onClose={closeFun}
+      onClose={() => {
+        closeFun()
+        setIsFriend(false)
+      }}
       PaperProps={{
         elevation: 0,
         sx: {
@@ -132,9 +149,20 @@ export const NotMenu = ({
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
-      <Typography mx={2} fontSize="15px" fontWeight="light">
-        Nothing here yet
-      </Typography>
+      {isFriend
+        ? (
+          <MenuItem onClick={closeFun}>
+          <ListItemIcon>
+            <AddReactionOutlinedIcon fontSize="small" />
+          </ListItemIcon>
+          {friendValue.firstName} {friendValue.lastName} is your new Friend
+        </MenuItem>
+          )
+        : (
+        <Typography mx={2} fontSize="15px" fontWeight="light">
+          Nothing here yet
+        </Typography>
+          )}
     </Menu>
   )
 }

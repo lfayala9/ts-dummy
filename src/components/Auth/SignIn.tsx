@@ -45,7 +45,7 @@ const SignIn: React.FC = () => {
     }
   }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault()
+    e?.preventDefault()
     dispatch(setIsLoading(true))
     const formData = new FormData()
     for (const [key, value] of Object.entries(form)) {
@@ -66,8 +66,7 @@ const SignIn: React.FC = () => {
     })
   }
   return (
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <form noValidate onSubmit={handleSubmit} encType="multipart/form-data">
+    <form noValidate onSubmit={(e) => { void handleSubmit(e) }} encType="multipart/form-data">
       <CssBaseline />
       <Box className="auth-modal">
         <FormControl>

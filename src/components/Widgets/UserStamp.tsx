@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import {
   Box,
   IconButton,
@@ -14,6 +13,7 @@ import { useAppSelector } from '../../utils/hooks/selector'
 import { type UserInfo, type PostInfo } from '../../types'
 import { SettingsButton } from './UserStampModal'
 import { useState, useEffect } from 'react'
+import { type Id, ToastContainer, toast } from 'react-toastify'
 import {
   getUserFriends,
   addDeleteFriends
@@ -47,22 +47,37 @@ const UserStamp = ({
 
   // Add/Delete friends Function
 
+  const notify = (): Id => {
+    return isFriend
+      ? toast.error('Friend deleted!')
+      : toast.success('Friend added succesfuly!')
+  }
   const handleClick = async (): Promise<void> => {
     isPost
-      ? await addDeleteFriends(token, user?._id != null ? user._id : '', post.userId)
-      : await addDeleteFriends(token, user?._id != null ? user._id : '', post._id)
+      ? await addDeleteFriends(
+        token,
+        user?._id != null ? user._id : '',
+        post.userId
+      )
+      : await addDeleteFriends(
+        token,
+        user?._id != null ? user._id : '',
+        post._id
+      )
+    notify()
   }
 
   // Check friends
-  socket.on('added-friend', (friendId: string) => {
-    if (friendId === post.userId || friendId === post._id) {
+  socket.on('added-friend', (friend) => {
+    if (friend._id === post.userId || friend._id === post._id) {
       setIsFriend(true)
     }
   })
-  socket.on('deleted-friend', (friendId: string) => {
-    if (friendId === post.userId || friendId === post._id) {
+  socket.on('deleted-friend', (friend) => {
+    if (friend._id === post.userId || friend._id === post._id) {
       setIsFriend(false)
     }
+    console.log('deleted')
   })
   const isFriendRefresh = friends?.find((friend) =>
     isPost ? friend._id === post.userId : friend._id === post._id
@@ -114,16 +129,20 @@ const UserStamp = ({
                 : null
             )
           : (
-          <Tooltip
-            arrow
-            title={isFriend ? 'Delete Friend' : 'Add Friend'}
-          >
-            <IconButton size="small" onClick={handleClick}>
+          <Tooltip arrow title={isFriend ? 'Delete Friend' : 'Add Friend'}>
+            <IconButton
+              size="small"
+              onClick={() => {
+                void handleClick()
+              }}
+            >
               <Avatar
                 sx={{
-                  backgroundColor: isFriend || isFriendRefresh != null ? '#32CD32' : 'grey',
+                  backgroundColor:
+                    isFriend || isFriendRefresh != null ? '#32CD32' : 'grey',
                   '&:hover': {
-                    backgroundColor: isFriend || isFriendRefresh != null ? 'red' : '#32CD32'
+                    backgroundColor:
+                      isFriend || isFriendRefresh != null ? 'red' : '#32CD32'
                   }
                 }}
               >
@@ -139,6 +158,18 @@ const UserStamp = ({
           </Tooltip>
             )}
       </Box>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </>
   )
 }

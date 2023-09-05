@@ -22,6 +22,8 @@ import LoaderRing from '../Widgets/Loader'
 const CreatePost: React.FC = () => {
   const { theme } = useAppSelector((state) => state.settings)
   const { user, token, isLoading } = useAppSelector((state) => state.auth)
+  const [clear, setClear] = useState<string>()
+  const [isPicture, setIsPicture] = useState(false)
   // Posts service
 
   const defaultValue = {
@@ -36,6 +38,7 @@ const CreatePost: React.FC = () => {
     if (e.target.name === 'picture') {
       const file = e.target.files != null ? e.target.files[0] : null
       setForm({ ...form, [e.target.name]: file })
+      setIsPicture(true)
     } else {
       setForm({ ...form, [e.target.name]: e.target.value })
     }
@@ -75,6 +78,7 @@ const CreatePost: React.FC = () => {
               onChange={handleChange}
               name="postContent"
               fullWidth
+              value={clear}
               id="filled-multiline-static"
               multiline
               placeholder="What are you thinking...?"
@@ -103,7 +107,7 @@ const CreatePost: React.FC = () => {
                     accept="image/*"
                     hidden
                   />
-                  <ImageIcon />
+                  <ImageIcon color={isPicture ? 'primary' : 'inherit'}/>
                 </IconButton>
               </Tooltip>
               <Tooltip arrow title="Select Emoji">
@@ -121,6 +125,10 @@ const CreatePost: React.FC = () => {
               <Button
                 type="submit"
                 variant="contained"
+                onClick={() => {
+                  setClear('')
+                  setIsPicture(false)
+                }}
                 color="primary"
                 aria-label="POST button"
               >
