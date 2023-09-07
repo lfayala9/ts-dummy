@@ -26,13 +26,13 @@
   gap: 20px;
 }
 
-@media (min-width: 1920px) {
+/* @media (min-width: 1920px) {
   .mainPostBox {
     width: 700px;
   }
-}
+} */
 @media (min-width: 1200px) {
   .mainPostBox {
-    min-width: 554px;
+    width: 554px;
   }
 }

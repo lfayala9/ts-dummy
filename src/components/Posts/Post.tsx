@@ -19,9 +19,13 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
             ? (
             <img
               loading="lazy"
-              width="100%"
+              width="506px"
               src={post.picture}
-              style={{ borderRadius: '1rem' }}
+              style={{
+                borderRadius: '1rem',
+                maxWidth: '100%',
+                maxHeight: 'auto'
+              }}
             />
               )
             : null}
