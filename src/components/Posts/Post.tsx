@@ -20,6 +20,7 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
             <img
               loading="lazy"
               width="506px"
+              height='auto'
               src={post.picture}
               style={{
                 borderRadius: '1rem',
