@@ -3,7 +3,6 @@ import { Box, Typography, Divider } from '@mui/material'
 import './styles.css'
 import UserStamp from '../Widgets/UserStamp'
 import { type PostInfo } from '../../types'
-// import { Image } from 'mui-image'
 
 const Post = ({ post }: { post: PostInfo }): JSX.Element => {
   return (
@@ -18,7 +17,7 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
           {post?.picture != null
             ? (
             <img
-              loading="lazy"
+              alt='post_image'
               width="506px"
               height='auto'
               src={post.picture}

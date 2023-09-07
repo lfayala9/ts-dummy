@@ -1,9 +1,14 @@
+import { lazy, Suspense } from 'react'
 import { CssBaseline, Grid } from '@mui/material'
 import { TabTitle } from '../utils/hooks/titles'
 import UserCard from '../components/Widgets/UserCard'
 import CreatePost from '../components/Posts/CreatePost'
-import PostsList from '../components/Posts/PostsList'
+// import PostsList from '../components/Posts/PostsList'
 import AddUser from '../components/AddBox/AddUser'
+import LoaderRing from '../components/Widgets/Loader'
+const PostsList = lazy(
+  async () => await import('../components/Posts/PostsList')
+)
 
 const Home: React.FC = () => {
   TabTitle('Fake Social / Home')
@@ -14,7 +19,7 @@ const Home: React.FC = () => {
         <Grid
           item
           display={{ xs: 'none', sm: 'flex' }}
-          justifyContent='end'
+          justifyContent="end"
           md={4}
           lg={3.5}
           sx={{
@@ -25,7 +30,7 @@ const Home: React.FC = () => {
             }
           }}
         >
-        <UserCard />
+          <UserCard />
         </Grid>
         <Grid
           item
@@ -33,18 +38,22 @@ const Home: React.FC = () => {
           md={8}
           lg={5.5}
           px={2}
-          display='flex'
-          flexDirection='column'
-          alignItems='center'
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
         >
-          <CreatePost/>
-          <PostsList/>
+          <CreatePost />
+          <Suspense
+            fallback={<LoaderRing position="absolute" top="50%" left="50%" />}
+          >
+            <PostsList />
+          </Suspense>
         </Grid>
         <Grid
           item
           display={{ xs: 'none', sm: 'flex' }}
-          justifyContent='start'
-          alignItems='start'
+          justifyContent="start"
+          alignItems="start"
           lg={3}
           md={0}
           sx={{
@@ -59,8 +68,8 @@ const Home: React.FC = () => {
             }
           }}
         >
-          <AddUser/>
-          </Grid>
+          <AddUser />
+        </Grid>
       </Grid>
     </>
   )
