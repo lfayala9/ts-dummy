@@ -8,13 +8,15 @@ export const EmojiMenu = ({
   anchorElFun,
   openFun,
   closeFun,
-  id
+  id,
+  selectFun
 }: {
   data: unknown
   anchorElFun: HTMLElement | null
   openFun: boolean
   closeFun: () => void
   id: string
+  selectFun?: any
 }): JSX.Element => {
   return (
       <Menu
@@ -25,7 +27,7 @@ export const EmojiMenu = ({
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Picker data={data} />
+        <Picker onEmojiSelect={selectFun} data={data} />
       </Menu>
   )
 }

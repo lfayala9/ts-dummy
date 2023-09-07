@@ -89,6 +89,7 @@ const UserStamp = ({
           <IconButton>
             <Avatar
               className="avatar-medium"
+              alt='user_image'
               src={isPost ? post?.userPicture : post?.picture}
             />
           </IconButton>

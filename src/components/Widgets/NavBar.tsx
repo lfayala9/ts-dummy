@@ -5,7 +5,8 @@ import {
   Badge,
   Stack,
   Toolbar,
-  Typography
+  Typography,
+  Link
 } from '@mui/material'
 import { MenuNav, NotMenu } from '../../containers/MenuNav'
 import { useAppSelector } from '../../utils/hooks/selector'
@@ -60,10 +61,12 @@ const NavBar: React.FC = () => {
     <>
       <AppBar position="fixed" color="primary">
         <Toolbar>
-          <IconButton>
-            <EmojiPeopleIcon sx={{ fontSize: '2.4rem' }} />
-          </IconButton>
-          <Typography fontWeight="bold" variant="h3" sx={gradient} flexGrow={1}>
+          <Link href={'/home'}>
+            <IconButton>
+              <EmojiPeopleIcon sx={{ fontSize: '2.4rem' }} />
+            </IconButton>
+          </Link>
+          <Typography className='titleNav' fontWeight="bold" variant="h3" sx={gradient} flexGrow={1}>
             FakeSocial
           </Typography>
           <Stack direction="row" spacing={2}>
@@ -91,7 +94,7 @@ const NavBar: React.FC = () => {
               aria-expanded={openMenu ? 'true' : undefined}
             >
               <Badge
-              color='success'
+                color="success"
                 overlap="circular"
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 variant="dot"

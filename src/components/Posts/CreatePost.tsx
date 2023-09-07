@@ -22,7 +22,6 @@ import LoaderRing from '../Widgets/Loader'
 const CreatePost: React.FC = () => {
   const { theme } = useAppSelector((state) => state.settings)
   const { user, token, isLoading } = useAppSelector((state) => state.auth)
-  const [clear, setClear] = useState<string>()
   const [isPicture, setIsPicture] = useState(false)
   // Posts service
 
@@ -78,7 +77,6 @@ const CreatePost: React.FC = () => {
               onChange={handleChange}
               name="postContent"
               fullWidth
-              value={clear}
               id="filled-multiline-static"
               multiline
               placeholder="What are you thinking...?"
@@ -126,7 +124,6 @@ const CreatePost: React.FC = () => {
                 type="submit"
                 variant="contained"
                 onClick={() => {
-                  setClear('')
                   setIsPicture(false)
                 }}
                 color="primary"

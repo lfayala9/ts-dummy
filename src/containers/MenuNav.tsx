@@ -5,10 +5,11 @@ import {
   ListItemIcon,
   Menu,
   MenuItem,
-  Typography
+  Typography,
+  Link
 } from '@mui/material'
 import { setLogout } from '../app-state'
-import { useAppDispatch } from '../utils/hooks/selector'
+import { useAppDispatch, useAppSelector } from '../utils/hooks/selector'
 import { useState } from 'react'
 import SwitchMode from '../components/Widgets/SwitchMode'
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined'
@@ -29,6 +30,7 @@ export const MenuNav = ({
   id: string
 }): JSX.Element => {
   const dispatch = useAppDispatch()
+  const { user } = useAppSelector((state) => state.auth)
 
   return (
     <Menu
@@ -65,9 +67,16 @@ export const MenuNav = ({
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
-      <MenuItem onClick={closeFun}>
-        <Avatar /> Profile
-      </MenuItem>
+      <Link
+        href={`/profile/${user?._id != null ? user._id : ''}`}
+        underline="none"
+        color="inherit"
+        fontWeight="light"
+      >
+        <MenuItem onClick={closeFun}>
+          <Avatar /> Profile
+        </MenuItem>
+      </Link>
       <Divider />
       <SwitchMode size="small" />
       <MenuItem onClick={closeFun}>
@@ -151,7 +160,7 @@ export const NotMenu = ({
     >
       {isFriend
         ? (
-          <MenuItem onClick={closeFun}>
+        <MenuItem onClick={closeFun}>
           <ListItemIcon>
             <AddReactionOutlinedIcon fontSize="small" />
           </ListItemIcon>
