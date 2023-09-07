@@ -3,6 +3,12 @@
 .mainPostBox{
   width: 100%;
 }
+.post-image{
+  width: 506px;
+  min-height: 338px;
+  max-height: 660px;
+  border-radius: 1rem;
+}
 .create-postBox {
   display: flex;
   gap: 10px;

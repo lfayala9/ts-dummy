@@ -99,7 +99,9 @@ const NavBar: React.FC = () => {
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 variant="dot"
               >
-                <Avatar src={user?.picture} />
+                <Avatar>
+                  <img src={user?.picture} width={'45px'} height={'45px'}/>
+                </Avatar>
               </Badge>
             </IconButton>
           </Stack>

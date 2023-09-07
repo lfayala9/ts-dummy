@@ -142,7 +142,7 @@ const CreatePost: React.FC = () => {
           </Box>
         </form>
       </Wrapper>
-      {isLoading && <LoaderRing position="relative" top="10px" left="44%" />}
+      {isLoading && <LoaderRing position="relative" top="10px" left="10%" />}
     </>
   )
 }

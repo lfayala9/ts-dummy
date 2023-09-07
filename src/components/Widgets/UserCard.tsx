@@ -44,6 +44,7 @@ const UserCard: React.FC = () => {
         <CardMedia
           component="img"
           alt="user_image"
+          width='300'
           height="140"
           image={user?.picture}
           sx={{
