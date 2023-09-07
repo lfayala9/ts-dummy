@@ -1,15 +1,15 @@
 import { lazy, Suspense } from 'react'
 import { CssBaseline, Grid } from '@mui/material'
 import { TabTitle } from '../utils/hooks/titles'
-import UserCard from '../components/Widgets/UserCard'
 import CreatePost from '../components/Posts/CreatePost'
-// import PostsList from '../components/Posts/PostsList'
-import AddUser from '../components/AddBox/AddUser'
 import LoaderRing from '../components/Widgets/Loader'
 const PostsList = lazy(
   async () => await import('../components/Posts/PostsList')
 )
-
+const AddUser = lazy(async () => await import('../components/AddBox/AddUser'))
+const UserCard = lazy(
+  async () => await import('../components/Widgets/UserCard')
+)
 const Home: React.FC = () => {
   TabTitle('Fake Social / Home')
   return (
@@ -30,7 +30,11 @@ const Home: React.FC = () => {
             }
           }}
         >
-          <UserCard />
+          <Suspense
+            fallback={<LoaderRing position="relative" top="10%" left="-30%" />}
+          >
+            <UserCard />
+          </Suspense>
         </Grid>
         <Grid
           item
@@ -68,7 +72,11 @@ const Home: React.FC = () => {
             }
           }}
         >
-          <AddUser />
+          <Suspense
+            fallback={<LoaderRing position="relative" top="10%" left="30%" />}
+          >
+            <AddUser />
+          </Suspense>
         </Grid>
       </Grid>
     </>
