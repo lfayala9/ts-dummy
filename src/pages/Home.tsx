@@ -14,7 +14,7 @@ const Home: React.FC = () => {
         <Grid
           item
           display={{ xs: 'none', sm: 'flex' }}
-          justifyContent='center'
+          justifyContent='end'
           md={4}
           lg={3.5}
           sx={{
@@ -35,6 +35,7 @@ const Home: React.FC = () => {
           px={2}
           display='flex'
           flexDirection='column'
+          alignItems='center'
         >
           <CreatePost/>
           <PostsList/>
@@ -42,7 +43,7 @@ const Home: React.FC = () => {
         <Grid
           item
           display={{ xs: 'none', sm: 'flex' }}
-          justifyContent='center'
+          justifyContent='start'
           alignItems='start'
           lg={3}
           md={0}
