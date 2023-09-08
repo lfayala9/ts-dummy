@@ -3,8 +3,8 @@ import { Box, Typography, Divider } from '@mui/material'
 import './styles.css'
 import UserStamp from '../Widgets/UserStamp'
 import { type PostInfo } from '../../types'
-import { Image } from 'mui-image'
-import LoaderRing from '../Widgets/Loader'
+// import { Image } from 'mui-image'
+// import LoaderRing from '../Widgets/Loader'
 
 const Post = ({ post }: { post: PostInfo }): JSX.Element => {
   return (
@@ -18,11 +18,12 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
           <Typography sx={{ padding: 2 }}>{post?.postContent}</Typography>
           {post?.picture != null
             ? (
-            <Image
+            <img
               alt='post_image'
               src={post.picture}
               className='post-image'
-              showLoading={<LoaderRing position="relative" top="50%" left="0%" />}
+              loading='eager'
+              // showLoading={<LoaderRing position="relative" top="50%" left="0%" />}
             />
               )
             : null}
