@@ -22,7 +22,7 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
               alt='post_image'
               src={post.picture}
               className='post-image'
-              loading='eager'
+              loading='lazy'
               // showLoading={<LoaderRing position="relative" top="50%" left="0%" />}
             />
               )
