@@ -87,9 +87,7 @@ const UserStamp = ({
       <Box display="flex" justifyContent="space-between">
         <Box display="flex" alignItems="center">
           <IconButton>
-            <Avatar className="avatar-medium" alt="user_image">
-              <img src={isPost ? post?.userPicture : post?.picture} width={'56px'} height={'56px'}/>
-            </Avatar>
+              <img className='stamp-image' src={isPost ? post?.userPicture : post?.picture}/>
           </IconButton>
           <Box>
             <Link

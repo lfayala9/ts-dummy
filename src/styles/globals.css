@@ -14,3 +14,10 @@
 .titleNav{
     cursor: pointer;
 }
+
+.stamp-image{
+    object-fit: cover;
+    width: 56px;
+    height: 56px;
+    border-radius: 100px;
+}

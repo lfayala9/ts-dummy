@@ -17,7 +17,7 @@ const PostImage = ({ src }: { src: string }): JSX.Element => {
       <Box
         onClick={handleOpen}
       >
-        <img alt="post-image" className="post-image" src={src} />
+        <img alt="post-image" className="post-image" src={src} loading='lazy'/>
       </Box>
       <Modals openFun={open} handleClose={handleClose} size={500}>
         <img alt="post-image" className="modal-image" src={src}/>
