@@ -8,5 +8,6 @@ export const getPosts = async (token: string | null): Promise<PostType[]> => {
   }
   const response = await fetch(`${API}/api/v1/posts`, config)
   const data = await response.json()
+  console.log('s')
   return data
 }

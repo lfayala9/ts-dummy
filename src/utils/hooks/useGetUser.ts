@@ -17,5 +17,6 @@ export const getUserList = async (token: string | null): Promise<UserInfo[]> => 
   }
   const response = await fetch(`${API}/api/v1/users`, config)
   const data = await response.json()
+  console.log('p')
   return data
 }

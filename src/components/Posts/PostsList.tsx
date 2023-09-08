@@ -1,44 +1,33 @@
-import { useEffect, useState } from 'react'
-import Post from './Post'
-import { useAppSelector } from '../../utils/hooks/selector'
+import { useEffect, useState, lazy } from 'react'
 import type { PostInfo, PostType } from '../../types'
 import { getPosts } from '../../utils/hooks/useGetPosts'
 import { io } from 'socket.io-client'
-
+const Post = lazy(async () => await import('./Post'))
 const API: string = import.meta.env.VITE_API
 const socket = io(API)
 
-const PostsList = (): JSX.Element => {
-  const { token } = useAppSelector((state) => state.auth)
-
+const PostsList = ({ token }: { token: string | null }): JSX.Element => {
   const [postsList, setPosts] = useState<PostType[]>([])
-  const postListData = getPosts(token)
   useEffect(() => {
+    const postListData = getPosts(token)
     const getData = async (): Promise<void> => {
       setPosts(await postListData)
     }
     void getData()
-  }, [])
+  }, [token])
   socket.on('new-post', (post) => {
     const newPostsList = [...postsList, post]
     setPosts(newPostsList)
   })
 
   socket.on('deleted-post', (id: string) => {
-    const handleDeletedPost = (id: string): void => {
-      const postToDelete = postsList.find((post) => post._id === id)
-      if (postToDelete != null) {
-        const newPostsList = postsList.filter((post) => post._id !== id)
-        setPosts(newPostsList)
-      }
-    }
-    handleDeletedPost(id)
+    setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id))
   })
 
   return (
     <div>
       {postsList.map((i: PostType) => (
-        <Post post={i as PostInfo} key={i._id}/>
+        <Post post={i as PostInfo} key={i._id} />
       )).reverse()}
     </div>
   )

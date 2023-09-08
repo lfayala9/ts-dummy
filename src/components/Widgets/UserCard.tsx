@@ -20,8 +20,8 @@ const socket = io(API)
 const UserCard: React.FC = () => {
   const { user, token } = useAppSelector((state) => state.auth)
   const [friends, setFriends] = useState<UserInfo[]>([])
-  const userFriendsData = getUserFriends(token, user?._id)
   useEffect(() => {
+    const userFriendsData = getUserFriends(token, user?._id)
     const getData = async (): Promise<void> => {
       setFriends(await userFriendsData)
     }

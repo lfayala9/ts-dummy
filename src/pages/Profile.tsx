@@ -11,8 +11,8 @@ const Profile: React.FC = () => {
   const { userId } = useParams()
   const [user, setUser] = useState<UserInfo>()
 
-  const userData = getUser(token, userId)
   useEffect(() => {
+    const userData = getUser(token, userId)
     const getData = async (): Promise<void> => {
       setUser(await userData)
     }

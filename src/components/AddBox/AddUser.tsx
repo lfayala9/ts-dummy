@@ -11,8 +11,8 @@ const UserStamp = lazy(async () => await import('../Widgets/UserStamp'))
 const AddUser: React.FC = () => {
   const { token } = useAppSelector((state) => state.auth)
   const [userList, setUserList] = useState<UserInfo[]>([])
-  const userListData = getUserList(token)
   useEffect(() => {
+    const userListData = getUserList(token)
     const getData = async (): Promise<void> => {
       setUserList(await userListData)
     }

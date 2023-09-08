@@ -33,12 +33,12 @@ const UserStamp = ({
   const { user, token } = useAppSelector((state) => state.auth)
   const [friends, setFriends] = useState<UserInfo[]>()
   const [isFriend, setIsFriend] = useState(false)
-  const userFriendsData = getUserFriends(token, user?._id)
   const date = new Date(post.createdAt as string)
 
   // Get the user Data
 
   useEffect(() => {
+    const userFriendsData = getUserFriends(token, user?._id)
     const getData = async (): Promise<void> => {
       setFriends(await userFriendsData)
     }

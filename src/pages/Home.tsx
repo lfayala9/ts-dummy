@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { CssBaseline, Grid } from '@mui/material'
 import { TabTitle } from '../utils/hooks/titles'
+import { useAppSelector } from '../utils/hooks/selector'
 import CreatePost from '../components/Posts/CreatePost'
 import LoaderRing from '../components/Widgets/Loader'
 const PostsList = lazy(
@@ -12,6 +13,7 @@ const UserCard = lazy(
 )
 const Home: React.FC = () => {
   TabTitle('Fake Social / Home')
+  const { token } = useAppSelector((state) => state.auth)
   return (
     <>
       <Grid container component="main" sx={{ height: '100vh', mt: 7 }}>
@@ -50,7 +52,7 @@ const Home: React.FC = () => {
           <Suspense
             fallback={<LoaderRing position="absolute" top="50%" left="50%" />}
           >
-            <PostsList />
+            <PostsList token={token} />
           </Suspense>
         </Grid>
         <Grid
