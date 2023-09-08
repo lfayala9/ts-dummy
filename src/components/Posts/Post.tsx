@@ -1,10 +1,10 @@
 import { Wrapper } from '../../styles/components'
 import { Box, Typography, Divider } from '@mui/material'
 import './styles.css'
-import UserStamp from '../Widgets/UserStamp'
 import { type PostInfo } from '../../types'
-// import { Image } from 'mui-image'
-// import LoaderRing from '../Widgets/Loader'
+import { lazy, Suspense } from 'react'
+const PostImage = lazy(async () => await import('./PostImage'))
+const UserStamp = lazy(async () => await import('../Widgets/UserStamp'))
 
 const Post = ({ post }: { post: PostInfo }): JSX.Element => {
   return (
@@ -18,13 +18,9 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
           <Typography sx={{ padding: 2 }}>{post?.postContent}</Typography>
           {post?.picture != null
             ? (
-            <img
-              alt='post_image'
-              src={post.picture}
-              className='post-image'
-              loading='lazy'
-              // showLoading={<LoaderRing position="relative" top="50%" left="0%" />}
-            />
+              <Suspense fallback={<PostImage src={'/shrek.webp'} />}>
+                <PostImage src={post.picture} />
+              </Suspense>
               )
             : null}
         </Box>
