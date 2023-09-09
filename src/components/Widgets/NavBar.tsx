@@ -100,7 +100,7 @@ const NavBar: React.FC = () => {
                 variant="dot"
               >
                 <Avatar>
-                  <img src={user?.picture} width={'45px'} height={'45px'}/>
+                  <img alt='profile-pic' src={user?.picture} width={'45px'} height={'45px'}/>
                 </Avatar>
               </Badge>
             </IconButton>

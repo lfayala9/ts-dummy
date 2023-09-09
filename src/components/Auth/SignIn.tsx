@@ -68,8 +68,8 @@ const SignIn: React.FC = () => {
   return (
     <form noValidate onSubmit={(e) => { void handleSubmit(e) }} encType="multipart/form-data">
       <CssBaseline />
-      <Box className="auth-modal">
-        <FormControl>
+      <Box className='auth-modal'>
+        <FormControl sx={{ width: '99%' }}>
           <Grid container spacing={1}>
             <Typography fontWeight="normal" variant="h3" sx={{ mb: 2, mx: 1 }}>
               Join the experience!

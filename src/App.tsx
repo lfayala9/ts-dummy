@@ -13,8 +13,10 @@ const App = (): JSX.Element => {
   return (
     <>
       <BrowserRouter>
-        <Suspense fallback={<LoaderRing position='absolute' top='50%' left='50%'/>}>
-      {isAuth ? <NavBar/> : null}
+      {isAuth ? <NavBar /> : null}
+        <Suspense
+          fallback={<LoaderRing position="absolute" top="50%" left="50%" />}
+        >
           <Routes>
             <Route
               path="/"
@@ -25,8 +27,8 @@ const App = (): JSX.Element => {
               element={isAuth ? <Home /> : <Navigate to="/" />}
             />
             <Route
-              path='/profile/:userId'
-              element={isAuth ? <Profile/> : <Navigate to="/" />}
+              path="/profile/:userId"
+              element={isAuth ? <Profile /> : <Navigate to="/" />}
             />
           </Routes>
         </Suspense>

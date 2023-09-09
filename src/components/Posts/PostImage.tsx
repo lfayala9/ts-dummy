@@ -14,12 +14,10 @@ const PostImage = ({ src }: { src: string }): JSX.Element => {
 
   return (
     <>
-      <Box
-        onClick={handleOpen}
-      >
-        <img alt="post-image" className="post-image" src={src} loading='lazy'/>
+      <Box>
+        <img onClick={handleOpen} alt="post-image" className="post-image" src={src} loading='lazy'/>
       </Box>
-      <Modals openFun={open} handleClose={handleClose} size={500}>
+      <Modals openFun={open} handleClose={handleClose} size={350}>
         <img alt="post-image" className="modal-image" src={src}/>
       </Modals>
     </>

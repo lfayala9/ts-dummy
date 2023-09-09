@@ -87,7 +87,7 @@ const UserStamp = ({
       <Box display="flex" justifyContent="space-between">
         <Box display="flex" alignItems="center">
           <IconButton>
-              <img className='stamp-image' src={isPost ? post?.userPicture : post?.picture}/>
+              <img alt='profile-pic' className='stamp-image' src={isPost ? post?.userPicture : post?.picture}/>
           </IconButton>
           <Box>
             <Link

@@ -5,8 +5,8 @@ const Modals = ({ openFun, handleClose, children, size }: { openFun: boolean, ha
   const { theme } = useAppSelector((state) => state.settings)
 
   const style = {
-    backdropFilter: 'blur(0px) saturate(180%)',
-    WebkitBackdropFilter: 'blur(0px) saturate(180%)',
+    backdropFilter: 'blur(12px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(12px) saturate(180%)',
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
@@ -16,7 +16,7 @@ const Modals = ({ openFun, handleClose, children, size }: { openFun: boolean, ha
     border: theme === 'light' ? '1px solid #000' : '1px solid #fafafa',
     borderRadius: '2rem',
     boxShadow: 24,
-    px: 2,
+    px: 1,
     py: 4
   }
   return (
