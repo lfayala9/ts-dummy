@@ -13,6 +13,7 @@ import { Provider } from 'react-redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react'
+import { HelmetProvider } from 'react-helmet-async'
 import './styles/main.css'
 
 const persistedConfig = {
@@ -61,7 +62,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <MuiTheme>
-          <App />
+          <HelmetProvider>
+            <App />
+          </HelmetProvider>
         </MuiTheme>
       </PersistGate>
     </Provider>

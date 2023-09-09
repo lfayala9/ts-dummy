@@ -1,21 +1,13 @@
-import {
-  CssBaseline,
-  Grid,
-  Button,
-  Box,
-  Typography
-} from '@mui/material'
+import { CssBaseline, Grid, Button, Box, Typography } from '@mui/material'
 import SwitchMode from '../components/Widgets/SwitchMode'
 import { useAppSelector } from '../utils/hooks/selector'
 import { useState } from 'react'
 import Login from '../components/Auth/Login'
 import SignIn from '../components/Auth/SignIn'
-import { TabTitle } from '../utils/hooks/titles'
 import Modals from '../containers/Modals'
+import { Helmet } from 'react-helmet-async'
 
 const Welcome: React.FC = () => {
-  TabTitle('Fake Social / Welcome')
-
   const [open, setOpen] = useState({ show: false, component: '' })
   const handleOpenLogin = (): void => {
     setOpen({ show: true, component: 'login' })
@@ -31,6 +23,10 @@ const Welcome: React.FC = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Fake Social | Welcome</title>
+        <meta name="description" content="Welcome Page" />
+      </Helmet>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -89,7 +85,7 @@ const Welcome: React.FC = () => {
               Join Today
             </Typography>
             <Button
-              aria-label='Create An Account button to sign in'
+              aria-label="Create An Account button to sign in"
               color="primary"
               variant="contained"
               sx={{ borderRadius: '10rem', px: 10, mb: 3 }}
@@ -101,7 +97,7 @@ const Welcome: React.FC = () => {
               Already Have an Account?
             </Typography>
             <Button
-              aria-label='Log In button to log into the app'
+              aria-label="Log In button to log into the app"
               color="secondary"
               variant="contained"
               sx={{ borderRadius: '10rem', px: 16, mb: 3 }}
@@ -109,15 +105,9 @@ const Welcome: React.FC = () => {
             >
               Log In
             </Button>
-              <Modals openFun={open.show} handleClose={handleClose} size={350}>
-                {open.show && open.component === 'login'
-                  ? (
-                  <Login />
-                    )
-                  : (
-                  <SignIn/>
-                    )}
-                </Modals>
+            <Modals openFun={open.show} handleClose={handleClose} size={350}>
+              {open.show && open.component === 'login' ? <Login /> : <SignIn />}
+            </Modals>
             <SwitchMode size="normal" />
           </Box>
         </Grid>

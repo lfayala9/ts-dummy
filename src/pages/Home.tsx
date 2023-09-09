@@ -1,9 +1,9 @@
 import { lazy, Suspense, useState, useEffect } from 'react'
 import { CssBaseline, Grid } from '@mui/material'
-import { TabTitle } from '../utils/hooks/titles'
 import { useAppSelector } from '../utils/hooks/selector'
 import CreatePost from '../components/Posts/CreatePost'
 import LoaderRing from '../components/Widgets/Loader'
+import { Helmet } from 'react-helmet-async'
 const PostsList = lazy(
   async () => await import('../components/Posts/PostsList')
 )
@@ -12,8 +12,7 @@ const UserCard = lazy(
   async () => await import('../components/Widgets/UserCard')
 )
 const Home: React.FC = () => {
-  TabTitle('Fake Social / Home')
-  const { token } = useAppSelector((state) => state.auth)
+  const { token, user } = useAppSelector((state) => state.auth)
 
   const [isDisplayNone, setIsDisplayNone] = useState(false)
 
@@ -29,9 +28,14 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Fake Social | Home</title>
+        <meta name="description" content="Home Page" />
+        <link rel='preload' as='image' href={user?.picture}/>
+      </Helmet>
       <Grid container component="main" sx={{ height: '100vh', mt: 7 }}>
         <CssBaseline />
-         <Grid
+        <Grid
           item
           display={{ sm: 'flex' }}
           justifyContent="end"
@@ -47,11 +51,15 @@ const Home: React.FC = () => {
         >
           {isDisplayNone
             ? null
-            : <Suspense
-            fallback={<LoaderRing position="relative" top="10%" left="-30%" />}
-          >
-            <UserCard />
-          </Suspense>}
+            : (
+            <Suspense
+              fallback={
+                <LoaderRing position="relative" top="10%" left="-30%" />
+              }
+            >
+              <UserCard userPicture={user?.picture}/>
+            </Suspense>
+              )}
         </Grid>
         <Grid
           item
@@ -91,11 +99,13 @@ const Home: React.FC = () => {
         >
           {isDisplayNone
             ? null
-            : <Suspense
-            fallback={<LoaderRing position="relative" top="10%" left="30%" />}
-          >
-            <AddUser />
-          </Suspense>}
+            : (
+            <Suspense
+              fallback={<LoaderRing position="relative" top="10%" left="30%" />}
+            >
+              <AddUser />
+            </Suspense>
+              )}
         </Grid>
       </Grid>
     </>

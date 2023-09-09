@@ -17,7 +17,7 @@ import { io } from 'socket.io-client'
 const API: string = import.meta.env.VITE_API
 const socket = io(API)
 
-const UserCard: React.FC = () => {
+const UserCard = ({ userPicture }: { userPicture: string | undefined }): JSX.Element => {
   const { user, token } = useAppSelector((state) => state.auth)
   const [friends, setFriends] = useState<UserInfo[]>([])
   useEffect(() => {
@@ -46,7 +46,7 @@ const UserCard: React.FC = () => {
           alt="user_image"
           width='300'
           height="140"
-          image={user?.picture}
+          image={userPicture}
           sx={{
             borderRadius: '1.5rem 1.5rem 0.5rem 0.5rem'
           }}
