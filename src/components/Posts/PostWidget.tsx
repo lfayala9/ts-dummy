@@ -32,7 +32,7 @@ const PostWidget = ({
       }}
     >
       <Box display="flex" alignItems="center" gap={1}>
-        <IconButton sx={{ p: 1 }}>
+        <IconButton sx={{ p: 1 }} aria-label='Widget Button to like'>
           <FavoriteBorderOutlinedIcon
             fontSize="small"
             sx={{ color: 'black' }}
@@ -43,7 +43,7 @@ const PostWidget = ({
         </Typography>
       </Box>
       <Box display="flex" alignItems="center" gap={1}>
-        <IconButton sx={{ p: 1 }}>
+        <IconButton sx={{ p: 1 }} aria-label='Widget Button to comment'>
           <MessageOutlinedIcon fontSize="small" sx={{ color: 'black' }} />
         </IconButton>
         <Typography fontSize={fontSize} color="black">
@@ -51,7 +51,7 @@ const PostWidget = ({
         </Typography>
       </Box>
       <Box display="flex" alignItems="center" gap={1}>
-        <IconButton sx={{ p: 1 }}>
+        <IconButton sx={{ p: 1 }} aria-label='Widget Button to share'>
           <ShareOutlinedIcon fontSize="small" sx={{ color: 'black' }} />
         </IconButton>
         <Typography fontSize={fontSize} color="black">

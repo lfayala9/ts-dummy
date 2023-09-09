@@ -7,6 +7,7 @@ import {
   Link,
   Tooltip
 } from '@mui/material'
+import '../../styles/globals.css'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import GroupIcon from '@mui/icons-material/Group'
 import { useAppSelector } from '../../utils/hooks/selector'
@@ -86,7 +87,9 @@ const UserStamp = ({
       <Box display="flex" justifyContent="space-between">
         <Box display="flex" alignItems="center">
           <IconButton>
-              <img alt='profile-pic' className='stamp-image' src={isPost ? post?.userPicture : post?.picture}/>
+            <Avatar sx={{ width: 50, height: 50 }}>
+              <img alt='profile-pic' width={'50px'} height={'auto'} src={isPost ? post?.userPicture : post?.picture}/>
+            </Avatar>
           </IconButton>
           <Box>
             <Link
