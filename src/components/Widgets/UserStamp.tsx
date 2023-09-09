@@ -77,7 +77,6 @@ const UserStamp = ({
     if (friend._id === post.userId || friend._id === post._id) {
       setIsFriend(false)
     }
-    console.log('deleted')
   })
   const isFriendRefresh = friends?.find((friend) =>
     isPost ? friend._id === post.userId : friend._id === post._id
