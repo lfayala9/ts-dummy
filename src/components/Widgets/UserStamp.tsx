@@ -128,6 +128,7 @@ const UserStamp = ({
           <Tooltip arrow title={isFriend ? 'Delete Friend' : 'Add Friend'}>
             <IconButton
               size="small"
+              aria-label='Add or Delete Friends'
               onClick={() => {
                 void handleClick()
               }}

@@ -32,6 +32,7 @@ export const SettingsButton = ({ post }: { post: PostInfo }): JSX.Element => {
         aria-controls={openMenu ? 'post-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={openMenu ? 'true' : undefined}
+        aria-label='Settings Button'
         size="small"
         sx={{ justifySelf: 'end' }}
       >

@@ -62,7 +62,7 @@ const NavBar: React.FC = () => {
       <AppBar position="fixed" color="primary">
         <Toolbar>
           <Link href={'/home'}>
-            <IconButton>
+            <IconButton aria-label='Navigation button to go to main page'>
               <EmojiPeopleIcon sx={{ fontSize: '2.4rem' }} />
             </IconButton>
           </Link>
@@ -75,6 +75,7 @@ const NavBar: React.FC = () => {
               aria-controls={openNotification ? 'notification' : undefined}
               aria-haspopup="true"
               aria-expanded={openNotification ? 'true' : undefined}
+              aria-label='Notification Button'
             >
               <Badge
                 color={isNotification ? 'warning' : 'default'}
