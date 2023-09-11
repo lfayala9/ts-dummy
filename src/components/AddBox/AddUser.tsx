@@ -9,7 +9,7 @@ import LoaderRing from '../Widgets/Loader'
 const UserStamp = lazy(async () => await import('../Widgets/UserStamp'))
 
 const AddUser: React.FC = () => {
-  const { token } = useAppSelector((state) => state.auth)
+  const { token, user } = useAppSelector((state) => state.auth)
   const [userList, setUserList] = useState<UserInfo[]>([])
   useEffect(() => {
     const userListData = getUserList(token)
@@ -31,7 +31,7 @@ const AddUser: React.FC = () => {
             fallback={<LoaderRing position="relative" top="50%" left="50%" />}
           >
           {userList.map((i: UserInfo) => (
-            <UserStamp post={i as PostInfo} isPost={false} key={i._id}/>
+            <UserStamp post={i as unknown as PostInfo} isPost={false} key={i._id} userId={i._id} isFriend={i.friends.includes(user?._id as string)}/>
           )).slice(middleIndex - 1, middleIndex + 2)}
           </Suspense>
         </Box>

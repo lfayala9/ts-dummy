@@ -7,6 +7,7 @@
   width: 280px;
   max-width: 100%;
   height: auto;
+  max-height: 320px;
   cursor: pointer;
   border-radius: 1rem;
   object-fit: fill;
@@ -17,7 +18,7 @@
 .modal-image{
   width: 100%;
   height: auto;
-  border-radius: 1rem;
+  border-radius: 2rem;
 }
 .create-postBox {
   display: flex;

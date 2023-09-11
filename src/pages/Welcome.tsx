@@ -105,7 +105,7 @@ const Welcome: React.FC = () => {
             >
               Log In
             </Button>
-            <Modals openFun={open.show} handleClose={handleClose} size={350}>
+            <Modals openFun={open.show} handleClose={handleClose} size={350} pySize={4} pxSize={1}>
               {open.show && open.component === 'login' ? <Login /> : <SignIn />}
             </Modals>
             <SwitchMode size="normal" />

@@ -10,6 +10,7 @@ const Home = lazy(async () => await import('./pages/Home.tsx'))
 
 const App = (): JSX.Element => {
   const isAuth = Boolean(useAppSelector((state) => state.auth.token))
+
   return (
     <>
       <BrowserRouter>

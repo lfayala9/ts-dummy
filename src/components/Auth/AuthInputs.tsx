@@ -6,13 +6,13 @@ import {
   IconButton,
   TextField
 } from '@mui/material'
-import { useState } from 'react'
+import { type ChangeEvent, useState } from 'react'
 
 export const PassWordInput = ({
   changeFun,
   value
 }: {
-  changeFun: any
+  changeFun: (e: ChangeEvent<HTMLInputElement>) => void
   value?: string
 }): JSX.Element => {
   // Hide/Show Password

@@ -32,7 +32,7 @@ export const SettingsButton = ({ post }: { post: PostInfo }): JSX.Element => {
         aria-controls={openMenu ? 'post-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={openMenu ? 'true' : undefined}
-        aria-label='Settings Button'
+        aria-label="Settings Button"
         size="small"
         sx={{ justifySelf: 'end' }}
       >
@@ -47,14 +47,19 @@ export const SettingsButton = ({ post }: { post: PostInfo }): JSX.Element => {
         openFun={openMenu}
         closeFun={handleCloseMenu}
       />
-           <Modals openFun={open} handleClose={handleClose} size={300}>
-        <Typography sx={{ px: 3 }} id="modal-modal-title" variant="h6" component="h2">
+      <Modals openFun={open} handleClose={handleClose} size={300} pySize={4} pxSize={1}>
+        <Typography
+          sx={{ px: 3 }}
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+        >
           You want to delete this post?
         </Typography>
-        <Box display="flex" justifyContent='space-around' mt={2}>
+        <Box display="flex" justifyContent="space-around" mt={2}>
           <Button
             onClick={() => {
-              void deleteService(((post?._id) != null) ? post?._id : '')
+              void deleteService(post?._id != null ? post?._id : '')
               void handleClose
             }}
             variant="contained"

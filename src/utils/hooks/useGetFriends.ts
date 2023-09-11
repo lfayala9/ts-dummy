@@ -8,7 +8,6 @@ export const getUserFriends = async (token: string | null, userId: string | unde
   }
   const response = await fetch(`${API}/api/v1/users/${(userId as string)}/friends`, config)
   const data = await response.json()
-  console.log('q')
   return data
 }
 
