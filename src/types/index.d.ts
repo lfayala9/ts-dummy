@@ -6,9 +6,7 @@ export interface UserInfo {
   picture: string
   friends: string[]
 }
-export interface UserType {
-  data?: UserInfo | null
-}
+
 export interface Log {
   user: null | UserInfo
   token: null | string
@@ -44,10 +42,10 @@ export interface PostInfo {
   userId: string
   firstName: string
   lastName: string
-  friends: string[]
   userPicture?: string
   picture?: string
   postContent: string
+  comments?: string[]
   createdAt?: string | number
   likes: Map
 }

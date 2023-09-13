@@ -1,11 +1,11 @@
 import { Box, Typography, IconButton } from '@mui/material'
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined'
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import { useAppSelector } from '../../utils/hooks/selector'
 import { useState } from 'react'
 import { likePost } from '../../utils/hooks/useGetPosts'
+import Comments from './Comments'
 
 const PostWidget = ({
   direction,
@@ -15,7 +15,8 @@ const PostWidget = ({
   mbSize,
   likeCount,
   isLiked,
-  id
+  id,
+  openFun
 }: {
   direction: 'row' | 'column'
   id: string
@@ -25,14 +26,21 @@ const PostWidget = ({
   mbSize: number
   likeCount: number
   isLiked: boolean
+  openFun: any
 }): JSX.Element => {
   const { theme } = useAppSelector((state) => state.settings)
   const { user, token } = useAppSelector((state) => state.auth)
   const [liked, setLiked] = useState(isLiked)
+  const [likedCount, setLikeCount] = useState(likeCount)
 
   const likeDislikePost = async (): Promise<void> => {
     await likePost(token, id, user?._id)
     setLiked(!liked)
+    if (liked) {
+      setLikeCount(likedCount - 1)
+    } else {
+      setLikeCount(likedCount + 1)
+    }
   }
 
   return (
@@ -49,28 +57,34 @@ const PostWidget = ({
       }}
     >
       <Box display="flex" alignItems="center" gap={1}>
-        <IconButton sx={{ p: 1 }} aria-label='Widget Button to like' onClick={() => { void likeDislikePost() }}>
+        <IconButton
+          sx={{ p: 1 }}
+          aria-label="Widget Button to like"
+          onClick={() => {
+            void likeDislikePost()
+          }}
+        >
           {liked
-            ? <FavoriteIcon fontSize='small' color='primary'/>
-            : <FavoriteBorderOutlinedIcon
-            fontSize="small"
-            sx={{ color: 'black' }}
-          />}
+            ? (
+            <FavoriteIcon fontSize="small" color="primary" />
+              )
+            : (
+            <FavoriteBorderOutlinedIcon
+              fontSize="small"
+              sx={{ color: 'black' }}
+            />
+              )}
         </IconButton>
         <Typography fontSize={fontSize} color="black">
-          {likeCount} <span className="widget-text">{likeCount === 1 ? 'Like' : 'Likes'}</span>
+          {likedCount}{' '}
+          <span className="widget-text">
+            {likedCount === 1 ? 'Like' : 'Likes'}
+          </span>
         </Typography>
       </Box>
+      <Comments fontSize={fontSize} openFun={openFun}/>
       <Box display="flex" alignItems="center" gap={1}>
-        <IconButton sx={{ p: 1 }} aria-label='Widget Button to comment'>
-          <MessageOutlinedIcon fontSize="small" sx={{ color: 'black' }} />
-        </IconButton>
-        <Typography fontSize={fontSize} color="black">
-          0 <span className="widget-text">Comments</span>
-        </Typography>
-      </Box>
-      <Box display="flex" alignItems="center" gap={1}>
-        <IconButton sx={{ p: 1 }} aria-label='Widget Button to share'>
+        <IconButton sx={{ p: 1 }} aria-label="Widget Button to share">
           <ShareOutlinedIcon fontSize="small" sx={{ color: 'black' }} />
         </IconButton>
         <Typography fontSize={fontSize} color="black">

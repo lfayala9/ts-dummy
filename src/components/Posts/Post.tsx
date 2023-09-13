@@ -2,23 +2,26 @@ import { Wrapper } from '../../styles/components'
 import { Box, Typography, Divider } from '@mui/material'
 import './styles.css'
 import type { PostInfo, UserInfo } from '../../types'
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { type ChangeEvent, lazy, Suspense, useEffect, useState } from 'react'
 import PostWidget from './PostWidget'
-import { useAppSelector } from '../../utils/hooks/selector'
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/selector'
 import { getUser } from '../../utils/hooks/useGetUser'
-import { io } from 'socket.io-client'
+import CreatePost from './CreatePost'
+import { commentService } from '../../services/posts'
 
-const API: string = import.meta.env.VITE_API
-const socket = io(API)
 const PostImage = lazy(async () => await import('./PostImage'))
 const UserStamp = lazy(async () => await import('../Widgets/UserStamp'))
 
 const Post = ({ post }: { post: PostInfo }): JSX.Element => {
-  const { user, token } = useAppSelector((state) => state.auth)
+  const { token, user } = useAppSelector((state) => state.auth)
+  const [userData, setUser] = useState<UserInfo>()
+  const [openComment, setOpenComment] = useState(false)
+  const isLiked = Boolean(post.likes[user?._id as string])
+  const likeCount = Object.keys(post.likes).length
+  const isFriend = userData?.friends.includes(user?._id as string)
 
   // Check friends
 
-  const [userData, setUser] = useState<UserInfo>()
   useEffect(() => {
     const getUserData = getUser(token, post.userId)
     const getData = async (): Promise<void> => {
@@ -26,28 +29,42 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
     }
     void getData()
   }, [])
-  const isFriend = userData?.friends.includes(user?._id as string)
-
-  // Update Like count
-
-  const isLiked = Boolean(post.likes[user?._id as string])
-  const [likeCount, setLikeCount] = useState(Object.keys(post.likes).length)
-  useEffect(() => {
-    socket.on('like-post', (likedPost) => {
-      if (likedPost === post._id) {
-        setLikeCount(likeCount + 1)
+  // Comment Service
+  const commentValue = {
+    userId: user?._id,
+    commentContent: '',
+    picture: null as File | null
+  }
+  const [form, setForm] = useState(commentValue)
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    if (e.target.name === 'picture') {
+      const file = e.target.files != null ? e.target.files[0] : null
+      setForm({ ...form, [e.target.name]: file })
+    } else {
+      setForm({ ...form, [e.target.name]: e.target.value })
+    }
+  }
+  const dispatch = useAppDispatch()
+  const handleComment = (e: { preventDefault: () => void }): void => {
+    e.preventDefault()
+    const formData = new FormData()
+    for (const [key, value] of Object.entries(form)) {
+      if (value !== undefined && value !== null) {
+        formData.append(key, value)
       }
-    })
-    socket.on('unlike-post', (unlikedPost) => {
-      console.log('unliked', unlikedPost)
-    })
-  }, [])
-
+    }
+    void dispatch(commentService(post?._id, formData, token))
+  }
   return (
     <>
       <Wrapper className="mainPostBox">
         <Box>
-          <UserStamp post={post} isPost={true} userId={post.userId} isFriend={isFriend}/>
+          <UserStamp
+            post={post}
+            isPost={true}
+            userId={post.userId}
+            isFriend={isFriend}
+          />
         </Box>
         <Divider />
         <Box>
@@ -59,6 +76,9 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
                 <PostImage src={post.picture} />
               </Suspense>
               <PostWidget
+                openFun={() => {
+                  setOpenComment(!openComment)
+                }}
                 id={post._id}
                 isLiked={isLiked}
                 likeCount={likeCount}
@@ -73,6 +93,9 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
             : (
             <>
               <PostWidget
+                openFun={() => {
+                  setOpenComment(!openComment)
+                }}
                 id={post._id}
                 isLiked={isLiked}
                 likeCount={likeCount}
@@ -85,6 +108,15 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
             </>
               )}
         </Box>
+        {openComment && (
+          <CreatePost
+            isComment={true}
+            createBox="commentBox"
+            classBox='createComment'
+            onSubmit={handleComment}
+            onChange={handleChange}
+          />
+        )}
       </Wrapper>
     </>
   )

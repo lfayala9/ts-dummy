@@ -1,9 +1,10 @@
-import { lazy, Suspense, useState, useEffect } from 'react'
+import { lazy, Suspense, useState, useEffect, type ChangeEvent } from 'react'
 import { CssBaseline, Grid } from '@mui/material'
-import { useAppSelector } from '../utils/hooks/selector'
+import { useAppDispatch, useAppSelector } from '../utils/hooks/selector'
 import CreatePost from '../components/Posts/CreatePost'
 import LoaderRing from '../components/Widgets/Loader'
 import { Helmet } from 'react-helmet-async'
+import { postService } from '../services/posts'
 const PostsList = lazy(
   async () => await import('../components/Posts/PostsList')
 )
@@ -13,9 +14,37 @@ const UserCard = lazy(
 )
 const Home: React.FC = () => {
   const { token, user } = useAppSelector((state) => state.auth)
-
   const [isDisplayNone, setIsDisplayNone] = useState(false)
+  const [isPicture, setIsPicture] = useState(false)
 
+  // Posts service
+
+  const defaultValue = {
+    userId: user?._id,
+    postContent: '',
+    picture: null as File | null
+  }
+  const [form, setForm] = useState(defaultValue)
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    if (e.target.name === 'picture') {
+      const file = e.target.files != null ? e.target.files[0] : null
+      setForm({ ...form, [e.target.name]: file })
+      setIsPicture(true)
+    } else {
+      setForm({ ...form, [e.target.name]: e.target.value })
+    }
+  }
+  const dispatch = useAppDispatch()
+  const handlePost = (e: { preventDefault: () => void }): void => {
+    e.preventDefault()
+    const formData = new FormData()
+    for (const [key, value] of Object.entries(form)) {
+      if (value !== undefined && value !== null) {
+        formData.append(key, value)
+      }
+    }
+    void dispatch(postService(formData, token))
+  }
   useEffect(() => {
     const getWidth = window.innerWidth
 
@@ -31,7 +60,7 @@ const Home: React.FC = () => {
       <Helmet>
         <title>Fake Social | Home</title>
         <meta name="description" content="Home Page" />
-        <link rel='preload' as='image' href={user?.picture}/>
+        <link rel="preload" as="image" href={user?.picture} />
       </Helmet>
       <Grid container component="main" sx={{ height: '100vh', mt: 7 }}>
         <CssBaseline />
@@ -57,7 +86,7 @@ const Home: React.FC = () => {
                 <LoaderRing position="relative" top="10%" left="-30%" />
               }
             >
-              <UserCard userPicture={user?.picture}/>
+              <UserCard userPicture={user?.picture} />
             </Suspense>
               )}
         </Grid>
@@ -71,7 +100,15 @@ const Home: React.FC = () => {
           flexDirection="column"
           alignItems="center"
         >
-          <CreatePost />
+          <CreatePost
+            classBox='create-postBox'
+            createBox="mainPostBox"
+            isComment={false}
+            onSubmit={handlePost}
+            picture={isPicture}
+            setPicture={setIsPicture}
+            onChange={handleChange}
+          />
           <Suspense
             fallback={<LoaderRing position="absolute" top="50%" left="50%" />}
           >
