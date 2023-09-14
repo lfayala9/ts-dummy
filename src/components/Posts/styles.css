@@ -11,6 +11,7 @@
   cursor: pointer;
   border-radius: 1rem;
   object-fit: fill;
+  transition: 0.6s;
 }
 .post-image:hover{
   opacity: 0.4;
@@ -37,11 +38,24 @@
   margin: 0;
   gap: 5px;
 }
-
 .commentBox{
+  padding: 0;
+  margin-top: 10px;
+  padding-bottom: 10px;
   box-shadow: none;
+  animation: swipeLeft 0.16s ease-in
 }
-
+@keyframes swipeLeft {
+  0% {
+    width: 2rem;
+    font-size: 2px;
+    border: none;
+  }
+  100% {
+    width: 100%;
+    border: none;
+  }
+}
 .buttons-container {
   margin-top: 0.5rem;
   display: flex;

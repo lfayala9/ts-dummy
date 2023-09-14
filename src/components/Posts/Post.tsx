@@ -1,13 +1,14 @@
 import { Wrapper } from '../../styles/components'
 import { Box, Typography, Divider } from '@mui/material'
 import './styles.css'
-import type { PostInfo, UserInfo } from '../../types'
-import { type ChangeEvent, lazy, Suspense, useEffect, useState } from 'react'
+import type { CommentInfo, PostInfo, UserInfo } from '../../types'
+import { type ChangeEvent, lazy, Suspense, useEffect, useState, Fragment } from 'react'
 import PostWidget from './PostWidget'
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/selector'
 import { getUser } from '../../utils/hooks/useGetUser'
 import CreatePost from './CreatePost'
 import { commentService } from '../../services/posts'
+import Comment from '../Comments/Comment'
 
 const PostImage = lazy(async () => await import('./PostImage'))
 const UserStamp = lazy(async () => await import('../Widgets/UserStamp'))
@@ -18,8 +19,10 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
   const [openComment, setOpenComment] = useState(false)
   const isLiked = Boolean(post.likes[user?._id as string])
   const likeCount = Object.keys(post.likes).length
+  const commentCount = post.comments?.length
   const isFriend = userData?.friends.includes(user?._id as string)
-
+  const commentList = post.comments
+  console.log(post.comments)
   // Check friends
 
   useEffect(() => {
@@ -79,6 +82,7 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
                 openFun={() => {
                   setOpenComment(!openComment)
                 }}
+                commentCount={commentCount}
                 id={post._id}
                 isLiked={isLiked}
                 likeCount={likeCount}
@@ -96,6 +100,7 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
                 openFun={() => {
                   setOpenComment(!openComment)
                 }}
+                commentCount={commentCount}
                 id={post._id}
                 isLiked={isLiked}
                 likeCount={likeCount}
@@ -109,13 +114,23 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
               )}
         </Box>
         {openComment && (
-          <CreatePost
-            isComment={true}
-            createBox="commentBox"
-            classBox='createComment'
-            onSubmit={handleComment}
-            onChange={handleChange}
-          />
+          <>
+            <Divider sx={{ mt: '10px' }} />
+            {/* <CommentList postId={post._id}/> */}
+            <Fragment>
+              {commentList?.map((i: any) => (
+                <Comment comment={i as CommentInfo} key={i._id} />
+              ))}
+            </Fragment>
+            <CreatePost
+              isComment={true}
+              fieldClass="commentInput"
+              createBox="commentBox"
+              classBox="createComment"
+              onSubmit={handleComment}
+              onChange={handleChange}
+            />
+          </>
         )}
       </Wrapper>
     </>

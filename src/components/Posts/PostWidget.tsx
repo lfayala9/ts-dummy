@@ -1,11 +1,10 @@
 import { Box, Typography, IconButton } from '@mui/material'
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import { useAppSelector } from '../../utils/hooks/selector'
 import { useState } from 'react'
 import { likePost } from '../../utils/hooks/useGetPosts'
-import Comments from './Comments'
+import LikeButton from '../Widgets/LikeButton'
+import CommentButton from '../Comments/CommentButton'
 
 const PostWidget = ({
   direction,
@@ -14,6 +13,7 @@ const PostWidget = ({
   pxSize,
   mbSize,
   likeCount,
+  commentCount,
   isLiked,
   id,
   openFun
@@ -25,6 +25,7 @@ const PostWidget = ({
   pxSize: number
   mbSize: number
   likeCount: number
+  commentCount: number | undefined
   isLiked: boolean
   openFun: any
 }): JSX.Element => {
@@ -56,33 +57,8 @@ const PostWidget = ({
         borderRadius: '1rem'
       }}
     >
-      <Box display="flex" alignItems="center" gap={1}>
-        <IconButton
-          sx={{ p: 1 }}
-          aria-label="Widget Button to like"
-          onClick={() => {
-            void likeDislikePost()
-          }}
-        >
-          {liked
-            ? (
-            <FavoriteIcon fontSize="small" color="primary" />
-              )
-            : (
-            <FavoriteBorderOutlinedIcon
-              fontSize="small"
-              sx={{ color: 'black' }}
-            />
-              )}
-        </IconButton>
-        <Typography fontSize={fontSize} color="black">
-          {likedCount}{' '}
-          <span className="widget-text">
-            {likedCount === 1 ? 'Like' : 'Likes'}
-          </span>
-        </Typography>
-      </Box>
-      <Comments fontSize={fontSize} openFun={openFun}/>
+      <LikeButton isComment={false} likeDislikeFun={likeDislikePost} liked={liked} likedCount={likedCount} fontSize={fontSize}/>
+      <CommentButton fontSize={fontSize} openFun={openFun} commentCount={commentCount}/>
       <Box display="flex" alignItems="center" gap={1}>
         <IconButton sx={{ p: 1 }} aria-label="Widget Button to share">
           <ShareOutlinedIcon fontSize="small" sx={{ color: 'black' }} />

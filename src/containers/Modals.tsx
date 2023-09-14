@@ -44,7 +44,7 @@ const Modals = ({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>{children}</Box>
+      <Box className='modal' sx={style}>{children}</Box>
     </Modal>
   )
 }

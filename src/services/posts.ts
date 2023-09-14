@@ -32,7 +32,6 @@ export const commentService = (postId: string | null, data: FormData, token: str
       headers: { Authorization: `Bearer ${token != null ? token : ''}` }
     }
     const response: AxiosResponse = await axios.post(`api/v1/posts/${postId as string}/comment`, data, config)
-    console.log(response.data)
     return response
   } catch (error: any) {
     console.log(error)

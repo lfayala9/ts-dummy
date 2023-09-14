@@ -54,3 +54,22 @@ export interface PostType {
   _id?: string
   post?: PostInfo
 }
+
+// COMMENTS TYPE
+
+export interface CommentInfo {
+  _id: string
+  userId: string
+  postId: string
+  firstName: string
+  lastName: string
+  userPicture?: string
+  commentContent: string
+  createdAt?: string | number
+  likes: Map
+}
+
+export interface CommentType {
+  _id?: string
+  comment?: CommentInfo
+}

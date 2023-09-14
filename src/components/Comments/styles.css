@@ -1,0 +1,31 @@
+.single-comment{
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0 15px 0;
+  padding: 2px 10px;
+  border-radius: 2rem;
+  animation: swipeLeft 0.16s ease-in
+}
+.comment-info{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: black
+}
+@media (max-width: 600px) {
+  .widget-text {
+    display: none;
+  }
+}
+
+@keyframes swipeLeft {
+  0% {
+    width: 16rem;
+    font-size: 0px;
+    border: none;
+  }
+  100% {
+    width: 100%;
+    border: none;
+  }
+}

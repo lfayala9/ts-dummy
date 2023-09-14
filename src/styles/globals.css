@@ -1,16 +1,37 @@
-.avatar-medium{
-    width: 3.5rem !important;
-    height: 3.5rem !important;
+.avatar-medium {
+  width: 3.5rem !important;
+  height: 3.5rem !important;
 }
 
-.user-cardCont{
-    width: 345px;
-    position: fixed;
-    margin: auto;
-    padding: 6px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 15px;
+.user-cardCont {
+  width: 345px;
+  position: fixed;
+  margin: auto;
+  padding: 6px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 15px;
 }
 
-.titleNav{
-    cursor: pointer;
+.titleNav {
+  cursor: pointer;
+}
+.modal {
+  animation: swipeDown 0.15s ease;
+}
+
+@keyframes swipeDown {
+  0% {
+    left: -30%;
+  }
+  25% {
+    left: -25%;
+  }
+  50% {
+    left: 0%;
+  }
+  75% {
+    left: 25%;
+  }
+  100% {
+    left: 50%;
+  }
 }

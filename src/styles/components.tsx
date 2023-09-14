@@ -13,10 +13,6 @@ export const CustomField = styled(TextField)(({ theme }) => ({
     borderBottomColor: theme.palette.primary
   },
   '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderRadius: '2rem',
-      borderColor: 'white'
-    },
     '&.Mui-focused fieldset': {
       borderColor: theme.palette.primary,
       borderRadius: '2rem'

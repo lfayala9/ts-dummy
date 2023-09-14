@@ -2,7 +2,15 @@ import { Box, IconButton, Typography } from '@mui/material'
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined'
 import './styles.css'
 
-const Comments = ({ fontSize, openFun }: { fontSize: string, openFun: () => React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element => {
+const CommentButton = ({
+  fontSize,
+  openFun,
+  commentCount
+}: {
+  fontSize: string
+  commentCount: number | undefined
+  openFun: () => React.Dispatch<React.SetStateAction<boolean>>
+}): JSX.Element => {
   return (
     <>
       <Box display="flex" alignItems="center" gap={1}>
@@ -14,11 +22,11 @@ const Comments = ({ fontSize, openFun }: { fontSize: string, openFun: () => Reac
           <MessageOutlinedIcon fontSize="small" sx={{ color: 'black' }} />
         </IconButton>
         <Typography fontSize={fontSize} color="black">
-          0 <span className="widget-text">Comments</span>
+          {commentCount} <span className="widget-text">Comments</span>
         </Typography>
       </Box>
     </>
   )
 }
 
-export default Comments
+export default CommentButton

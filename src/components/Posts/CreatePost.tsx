@@ -15,11 +15,13 @@ const CreatePost = ({
   onChange,
   picture,
   setPicture,
-  classBox
+  classBox,
+  fieldClass
 }: {
   createBox: string
   isComment: boolean
   classBox: string
+  fieldClass?: string
   onSubmit: (e: { preventDefault: () => void }) => void
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   picture?: boolean
@@ -41,15 +43,20 @@ const CreatePost = ({
                 )}
             <CustomField
               onChange={onChange}
+              className={fieldClass}
               name={isComment ? 'commentContent' : 'postContent'}
               fullWidth
               id="filled-multiline-static"
               multiline
-              placeholder="What are you thinking...?"
+              placeholder={isComment ? 'Reply!' : 'What are you thinking...?'}
               variant="outlined"
               sx={{
                 backgroundColor: theme === 'light' ? '#BDBDBD' : '#757575',
-                borderRadius: '2rem'
+                borderRadius: '2rem',
+                '& fieldset': {
+                  borderRadius: '2rem',
+                  borderColor: isComment ? 'transparent' : 'white'
+                }
               }}
             />
             {isComment
