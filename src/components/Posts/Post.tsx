@@ -1,15 +1,16 @@
 import { Wrapper } from '../../styles/components'
 import { Box, Typography, Divider } from '@mui/material'
 import './styles.css'
-import type { CommentInfo, PostInfo, UserInfo } from '../../types'
-import { type ChangeEvent, lazy, Suspense, useEffect, useState, Fragment } from 'react'
+import type { PostInfo, UserInfo } from '../../types'
+import { type ChangeEvent, lazy, Suspense, useEffect, useState } from 'react'
 import PostWidget from './PostWidget'
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/selector'
 import { getUser } from '../../utils/hooks/useGetUser'
 import CreatePost from './CreatePost'
 import { commentService } from '../../services/posts'
-import Comment from '../Comments/Comment'
+import LoaderRing from '../Widgets/Loader'
 
+const CommentList = lazy(async () => await import('../Comments/CommentList'))
 const PostImage = lazy(async () => await import('./PostImage'))
 const UserStamp = lazy(async () => await import('../Widgets/UserStamp'))
 
@@ -19,10 +20,7 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
   const [openComment, setOpenComment] = useState(false)
   const isLiked = Boolean(post.likes[user?._id as string])
   const likeCount = Object.keys(post.likes).length
-  const commentCount = post.comments?.length
   const isFriend = userData?.friends.includes(user?._id as string)
-  const commentList = post.comments
-  console.log(post.comments)
   // Check friends
 
   useEffect(() => {
@@ -74,7 +72,7 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
           <Typography sx={{ padding: 2 }}>{post?.postContent}</Typography>
           {post?.picture != null
             ? (
-            <Box display="flex" justifyContent="space-between">
+            <Box display="flex" justifyContent="space-between" className='post-box'>
               <Suspense fallback={<PostImage src={'/shrek.webp'} />}>
                 <PostImage src={post.picture} />
               </Suspense>
@@ -82,7 +80,6 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
                 openFun={() => {
                   setOpenComment(!openComment)
                 }}
-                commentCount={commentCount}
                 id={post._id}
                 isLiked={isLiked}
                 likeCount={likeCount}
@@ -100,7 +97,6 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
                 openFun={() => {
                   setOpenComment(!openComment)
                 }}
-                commentCount={commentCount}
                 id={post._id}
                 isLiked={isLiked}
                 likeCount={likeCount}
@@ -116,12 +112,9 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
         {openComment && (
           <>
             <Divider sx={{ mt: '10px' }} />
-            {/* <CommentList postId={post._id}/> */}
-            <Fragment>
-              {commentList?.map((i: any) => (
-                <Comment comment={i as CommentInfo} key={i._id} />
-              ))}
-            </Fragment>
+            <Suspense fallback={<LoaderRing position="relative" top="50%" left="50%" />}>
+              <CommentList postId={post._id} />
+            </Suspense>
             <CreatePost
               isComment={true}
               fieldClass="commentInput"

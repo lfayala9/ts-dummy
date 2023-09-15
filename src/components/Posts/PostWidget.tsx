@@ -4,6 +4,7 @@ import { useAppSelector } from '../../utils/hooks/selector'
 import { useState } from 'react'
 import { likePost } from '../../utils/hooks/useGetPosts'
 import LikeButton from '../Widgets/LikeButton'
+import './styles.css'
 import CommentButton from '../Comments/CommentButton'
 
 const PostWidget = ({
@@ -13,7 +14,6 @@ const PostWidget = ({
   pxSize,
   mbSize,
   likeCount,
-  commentCount,
   isLiked,
   id,
   openFun
@@ -25,7 +25,6 @@ const PostWidget = ({
   pxSize: number
   mbSize: number
   likeCount: number
-  commentCount: number | undefined
   isLiked: boolean
   openFun: any
 }): JSX.Element => {
@@ -37,13 +36,8 @@ const PostWidget = ({
   const likeDislikePost = async (): Promise<void> => {
     await likePost(token, id, user?._id)
     setLiked(!liked)
-    if (liked) {
-      setLikeCount(likedCount - 1)
-    } else {
-      setLikeCount(likedCount + 1)
-    }
+    setLikeCount(likedCount + (liked ? -1 : 1))
   }
-
   return (
     <Box
       py={pySize}
@@ -52,15 +46,25 @@ const PostWidget = ({
       display="flex"
       flexDirection={direction}
       justifyContent="space-between"
+      className='widget-box'
       sx={{
         backgroundColor: theme === 'light' ? '#bdbdbd' : '#757575',
         borderRadius: '1rem'
       }}
     >
-      <LikeButton isComment={false} likeDislikeFun={likeDislikePost} liked={liked} likedCount={likedCount} fontSize={fontSize}/>
-      <CommentButton fontSize={fontSize} openFun={openFun} commentCount={commentCount}/>
+      <LikeButton
+        isComment={false}
+        likeDislikeFun={likeDislikePost}
+        liked={liked}
+        likedCount={likedCount}
+        fontSize={fontSize}
+      />
+      <CommentButton
+        fontSize={fontSize}
+        openFun={openFun}
+      />
       <Box display="flex" alignItems="center" gap={1}>
-        <IconButton sx={{ p: 1 }} aria-label="Widget Button to share">
+        <IconButton sx={{ p: 0, m: '6px 6px 6px 6px' }} aria-label="Widget Button to share">
           <ShareOutlinedIcon fontSize="small" sx={{ color: 'black' }} />
         </IconButton>
         <Typography fontSize={fontSize} color="black">

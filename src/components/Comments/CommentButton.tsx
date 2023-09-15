@@ -4,11 +4,9 @@ import './styles.css'
 
 const CommentButton = ({
   fontSize,
-  openFun,
-  commentCount
+  openFun
 }: {
   fontSize: string
-  commentCount: number | undefined
   openFun: () => React.Dispatch<React.SetStateAction<boolean>>
 }): JSX.Element => {
   return (
@@ -16,13 +14,13 @@ const CommentButton = ({
       <Box display="flex" alignItems="center" gap={1}>
         <IconButton
           onClick={openFun}
-          sx={{ p: 1 }}
+          sx={{ p: 0, ml: 1 }}
           aria-label="Widget Button to comment"
         >
           <MessageOutlinedIcon fontSize="small" sx={{ color: 'black' }} />
         </IconButton>
         <Typography fontSize={fontSize} color="black">
-          {commentCount} <span className="widget-text">Comments</span>
+          <span className="widget-text">Comment</span>
         </Typography>
       </Box>
     </>

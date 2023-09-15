@@ -12,7 +12,7 @@ const LikeButton = ({
   likeDislikeFun: () => Promise<void>
   liked: boolean
   isComment: boolean
-  fontSize: string
+  fontSize?: string
   likedCount: number
 }): JSX.Element => {
   return (
@@ -20,7 +20,7 @@ const LikeButton = ({
       <Box display="flex" alignItems="center" gap={1}>
         {isComment ? <Typography fontSize='15px' color='black'>{likedCount}</Typography> : null}
         <IconButton
-          sx={{ p: 1, pr: 0 }}
+          sx={{ p: 0, ml: 1 }}
           aria-label="Widget Button to like"
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onClick={likeDislikeFun}

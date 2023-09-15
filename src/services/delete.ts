@@ -9,3 +9,16 @@ export const deleteService = async (id: string): Promise<AxiosResponse | AxiosEr
     return error as AxiosError
   }
 }
+
+export const deleteCommentService = async (postId: string, commentId: string, token: string | null): Promise<AxiosResponse | AxiosError> => {
+  try {
+    const response: AxiosResponse = await axios.delete(`api/v1/posts/${postId}/${commentId}`, {
+      headers: {
+        Authorization: `Bearer ${token != null ? token : ''}`
+      }
+    })
+    return response
+  } catch (error) {
+    return error as AxiosError
+  }
+}
