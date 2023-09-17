@@ -33,7 +33,6 @@ const useSubmit = (isPost: boolean, token: string, user?: string, postId?: strin
     }
     void dispatch(isPost ? postService(formData, token) : commentService(postId != null ? postId : '', formData, token))
   }
-  console.log(form)
   return { handleChange, handleSubmit }
 }
 

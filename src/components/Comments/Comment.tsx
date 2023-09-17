@@ -32,7 +32,7 @@ const Comment = ({ comment }: { comment: CommentInfo }): JSX.Element => {
       }}
     >
       <Box className="comment-info">
-        <Avatar sx={{ width: 24, height: 24 }} src={comment.userPicture} />
+        <Avatar sx={{ width: 24, height: 'auto' }} src={comment.userPicture} />
         <Box>
         <Typography fontWeight="bolder" fontSize="12px">
           {comment.firstName} {comment.lastName}:{' '}

@@ -32,7 +32,7 @@ export const Menu = (): JSX.Element => {
               alt="profile-pic"
               src={user?.picture}
               width={'50px'}
-              height={'40px'}
+              height={'auto'}
             />
           </Avatar>
         </Badge>
