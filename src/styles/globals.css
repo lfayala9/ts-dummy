@@ -2,7 +2,10 @@
   width: 3.5rem !important;
   height: 3.5rem !important;
 }
-
+.card-text:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
 .user-cardCont {
   width: 345px;
   position: fixed;
@@ -10,7 +13,13 @@
   padding: 6px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 15px;
 }
-
+.share-modal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 0px 10px;
+}
 .titleNav {
   cursor: pointer;
 }

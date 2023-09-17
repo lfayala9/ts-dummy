@@ -2,12 +2,12 @@ import { Wrapper } from '../../styles/components'
 import { Box, Typography, Divider } from '@mui/material'
 import './styles.css'
 import type { PostInfo, UserInfo } from '../../types'
-import { type ChangeEvent, lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import PostWidget from './PostWidget'
-import { useAppDispatch, useAppSelector } from '../../utils/hooks/selector'
+import { useAppSelector } from '../../utils/hooks/selector'
 import { getUser } from '../../utils/hooks/useGetUser'
 import CreatePost from './CreatePost'
-import { commentService } from '../../services/posts'
+import useSubmit from '../../utils/hooks/useSubmit'
 import LoaderRing from '../Widgets/Loader'
 
 const CommentList = lazy(async () => await import('../Comments/CommentList'))
@@ -31,31 +31,13 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
     void getData()
   }, [])
   // Comment Service
-  const commentValue = {
-    userId: user?._id,
-    commentContent: '',
-    picture: null as File | null
-  }
-  const [form, setForm] = useState(commentValue)
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    if (e.target.name === 'picture') {
-      const file = e.target.files != null ? e.target.files[0] : null
-      setForm({ ...form, [e.target.name]: file })
-    } else {
-      setForm({ ...form, [e.target.name]: e.target.value })
-    }
-  }
-  const dispatch = useAppDispatch()
-  const handleComment = (e: { preventDefault: () => void }): void => {
-    e.preventDefault()
-    const formData = new FormData()
-    for (const [key, value] of Object.entries(form)) {
-      if (value !== undefined && value !== null) {
-        formData.append(key, value)
-      }
-    }
-    void dispatch(commentService(post?._id, formData, token))
-  }
+  const { handleSubmit, handleChange } = useSubmit(
+    false,
+    token != null ? token : '',
+    user?._id,
+    post?._id != null ? post._id : ''
+  )
+
   return (
     <>
       <Wrapper className="mainPostBox">
@@ -120,7 +102,7 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
               fieldClass="commentInput"
               createBox="commentBox"
               classBox="createComment"
-              onSubmit={handleComment}
+              onSubmit={handleSubmit}
               onChange={handleChange}
             />
           </>

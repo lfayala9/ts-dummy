@@ -5,7 +5,8 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 import { EmojiMenu } from '../../containers/MenuPosts'
 import './styles.css'
 import data from '@emoji-mart/data'
-import { useState, type MouseEvent, type ChangeEvent } from 'react'
+import { type ChangeEvent } from 'react'
+import useMenu from '../../utils/hooks/useMenu'
 
 const CreatePostWidget = ({
   isPicture,
@@ -14,14 +15,8 @@ const CreatePostWidget = ({
   isPicture: boolean | undefined
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void
 }): JSX.Element => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const openEmoji = Boolean(anchorEl)
-  const handleClickEmoji = (e: MouseEvent<HTMLElement>): void => {
-    setAnchorEl(e.currentTarget)
-  }
-  const handleCloseEmoji = (): void => {
-    setAnchorEl(null)
-  }
+  const { anchorEl, openMenu, handleClickMenu, handleCloseMenu } = useMenu()
+
   return (
     <>
       <Box className="buttons-widget">
@@ -45,10 +40,10 @@ const CreatePostWidget = ({
         </Tooltip>
         <Tooltip arrow title="Select Emoji">
           <IconButton
-            onClick={handleClickEmoji}
-            aria-controls={openEmoji ? 'emoji-menu' : undefined}
+            onClick={handleClickMenu}
+            aria-controls={openMenu ? 'emoji-menu' : undefined}
             aria-haspopup="true"
-            aria-expanded={openEmoji ? 'true' : undefined}
+            aria-expanded={openMenu ? 'true' : undefined}
           >
             <EmojiEmotionsIcon />
           </IconButton>
@@ -58,8 +53,8 @@ const CreatePostWidget = ({
         data={data}
         id="emoji-menu"
         anchorElFun={anchorEl}
-        openFun={openEmoji}
-        closeFun={handleCloseEmoji}
+        openFun={openMenu}
+        closeFun={handleCloseMenu}
       />
     </>
   )

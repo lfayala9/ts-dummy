@@ -1,16 +1,10 @@
-import { useState } from 'react'
 import { Box } from '@mui/material'
 import Modals from '../../containers/Modals'
+import useModal from '../../utils/hooks/useModal'
 import './styles.css'
 
 const PostImage = ({ src }: { src: string }): JSX.Element => {
-  const [open, setOpen] = useState(false)
-  const handleOpen = (): void => {
-    setOpen(true)
-  }
-  const handleClose = (): void => {
-    setOpen(false)
-  }
+  const { open, handleOpen, handleClose } = useModal()
 
   return (
     <>

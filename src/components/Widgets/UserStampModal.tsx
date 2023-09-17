@@ -1,30 +1,17 @@
 import { IconButton, Avatar, Box, Button, Typography } from '@mui/material'
 import SettingsIcon from '@mui/icons-material/Settings'
-import { useState, type MouseEvent } from 'react'
 import { PostMenu } from '../../containers/MenuPosts'
 import Modals from '../../containers/Modals'
 import { deleteService } from '../../services/delete'
+import useModal from '../../utils/hooks/useModal'
+import useMenu from '../../utils/hooks/useMenu'
 import { type PostInfo } from '../../types'
 
 export const SettingsButton = ({ post }: { post: PostInfo }): JSX.Element => {
   // Menu Settings
-  const [anchorElMenu, setAnchorEl] = useState<null | HTMLElement>(null)
-  const openMenu = Boolean(anchorElMenu)
-  const handleClickMenu = (e: MouseEvent<HTMLElement>): void => {
-    setAnchorEl(e.currentTarget)
-  }
-  const handleCloseMenu = (): void => {
-    setAnchorEl(null)
-  }
-  // Delete Post
+  const { open, handleOpen, handleClose } = useModal()
+  const { anchorEl, openMenu, handleClickMenu, handleCloseMenu } = useMenu()
 
-  const [open, setOpen] = useState(false)
-  const handleOpen = (): void => {
-    setOpen(true)
-  }
-  const handleClose = (): void => {
-    setOpen(false)
-  }
   return (
     <>
       <IconButton
@@ -43,7 +30,7 @@ export const SettingsButton = ({ post }: { post: PostInfo }): JSX.Element => {
       <PostMenu
         id="post-menu"
         handleModal={handleOpen}
-        anchorElFun={anchorElMenu}
+        anchorElFun={anchorEl}
         openFun={openMenu}
         closeFun={handleCloseMenu}
       />

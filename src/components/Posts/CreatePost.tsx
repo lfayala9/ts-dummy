@@ -44,7 +44,7 @@ const CreatePost = ({
             <CustomField
               onChange={onChange}
               className={fieldClass}
-              name={isComment ? 'commentContent' : 'postContent'}
+              name={'postContent'}
               fullWidth
               id="filled-multiline-static"
               multiline

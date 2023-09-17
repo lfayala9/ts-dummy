@@ -64,7 +64,7 @@ export interface CommentInfo {
   firstName: string
   lastName: string
   userPicture?: string
-  commentContent: string
+  postContent: string
   createdAt?: string | number
   likes: Map
 }

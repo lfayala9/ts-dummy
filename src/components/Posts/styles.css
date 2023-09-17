@@ -3,24 +3,7 @@
 .mainPostBox{
   width: 100%;
 }
-.post-image{
-  width: 280px;
-  max-width: 100%;
-  height: auto;
-  max-height: 320px;
-  cursor: pointer;
-  border-radius: 1rem;
-  object-fit: fill;
-  transition: 0.6s;
-}
-.post-image:hover{
-  opacity: 0.4;
-}
-.modal-image{
-  width: 100%;
-  height: auto;
-  border-radius: 2rem;
-}
+
 .create-postBox {
   display: flex;
   gap: 10px;
@@ -66,6 +49,29 @@
   display: flex;
   gap: 20px;
 }
+
+/* Post Images */
+
+.post-image{
+  width: 280px;
+  max-width: 100%;
+  height: auto;
+  max-height: 320px;
+  cursor: pointer;
+  border-radius: 1rem;
+  object-fit: fill;
+  transition: 0.6s;
+}
+.post-image:hover{
+  opacity: 0.4;
+}
+.modal-image{
+  width: 100%;
+  height: auto;
+  border-radius: 2rem;
+}
+
+/* Media queries */
 
 @media (max-width: 600px) {
   .widget-text {

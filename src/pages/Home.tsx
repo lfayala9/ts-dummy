@@ -1,10 +1,10 @@
-import { lazy, Suspense, useState, useEffect, type ChangeEvent } from 'react'
+import { lazy, Suspense, useState, useEffect } from 'react'
 import { CssBaseline, Grid } from '@mui/material'
-import { useAppDispatch, useAppSelector } from '../utils/hooks/selector'
+import { useAppSelector } from '../utils/hooks/selector'
 import CreatePost from '../components/Posts/CreatePost'
 import LoaderRing from '../components/Widgets/Loader'
 import { Helmet } from 'react-helmet-async'
-import { postService } from '../services/posts'
+import useSubmit from '../utils/hooks/useSubmit'
 const PostsList = lazy(
   async () => await import('../components/Posts/PostsList')
 )
@@ -18,33 +18,12 @@ const Home: React.FC = () => {
   const [isPicture, setIsPicture] = useState(false)
 
   // Posts service
+  const { handleSubmit, handleChange } = useSubmit(
+    true,
+    token != null ? token : '',
+    user?._id != null ? user._id : ''
+  )
 
-  const defaultValue = {
-    userId: user?._id,
-    postContent: '',
-    picture: null as File | null
-  }
-  const [form, setForm] = useState(defaultValue)
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    if (e.target.name === 'picture') {
-      const file = e.target.files != null ? e.target.files[0] : null
-      setForm({ ...form, [e.target.name]: file })
-      setIsPicture(true)
-    } else {
-      setForm({ ...form, [e.target.name]: e.target.value })
-    }
-  }
-  const dispatch = useAppDispatch()
-  const handlePost = (e: { preventDefault: () => void }): void => {
-    e.preventDefault()
-    const formData = new FormData()
-    for (const [key, value] of Object.entries(form)) {
-      if (value !== undefined && value !== null) {
-        formData.append(key, value)
-      }
-    }
-    void dispatch(postService(formData, token))
-  }
   useEffect(() => {
     const getWidth = window.innerWidth
 
@@ -101,10 +80,10 @@ const Home: React.FC = () => {
           alignItems="center"
         >
           <CreatePost
-            classBox='create-postBox'
+            classBox="create-postBox"
             createBox="mainPostBox"
             isComment={false}
-            onSubmit={handlePost}
+            onSubmit={handleSubmit}
             picture={isPicture}
             setPicture={setIsPicture}
             onChange={handleChange}
@@ -112,7 +91,7 @@ const Home: React.FC = () => {
           <Suspense
             fallback={<LoaderRing position="absolute" top="50%" left="50%" />}
           >
-            <PostsList token={token} />
+            <PostsList token={token} isHome={true} />
           </Suspense>
         </Grid>
         <Grid

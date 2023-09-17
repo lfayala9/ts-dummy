@@ -8,6 +8,7 @@ import Modals from '../containers/Modals'
 import { Helmet } from 'react-helmet-async'
 
 const Welcome: React.FC = () => {
+  const { theme } = useAppSelector((state) => state.settings)
   const [open, setOpen] = useState({ show: false, component: '' })
   const handleOpenLogin = (): void => {
     setOpen({ show: true, component: 'login' })
@@ -18,8 +19,6 @@ const Welcome: React.FC = () => {
   const handleClose = (): void => {
     setOpen({ show: false, component: '' })
   }
-
-  const { theme } = useAppSelector((state) => state.settings)
 
   return (
     <>
@@ -66,9 +65,8 @@ const Welcome: React.FC = () => {
             <Typography fontWeight="normal" variant="h1" sx={{ mb: 7 }}>
               This is what&apos;s{' '}
               <span
+                className='welcome-text'
                 style={{
-                  fontWeight: 'normal',
-                  paddingBottom: '0.5rem',
                   backgroundImage:
                     theme === 'light'
                       ? 'linear-gradient(to right bottom, #9a36d9, #284195)'

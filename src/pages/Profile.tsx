@@ -5,6 +5,7 @@ import { getUser } from '../utils/hooks/useGetUser'
 import { type UserInfo } from '../types'
 import { TabTitle } from '../utils/hooks/titles'
 import { Box } from '@mui/material'
+import PostsList from '../components/Posts/PostsList'
 
 const Profile: React.FC = () => {
   const { token } = useAppSelector((state) => state.auth)
@@ -24,7 +25,12 @@ const Profile: React.FC = () => {
       user != null ? user.lastName : ''
     }`
   )
-  return <Box mt={8}>{user?.lastName}</Box>
+  return (
+    <>
+      <Box mt={8}>{user?.lastName}</Box>
+      <PostsList isHome={false} token={token} userId={userId}/>
+    </>
+  )
 }
 
 export default Profile

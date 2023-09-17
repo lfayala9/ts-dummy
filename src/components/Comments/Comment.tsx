@@ -7,6 +7,7 @@ import { likePostComment } from '../../utils/hooks/userGetComments'
 import { useState } from 'react'
 import Modals from '../../containers/Modals'
 import { deleteCommentService } from '../../services/delete'
+import useModal from '../../utils/hooks/useModal'
 
 const Comment = ({ comment }: { comment: CommentInfo }): JSX.Element => {
   const { theme } = useAppSelector((state) => state.settings)
@@ -15,19 +16,14 @@ const Comment = ({ comment }: { comment: CommentInfo }): JSX.Element => {
   const [liked, setLiked] = useState(isLiked)
   const likeCount = Object.keys(comment.likes).length
   const [likedCount, setLikeCount] = useState(likeCount)
+  const { open, handleOpen, handleClose } = useModal()
 
   const likeDislikePostComment = async (): Promise<void> => {
     await likePostComment(token, comment._id, user?._id)
     setLiked(!liked)
     setLikeCount(likedCount + (liked ? -1 : 1))
   }
-  const [open, setOpen] = useState(false)
-  const handleOpen = (): void => {
-    setOpen(true)
-  }
-  const handleClose = (): void => {
-    setOpen(false)
-  }
+
   return (
     <Box
       className="single-comment"
@@ -37,10 +33,12 @@ const Comment = ({ comment }: { comment: CommentInfo }): JSX.Element => {
     >
       <Box className="comment-info">
         <Avatar sx={{ width: 24, height: 24 }} src={comment.userPicture} />
+        <Box>
         <Typography fontWeight="bolder" fontSize="12px">
           {comment.firstName} {comment.lastName}:{' '}
         </Typography>
-        <Typography fontSize="12px">{comment.commentContent}</Typography>
+        </Box>
+        <Typography fontSize="12px">{comment.postContent}</Typography>
       </Box>
       <Box display="flex" alignItems="center">
         <LikeButton

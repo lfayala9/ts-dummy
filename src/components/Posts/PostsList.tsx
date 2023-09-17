@@ -6,10 +6,10 @@ const Post = lazy(async () => await import('./Post'))
 const API: string = import.meta.env.VITE_API
 const socket = io(API)
 
-const PostsList = ({ token }: { token: string | null }): JSX.Element => {
+const PostsList = ({ token, isHome, userId }: { token: string | null, isHome: boolean, userId?: string }): JSX.Element => {
   const [postsList, setPosts] = useState<PostType[]>([])
   useEffect(() => {
-    const postListData = getPosts(token)
+    const postListData = getPosts(token, isHome, userId)
     const getData = async (): Promise<void> => {
       setPosts(await postListData)
     }
