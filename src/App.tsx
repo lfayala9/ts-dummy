@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { useAppSelector } from './utils/hooks/selector.ts'
 import { lazy, Suspense } from 'react'
 import LoaderRing from './components/Widgets/Loader.tsx'
-import NavBar from './components/Widgets/NavBar.tsx'
+import NavBar from './components/NavBar/NavBar.tsx'
 import 'react-toastify/dist/ReactToastify.css'
 const Profile = lazy(async () => await import('./pages/Profile.tsx'))
 const Welcome = lazy(async () => await import('./pages/Welcome.tsx'))

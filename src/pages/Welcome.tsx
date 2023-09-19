@@ -6,6 +6,7 @@ import Login from '../components/Auth/Login'
 import SignIn from '../components/Auth/SignIn'
 import Modals from '../containers/Modals'
 import { Helmet } from 'react-helmet-async'
+import ExampleLog from '../components/Auth/ExampleLog'
 
 const Welcome: React.FC = () => {
   const { theme } = useAppSelector((state) => state.settings)
@@ -79,11 +80,13 @@ const Welcome: React.FC = () => {
                 happening
               </span>
             </Typography>
+            <Box>
             <Typography fontWeight="normal" variant="h2" sx={{ mb: 2, mx: 1 }}>
               Join Today
             </Typography>
             <Button
               aria-label="Create An Account button to sign in"
+              fullWidth
               color="primary"
               variant="contained"
               sx={{ borderRadius: '10rem', px: 10, mb: 3 }}
@@ -92,17 +95,23 @@ const Welcome: React.FC = () => {
               Create An Account
             </Button>
             <Typography fontWeight="normal" variant="h3" sx={{ mb: 2, mx: 1 }}>
+              Log as an example user
+            </Typography>
+            <ExampleLog/>
+            <Typography fontWeight="normal" variant="h3" sx={{ mb: 2, mx: 1 }}>
               Already Have an Account?
             </Typography>
             <Button
               aria-label="Log In button to log into the app"
               color="secondary"
+              fullWidth
               variant="contained"
               sx={{ borderRadius: '10rem', px: 16, mb: 3 }}
               onClick={handleOpenLogin}
             >
               Log In
             </Button>
+            </Box>
             <Modals openFun={open.show} handleClose={handleClose} size={350} pySize={4} pxSize={1}>
               {open.show && open.component === 'login' ? <Login /> : <SignIn />}
             </Modals>

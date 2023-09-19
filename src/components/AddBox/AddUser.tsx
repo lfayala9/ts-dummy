@@ -11,14 +11,15 @@ const UserStamp = lazy(async () => await import('../Widgets/UserStamp'))
 const AddUser: React.FC = () => {
   const { token, user } = useAppSelector((state) => state.auth)
   const [userList, setUserList] = useState<UserInfo[]>([])
-  useEffect(() => {
-    const userListData = getUserList(token)
-    const getData = async (): Promise<void> => {
-      setUserList(await userListData)
-    }
-    void getData()
-  }, [])
+
+  const getData = async (): Promise<void> => {
+    const userListData = await getUserList(token)
+    setUserList(userListData)
+  }
+
+  useEffect(() => { void getData() }, [token])
   const middleIndex = Math.floor(userList.length / 2)
+
   return (
     <>
       <Wrapper className='addBox'>

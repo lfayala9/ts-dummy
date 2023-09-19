@@ -8,10 +8,10 @@ import {
   Typography,
   Link
 } from '@mui/material'
-import { setLogout } from '../app-state'
-import { useAppDispatch, useAppSelector } from '../utils/hooks/selector'
+import { setLogout } from '../../app-state'
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/selector'
 import { useState } from 'react'
-import SwitchMode from '../components/Widgets/SwitchMode'
+import SwitchMode from '../Widgets/SwitchMode'
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined'
 import { io } from 'socket.io-client'
 

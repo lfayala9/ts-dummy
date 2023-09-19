@@ -2,7 +2,7 @@ import { IconButton, Badge, Avatar } from '@mui/material'
 import useMenu from '../../utils/hooks/useMenu'
 import { useState, type MouseEvent } from 'react'
 import { useAppSelector } from '../../utils/hooks/selector'
-import { MenuNav, NotMenu } from '../../containers/MenuNav'
+import { MenuNav, NotMenu } from './MenuNav'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import { io } from 'socket.io-client'
 
@@ -32,7 +32,7 @@ export const Menu = (): JSX.Element => {
               alt="profile-pic"
               src={user?.picture}
               width={'50px'}
-              height={'auto'}
+              height={'40px'}
             />
           </Avatar>
         </Badge>

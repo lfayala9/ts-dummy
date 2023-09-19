@@ -1,6 +1,6 @@
 import { IconButton, Avatar, Box, Button, Typography } from '@mui/material'
 import SettingsIcon from '@mui/icons-material/Settings'
-import { PostMenu } from '../../containers/MenuPosts'
+import { PostMenu } from '../Posts/MenuPosts'
 import Modals from '../../containers/Modals'
 import { deleteService } from '../../services/delete'
 import useModal from '../../utils/hooks/useModal'

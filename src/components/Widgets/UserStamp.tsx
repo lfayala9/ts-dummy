@@ -35,7 +35,7 @@ const UserStamp = ({
               <img
                 alt="profile-pic"
                 width={'60px'}
-                height={'auto'}
+                height={'50px'}
                 src={isPost ? post?.userPicture : post?.picture}
               />
             </Avatar>
