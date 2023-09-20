@@ -22,7 +22,6 @@ const AddUser = ({ isProfile, id }: { isProfile: boolean, id?: string }): JSX.El
     void getData()
   }, [token])
   const middleIndex = Math.floor(userList.length / 2)
-  console.log(userList.length)
   return (
     <>
       <Wrapper className="addBox" sx={{ p: 0 }}>

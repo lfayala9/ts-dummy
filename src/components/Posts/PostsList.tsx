@@ -34,7 +34,6 @@ const PostsList = ({
   socket.on('deleted-post', (id: string) => {
     setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id))
   })
-  console.log()
   return (
     <div>
       {postsList.length === 0
