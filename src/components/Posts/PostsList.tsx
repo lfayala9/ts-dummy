@@ -2,6 +2,7 @@ import { useEffect, useState, lazy } from 'react'
 import type { PostInfo, PostType } from '../../types'
 import { getPosts } from '../../utils/hooks/useGetPosts'
 import { io } from 'socket.io-client'
+import { Typography } from '@mui/material'
 const Post = lazy(async () => await import('./Post'))
 const API: string = import.meta.env.VITE_API
 const socket = io(API)
@@ -33,12 +34,14 @@ const PostsList = ({
   socket.on('deleted-post', (id: string) => {
     setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id))
   })
-
+  console.log()
   return (
     <div>
-      {postsList
-        .map((i: PostType) => <Post post={i as PostInfo} key={i._id} />)
-        .reverse()}
+      {postsList.length === 0
+        ? <Typography variant='h3' mt={5}>This user has no posts... Yet</Typography>
+        : postsList
+          .map((i: PostType) => <Post post={i as PostInfo} key={i._id} />)
+          .reverse()}
     </div>
   )
 }

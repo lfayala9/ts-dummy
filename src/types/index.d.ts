@@ -5,6 +5,7 @@ export interface UserInfo {
   _id: string
   picture: string
   friends: string[]
+  createdAt: string
 }
 
 export interface Log {

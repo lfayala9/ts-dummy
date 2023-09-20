@@ -16,12 +16,14 @@ const UserStamp = ({
   isPost,
   post,
   userId,
+  isProfile,
   isFriend
 }: {
   isPost: boolean
   post: PostInfo
   userId: string
-  isFriend?: boolean
+  isProfile?: boolean
+  isFriend?: boolean | null
 }): JSX.Element => {
   const { user } = useAppSelector((state) => state.auth)
   const date = new Date(post.createdAt as string)
@@ -68,9 +70,11 @@ const UserStamp = ({
                   )
                 : null
             )
-          : (
+          : isProfile === true
+            ? null
+            : (
           <AddFriendButton isFriend={isFriend as boolean} userId={userId}/>
-            )}
+              )}
       </Box>
     </>
   )

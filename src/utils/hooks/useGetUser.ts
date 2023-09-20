@@ -10,12 +10,12 @@ export const getUser = async (token: string | null, userId: string | undefined):
   return data
 }
 
-export const getUserList = async (token: string | null): Promise<UserInfo[]> => {
+export const getUserList = async (token: string | null, isProfile: boolean, id?: string | null): Promise<UserInfo[]> => {
   const config = {
     method: 'GET',
     headers: { Authorization: `Bearer ${token != null ? token : ''}` }
   }
-  const response = await fetch(`${API}/api/v1/users`, config)
+  const response = await fetch(`${API}/api/v1/users${isProfile ? `/${id != null ? id : ''}/friends` : ''}`, config)
   const data = await response.json()
   return data
 }
