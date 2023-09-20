@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from 'react'
+import { lazy, Suspense } from 'react'
 import { CssBaseline, Grid } from '@mui/material'
 import { useAppSelector } from '../utils/hooks/selector'
 import CreatePost from '../components/Posts/CreatePost'
@@ -15,11 +15,10 @@ const UserCard = lazy(
 )
 const Home: React.FC = () => {
   const { token, user } = useAppSelector((state) => state.auth)
-  const [isPicture, setIsPicture] = useState(false)
   const { isDisplayNone } = useDisplay()
 
   // Posts service
-  const { handleSubmit, handleChange } = useSubmit(
+  const { handleSubmit, handleChange, picture, setPicture } = useSubmit(
     true,
     token != null ? token : '',
     user?._id != null ? user._id : ''
@@ -66,8 +65,8 @@ const Home: React.FC = () => {
             createBox="mainPostBox"
             isComment={false}
             onSubmit={handleSubmit}
-            picture={isPicture}
-            setPicture={setIsPicture}
+            picture={picture}
+            setPicture={setPicture}
             onChange={handleChange}
           />
           <Suspense

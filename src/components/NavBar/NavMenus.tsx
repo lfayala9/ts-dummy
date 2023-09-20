@@ -3,6 +3,7 @@ import useMenu from '../../utils/hooks/useMenu'
 import { useState, type MouseEvent } from 'react'
 import { useAppSelector } from '../../utils/hooks/selector'
 import { MenuNav, NotMenu } from './MenuNav'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import { io } from 'socket.io-client'
 
@@ -28,11 +29,12 @@ export const Menu = (): JSX.Element => {
           variant="dot"
         >
           <Avatar>
-            <img
+            <LazyLoadImage
               alt="profile-pic"
               src={user?.picture}
               width={'50px'}
               height={'auto'}
+              effect='blur'
             />
           </Avatar>
         </Badge>

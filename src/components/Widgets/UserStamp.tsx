@@ -9,6 +9,7 @@ import {
 import '../../styles/globals.css'
 import { useAppSelector } from '../../utils/hooks/selector'
 import { type PostInfo } from '../../types'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { SettingsButton } from './UserStampModal'
 import AddFriendButton from './AddFriendButton'
 
@@ -34,11 +35,12 @@ const UserStamp = ({
         <Box display="flex" alignItems="center">
           <IconButton>
             <Avatar sx={{ width: 50, height: 50 }}>
-              <img
+              <LazyLoadImage
                 alt="profile-pic"
                 width={'60px'}
                 height={'auto'}
                 src={isPost ? post?.userPicture : post?.picture}
+                effect='blur'
               />
             </Avatar>
           </IconButton>

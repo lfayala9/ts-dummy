@@ -3,6 +3,7 @@ import { Wrapper } from '../../styles/components'
 import { type UserInfo } from '../../types'
 import { useAppSelector } from '../../utils/hooks/selector'
 import EditIcon from '@mui/icons-material/Edit'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 const ProfileInfo = ({ user }: { user: UserInfo }): JSX.Element => {
   const { theme } = useAppSelector((state) => state.settings)
@@ -19,11 +20,12 @@ const ProfileInfo = ({ user }: { user: UserInfo }): JSX.Element => {
               border: '2px solid white'
             }}
           >
-            <img
+            <LazyLoadImage
               width={190}
               height={'auto'}
               src={user?.picture}
               alt="user-picture"
+              effect='blur'
             />
           </Avatar>
           <Typography variant="h2">

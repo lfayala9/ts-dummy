@@ -14,6 +14,7 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react'
 import { HelmetProvider } from 'react-helmet-async'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 import './styles/main.css'
 
 const persistedConfig = {

@@ -7,17 +7,21 @@ const useSubmit = (isPost: boolean, token: string, user?: string, postId?: strin
   handleSubmit: (e: {
     preventDefault: () => void
   }) => void
+  picture: boolean
+  setPicture: React.Dispatch<React.SetStateAction<boolean>>
 } => {
   const postValue = {
     userId: user,
     postContent: '',
     picture: null as File | null
   }
+  const [picture, setPicture] = useState(false)
   const [form, setForm] = useState(postValue)
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.name === 'picture') {
       const file = e.target.files != null ? e.target.files[0] : null
       setForm({ ...form, [e.target.name]: file })
+      setPicture(true)
     } else {
       setForm({ ...form, [e.target.name]: e.target.value })
     }
@@ -33,7 +37,7 @@ const useSubmit = (isPost: boolean, token: string, user?: string, postId?: strin
     }
     void dispatch(isPost ? postService(formData, token) : commentService(postId != null ? postId : '', formData, token))
   }
-  return { handleChange, handleSubmit }
+  return { handleChange, handleSubmit, picture, setPicture }
 }
 
 export default useSubmit
