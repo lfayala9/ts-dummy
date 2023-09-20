@@ -51,7 +51,7 @@ const ProfileInfo = ({ user }: { user: UserInfo }): JSX.Element => {
               alignItems="center"
             >
               <Typography>Add Description</Typography>
-              <IconButton>
+              <IconButton aria-label='Edit Button'>
                 <EditIcon sx={{ width: '15px' }} />
               </IconButton>
             </Box>
