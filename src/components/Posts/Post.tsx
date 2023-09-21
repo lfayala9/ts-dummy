@@ -16,6 +16,7 @@ const UserStamp = lazy(async () => await import('../Widgets/UserStamp'))
 
 const Post = ({ post }: { post: PostInfo }): JSX.Element => {
   const { token, user } = useAppSelector((state) => state.auth)
+  const { theme } = useAppSelector((state) => state.settings)
   const [userData, setUser] = useState<UserInfo>()
   const [openComment, setOpenComment] = useState(false)
   const isLiked = Boolean(post.likes[user?._id as string])
@@ -40,8 +41,15 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
 
   return (
     <>
-      <Wrapper className="mainPostBox">
-        <Box>
+      <Wrapper className="mainPostBox" sx={{ p: 0 }}>
+        <Box
+          sx={{
+            backgroundColor: theme === 'light' ? '#284195' : '#171717',
+            px: 2,
+            py: 1,
+            borderRadius: '2rem 2rem 0rem 0rem'
+          }}
+        >
           <UserStamp
             post={post}
             isPost={true}
@@ -50,11 +58,15 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
           />
         </Box>
         <Divider />
-        <Box>
-          <Typography sx={{ padding: 2 }}>{post?.postContent}</Typography>
+        <Box px={2} py={1.4}>
+          <Typography sx={{ padding: '0 1rem 1rem 1rem' }}>{post?.postContent}</Typography>
           {post?.picture != null
             ? (
-            <Box display="flex" justifyContent="space-between" className='post-box'>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              className="post-box"
+            >
               <Suspense fallback={<PostImage src={'/shrek.webp'} />}>
                 <PostImage src={post.picture} />
               </Suspense>
@@ -94,7 +106,10 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
         {openComment && (
           <>
             <Divider sx={{ mt: '10px' }} />
-            <Suspense fallback={<LoaderRing position="relative" top="50%" left="50%" />}>
+            <Box px={2}>
+            <Suspense
+              fallback={<LoaderRing position="relative" top="50%" left="50%" />}
+            >
               <CommentList postId={post._id} />
             </Suspense>
             <CreatePost
@@ -105,6 +120,7 @@ const Post = ({ post }: { post: PostInfo }): JSX.Element => {
               onSubmit={handleSubmit}
               onChange={handleChange}
             />
+            </Box>
           </>
         )}
       </Wrapper>

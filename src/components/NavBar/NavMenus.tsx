@@ -33,7 +33,7 @@ export const Menu = (): JSX.Element => {
               alt="profile-pic"
               src={user?.picture}
               width={'50px'}
-              height={'auto'}
+              height={'40px'}
               effect='blur'
             />
           </Avatar>

@@ -5,13 +5,13 @@ import { useAppSelector } from '../../utils/hooks/selector'
 import EditIcon from '@mui/icons-material/Edit'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
-const ProfileInfo = ({ user }: { user: UserInfo }): JSX.Element => {
+const ProfileInfo = ({ user, isMobile }: { user: UserInfo, isMobile: boolean }): JSX.Element => {
   const { theme } = useAppSelector((state) => state.settings)
   const date = new Date(user?.createdAt)
 
   return (
     <>
-      <Box display="flex" flexDirection="column" position="fixed">
+      <Box display="flex" flexDirection="column" position={isMobile ? 'sticky' : 'fixed'}>
         <Box display="flex" alignItems="center" height="170px" gap="15px">
           <Avatar
             sx={{
@@ -36,8 +36,9 @@ const ProfileInfo = ({ user }: { user: UserInfo }): JSX.Element => {
           <Typography
             variant="h3"
             fontWeight="bold"
+            color='white'
             sx={{
-              backgroundColor: theme === 'light' ? '#808080' : '#171717',
+              backgroundColor: theme === 'light' ? '#284195' : '#171717',
               px: 3,
               py: 1.3,
               borderRadius: '2rem 2rem 0rem 0rem'

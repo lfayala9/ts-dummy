@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, Divider } from '@mui/material'
 import { Wrapper } from '../../styles/components'
 import { useAppSelector } from '../../utils/hooks/selector'
 import { useState, useEffect, lazy, Suspense } from 'react'
@@ -27,8 +27,9 @@ const AddUser = ({ isProfile, id }: { isProfile: boolean, id?: string }): JSX.El
       <Wrapper className="addBox" sx={{ p: 0 }}>
         <Typography
           variant="h3"
+          color='white'
           sx={{
-            backgroundColor: theme === 'light' ? '#808080' : '#171717',
+            backgroundColor: theme === 'light' ? '#284195' : '#171717',
             px: 3,
             py: 2,
             borderRadius: '2rem 2rem 0rem 0rem'
@@ -36,6 +37,7 @@ const AddUser = ({ isProfile, id }: { isProfile: boolean, id?: string }): JSX.El
         >
           {isProfile ? 'Friends' : 'New Users to Add!'}
         </Typography>
+        <Divider />
         <Box p={2}>
           <Suspense
             fallback={<LoaderRing position="relative" top="50%" left="50%" />}

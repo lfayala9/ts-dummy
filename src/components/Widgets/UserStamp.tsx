@@ -27,6 +27,7 @@ const UserStamp = ({
   isFriend?: boolean | null
 }): JSX.Element => {
   const { user } = useAppSelector((state) => state.auth)
+  const { theme } = useAppSelector((state) => state.settings)
   const date = new Date(post.createdAt as string)
 
   return (
@@ -38,7 +39,7 @@ const UserStamp = ({
               <LazyLoadImage
                 alt="profile-pic"
                 width={'60px'}
-                height={'auto'}
+                height={'50px'}
                 src={isPost ? post?.userPicture : post?.picture}
                 effect='blur'
               />
@@ -51,13 +52,13 @@ const UserStamp = ({
               color="inherit"
               fontWeight="light"
             >
-              <Typography fontWeight="bold" variant={isPost ? 'h3' : 'h4'}>
+              <Typography fontWeight="bold" variant={isPost ? 'h3' : 'h4'} color={isPost ? 'white' : 'inherit'}>
                 {post?.firstName} {post?.lastName}{' '}
               </Typography>
             </Link>
             {isPost
               ? (
-              <FormHelperText>
+              <FormHelperText sx={{ color: theme === 'light' ? 'white' : 'grey' }}>
                 Posted on {date.toLocaleDateString()}
               </FormHelperText>
                 )

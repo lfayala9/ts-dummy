@@ -47,10 +47,14 @@ const Profile: React.FC = () => {
           {isDisplayNone
             ? null
             : (
-              <ProfileInfo user={user as UserInfo}/>
+              <ProfileInfo isMobile={false} user={user as UserInfo}/>
               )}
         </Grid>
         <Grid item xs={12} md={6} lg={5.5} px={2} className="main-section">
+          {isDisplayNone
+            ? <ProfileInfo isMobile={true} user={user as UserInfo}/>
+            : null
+        }
           <PostsList isHome={false} token={token} userId={userId} />
         </Grid>
         <Grid item className="end-section" lg={3} md={0}>
