@@ -17,6 +17,7 @@ import { setIsLoading } from '../../app-state'
 import { type ChangeEvent, useState, type FormEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/selector'
 import { registerSchema } from '../../services/userValidation'
+import { loginService } from '../../services/login'
 import { badSign, registerService } from '../../services/register'
 
 const SignIn: React.FC = () => {
@@ -64,6 +65,14 @@ const SignIn: React.FC = () => {
     await registerSchema.validate(form, { abortEarly: false }).catch((err) => {
       setCurrentErrors(err.errors)
     })
+    const email = form.email
+    const password = form.password
+    void dispatch(
+      loginService({
+        email,
+        password
+      })
+    )
   }
   return (
     <form noValidate onSubmit={(e) => { void handleSubmit(e) }} encType="multipart/form-data">
@@ -119,9 +128,10 @@ const SignIn: React.FC = () => {
                     >
                       <FileUploadOutlined sx={{ mx: '1rem' }} />
                       <input
-                        style={{ display: 'block' }}
+                        style={{ display: 'block', width: '150px' }}
                         hidden
                         onChange={handleChange}
+                        className='PICTURE'
                         type="file"
                         name="picture"
                         accept="image/*"

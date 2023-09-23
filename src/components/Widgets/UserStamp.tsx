@@ -34,7 +34,7 @@ const UserStamp = ({
     <>
       <Box display="flex" justifyContent="space-between">
         <Box display="flex" alignItems="center">
-          <IconButton>
+          <IconButton aria-label='Profile picture button'>
             <Avatar sx={{ width: 50, height: 50 }}>
               <LazyLoadImage
                 alt="profile-pic"
