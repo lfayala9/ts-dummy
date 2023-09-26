@@ -89,7 +89,7 @@ const Welcome: React.FC = () => {
               fullWidth
               color="primary"
               variant="contained"
-              sx={{ borderRadius: '10rem', px: 10, mb: 3 }}
+              sx={{ borderRadius: '10rem', mb: 3 }}
               onClick={handleOpenSignIn}
             >
               Create An Account
@@ -106,7 +106,7 @@ const Welcome: React.FC = () => {
               color="secondary"
               fullWidth
               variant="contained"
-              sx={{ borderRadius: '10rem', px: 16, mb: 3 }}
+              sx={{ borderRadius: '10rem', mb: 3 }}
               onClick={handleOpenLogin}
             >
               Log In

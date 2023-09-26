@@ -21,7 +21,7 @@ const ExampleLog: React.FC = () => {
       color="success"
       variant="contained"
       fullWidth
-      sx={{ borderRadius: '10rem', px: 10, mb: 3 }}
+      sx={{ borderRadius: '10rem', mb: 3 }}
       onClick={handleLogin}
     >
       Log as Example User
