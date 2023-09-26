@@ -2,6 +2,7 @@ import { CssBaseline, Grid, Button, Box, Typography } from '@mui/material'
 import SwitchMode from '../components/Widgets/SwitchMode'
 import { useAppSelector } from '../utils/hooks/selector'
 import { useState } from 'react'
+import '../styles/globals.css'
 import Login from '../components/Auth/Login'
 import SignIn from '../components/Auth/SignIn'
 import Modals from '../containers/Modals'
@@ -55,12 +56,10 @@ const Welcome: React.FC = () => {
           alignItems="center"
         >
           <Box
+          className='button-cont'
             sx={{
               my: 8,
-              mx: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'start'
+              mx: 4
             }}
           >
             <Typography fontWeight="normal" variant="h1" sx={{ mb: 7 }}>
@@ -111,11 +110,11 @@ const Welcome: React.FC = () => {
             >
               Log In
             </Button>
+            <SwitchMode size="normal" />
             </Box>
             <Modals openFun={open.show} handleClose={handleClose} size={350} pySize={4} pxSize={1}>
               {open.show && open.component === 'login' ? <Login /> : <SignIn />}
             </Modals>
-            <SwitchMode size="normal" />
           </Box>
         </Grid>
       </Grid>
