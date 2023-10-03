@@ -1,4 +1,12 @@
-import { CssBaseline, Grid, Button, Box, Typography } from '@mui/material'
+import {
+  CssBaseline,
+  Grid,
+  Button,
+  Box,
+  Typography,
+  FormHelperText,
+  Link
+} from '@mui/material'
 import SwitchMode from '../components/Widgets/SwitchMode'
 import { useAppSelector } from '../utils/hooks/selector'
 import { useState } from 'react'
@@ -40,7 +48,7 @@ const Welcome: React.FC = () => {
           sx={{
             backgroundColor: '#999999',
             backgroundImage: 'url(/background1.webp)',
-            backgroundRepeat: 'no-repeat',
+            backgroundRepeat: 'repeat',
             backgroundSize: '100vw 100vh'
           }}
         ></Grid>
@@ -56,16 +64,16 @@ const Welcome: React.FC = () => {
           alignItems="center"
         >
           <Box
-          className='button-cont'
+            className="button-cont"
             sx={{
-              my: 8,
+              my: 5,
               mx: 4
             }}
           >
             <Typography fontWeight="normal" variant="h1" sx={{ mb: 7 }}>
               This is what&apos;s{' '}
               <span
-                className='welcome-text'
+                className="welcome-text"
                 style={{
                   backgroundImage:
                     theme === 'light'
@@ -80,41 +88,73 @@ const Welcome: React.FC = () => {
               </span>
             </Typography>
             <Box>
-            <Typography fontWeight="normal" variant="h2" sx={{ mb: 2, mx: 1 }}>
-              Join Today
-            </Typography>
-            <Button
-              aria-label="Create An Account button to sign in"
-              fullWidth
-              color="primary"
-              variant="contained"
-              sx={{ borderRadius: '10rem', mb: 3 }}
-              onClick={handleOpenSignIn}
-            >
-              Create An Account
-            </Button>
-            <Typography fontWeight="normal" variant="h3" sx={{ mb: 2, mx: 1 }}>
-              Log as an example user
-            </Typography>
-            <ExampleLog/>
-            <Typography fontWeight="normal" variant="h3" sx={{ mb: 2, mx: 1 }}>
-              Already Have an Account?
-            </Typography>
-            <Button
-              aria-label="Log In button to log into the app"
-              color="secondary"
-              fullWidth
-              variant="contained"
-              sx={{ borderRadius: '10rem', mb: 3 }}
-              onClick={handleOpenLogin}
-            >
-              Log In
-            </Button>
-            <SwitchMode size="normal" />
+              <Typography
+                fontWeight="normal"
+                variant="h2"
+                sx={{ mb: 2, mx: 1 }}
+              >
+                Join Today
+              </Typography>
+              <Button
+                aria-label="Create An Account button to sign in"
+                fullWidth
+                color="primary"
+                variant="contained"
+                sx={{ borderRadius: '10rem', mb: 3 }}
+                onClick={handleOpenSignIn}
+              >
+                Create An Account
+              </Button>
+              <Typography
+                fontWeight="normal"
+                variant="h3"
+                sx={{ mb: 2, mx: 1 }}
+              >
+                Log as an example user
+              </Typography>
+              <ExampleLog />
+              <Typography
+                fontWeight="normal"
+                variant="h3"
+                sx={{ mb: 2, mx: 1 }}
+              >
+                Already Have an Account?
+              </Typography>
+              <Button
+                aria-label="Log In button to log into the app"
+                color="secondary"
+                fullWidth
+                variant="contained"
+                sx={{ borderRadius: '10rem', mb: 3 }}
+                onClick={handleOpenLogin}
+              >
+                Log In
+              </Button>
+              <SwitchMode size="normal" />
             </Box>
-            <Modals openFun={open.show} handleClose={handleClose} size={350} pySize={4} pxSize={1}>
+            <Modals
+              openFun={open.show}
+              handleClose={handleClose}
+              size={350}
+              pySize={4}
+              pxSize={1}
+            >
               {open.show && open.component === 'login' ? <Login /> : <SignIn />}
             </Modals>
+            <Box display="flex" gap={2}>
+              <FormHelperText sx={{ mt: 2 }}>
+                © 2023 Fake Company
+              </FormHelperText>
+              <Link
+                href={'https://github.com/lfayala9'}
+                target='_blank'
+                underline="hover"
+                color="inherit"
+                fontWeight="light"
+              >
+                <FormHelperText sx={{ mt: 2 }}>♡ Made by Luis</FormHelperText>
+              </Link>
+            </Box>
           </Box>
         </Grid>
       </Grid>
