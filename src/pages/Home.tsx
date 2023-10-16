@@ -28,6 +28,7 @@ const Home: React.FC = () => {
     <>
       <Helmet>
         <title>Fake Social | Home</title>
+        <meta charSet="UTF-8" />
         <meta name="description" content="Home Page" />
         <link rel="preload" as="image" href={user?.picture} />
       </Helmet>
@@ -35,12 +36,12 @@ const Home: React.FC = () => {
         <CssBaseline />
         <Grid
           item
-          className='start-section'
-          justifyContent='end'
+          className="start-section"
+          justifyContent="end"
           md={4}
           lg={3.5}
         >
-          {(isDisplayNone)
+          {isDisplayNone
             ? null
             : (
             <Suspense
@@ -52,14 +53,7 @@ const Home: React.FC = () => {
             </Suspense>
               )}
         </Grid>
-        <Grid
-          item
-          xs={12}
-          md={8}
-          lg={5.5}
-          px={2}
-          className='main-section'
-        >
+        <Grid item xs={12} md={8} lg={5.5} px={2} className="main-section">
           <CreatePost
             classBox="create-postBox"
             createBox="mainPostBox"
@@ -75,12 +69,7 @@ const Home: React.FC = () => {
             <PostsList token={token} isHome={true} />
           </Suspense>
         </Grid>
-        <Grid
-          item
-          className='end-section'
-          lg={3}
-          md={0}
-        >
+        <Grid item className="end-section" lg={3} md={0}>
           {isDisplayNone
             ? null
             : (

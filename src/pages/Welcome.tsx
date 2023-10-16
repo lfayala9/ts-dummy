@@ -34,6 +34,7 @@ const Welcome: React.FC = () => {
     <>
       <Helmet>
         <title>Fake Social | Welcome</title>
+        <meta charSet="UTF-8" />
         <meta name="description" content="Welcome Page" />
       </Helmet>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -147,7 +148,7 @@ const Welcome: React.FC = () => {
               </FormHelperText>
               <Link
                 href={'https://github.com/lfayala9'}
-                target='_blank'
+                target="_blank"
                 underline="hover"
                 color="inherit"
                 fontWeight="light"
